@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juan &amp; Alex's Sunday Date</title>
+  <title>Juan &amp; Alex's Sunday Date Options</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -63,25 +63,26 @@
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
       background-clip:text;
     }
-    .hero-sub{font-size:1.05rem;color:var(--text-muted);margin-bottom:16px;max-width:500px}
+    .hero-sub{font-size:1.05rem;color:var(--text-muted);margin-bottom:14px;max-width:480px}
     .hero-sub strong{color:var(--rose-deep)}
-    .hero-tagline{font-size:.92rem;color:var(--text-muted);max-width:520px;margin-bottom:40px;line-height:1.7;font-style:italic;opacity:.85}
+    .hero-note{font-size:.88rem;color:var(--text-muted);max-width:520px;margin-bottom:40px;line-height:1.65;font-style:italic;opacity:.8}
 
-    /* ── Hero Single Card ── */
-    .hero-card{
-      background:white;border-radius:24px;padding:40px 36px;
-      text-align:center;max-width:440px;width:100%;
+    /* ── Option Chooser Cards ── */
+    .chooser{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;max-width:700px}
+    .choose-card{
+      flex:1;min-width:260px;max-width:320px;
+      background:white;border-radius:24px;padding:40px 30px;
+      text-align:center;cursor:pointer;position:relative;
       border:3px solid transparent;
       box-shadow:0 8px 40px rgba(196,69,105,.1);
       transition:all .35s cubic-bezier(.4,0,.2,1);
-      cursor:pointer;
     }
-    .hero-card:hover{
+    .choose-card:hover{
       transform:translateY(-6px);
       box-shadow:0 16px 50px rgba(196,69,105,.2);
       border-color:var(--rose-glow);
     }
-    .hero-card:active{transform:translateY(-2px)}
+    .choose-card:active{transform:translateY(-2px)}
     .card-emoji{font-size:3rem;margin-bottom:16px;display:block}
     .card-label{
       font-family:'Playfair Display',serif;font-size:.85rem;font-weight:600;
@@ -99,7 +100,7 @@
       font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;
       letter-spacing:.03em;transition:all .3s ease;
     }
-    .hero-card:hover .card-cta{box-shadow:0 6px 25px rgba(224,87,128,.45);transform:scale(1.03)}
+    .choose-card:hover .card-cta{box-shadow:0 6px 25px rgba(224,87,128,.45);transform:scale(1.03)}
     .arrow-hint{
       margin-top:40px;font-size:.85rem;color:var(--text-muted);opacity:.6;
       animation:bounce 2s ease-in-out infinite;
@@ -178,6 +179,13 @@
     .summary-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;margin-bottom:12px;color:var(--text-dark)}
     .summary p{color:var(--text-muted);font-size:.93rem;line-height:1.85}
 
+    /* ── Route Tag ── */
+    .route-tag{
+      background:linear-gradient(135deg,#fff0f5,#ffe4f1);border:2px solid #ffd6e7;
+      border-radius:14px;padding:16px 20px;margin-bottom:30px;text-align:center;
+    }
+    .route-tag p{font-size:.88rem;color:var(--rose-deep);font-weight:500;margin:0}
+
     /* ── Stops ── */
     .stop{
       background:white;border:2px solid #ffe4f1;border-radius:20px;
@@ -198,6 +206,11 @@
     .stop-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:6px;color:var(--text-dark)}
     .stop-location{color:var(--rose-deep);font-size:.9rem;font-weight:500;margin-bottom:4px}
     .stop-phone{color:#999;font-size:.82rem;margin-bottom:12px}
+    .stop-time{
+      display:inline-block;background:linear-gradient(135deg,#fff0f5,#ffe4f1);
+      padding:5px 14px;border-radius:8px;font-size:.82rem;font-weight:600;
+      color:var(--rose-deep);margin-bottom:12px;
+    }
     .stop-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:5px;
@@ -218,6 +231,12 @@
       padding:13px 18px;margin:16px 0;border-radius:0 12px 12px 0;
       font-style:italic;color:var(--rose-deep);font-size:.88rem;font-weight:500;
     }
+    .walk-tag{
+      display:inline-flex;align-items:center;gap:6px;
+      background:#f0f4ff;border:1px solid #d4dffa;border-radius:10px;
+      padding:8px 16px;font-size:.8rem;color:#5b6faa;font-weight:500;
+      margin:18px 0 0;
+    }
     .description{margin:20px 0}
     .description p{color:var(--text-muted);font-size:.93rem;line-height:1.85;margin-bottom:12px}
     .description-highlight{background:linear-gradient(135deg,#fff8fa,#fff0f5);border-radius:14px;padding:18px 22px;margin:18px 0}
@@ -226,17 +245,11 @@
     .description-highlight li{position:relative;padding:6px 0 6px 22px;color:var(--text-muted);font-size:.88rem}
     .description-highlight li::before{content:"\2192";position:absolute;left:0;color:var(--rose);font-weight:700}
     .description-highlight p{color:var(--text-muted);font-size:.88rem;line-height:1.7}
-    .menu-recommendations{background:white;border:2px solid #ffe4f1;border-radius:14px;padding:22px;margin:22px 0}
-    .menu-recommendations h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:16px;color:var(--text-dark);text-align:center}
-    .menu-lanes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .menu-lane{background:linear-gradient(135deg,#fff8fa,#fff0f5);border-radius:12px;padding:18px}
-    .menu-lane h5{font-size:.85rem;color:var(--rose-deep);margin-bottom:10px;font-weight:600}
-    .menu-lane ul{list-style:none}
-    .menu-lane li{padding:5px 0;color:var(--text-muted);font-size:.82rem;border-bottom:1px dashed #ffe4f1}
-    .menu-lane li:last-child{border-bottom:none}
-    .backup-box{background:linear-gradient(135deg,#fffbf0,#fff8e7);border:2px solid #ffd966;border-radius:14px;padding:18px 22px;margin-top:22px}
-    .backup-box h5{color:#8b6914;font-size:.85rem;margin-bottom:8px}
-    .backup-box p{color:#a08520;font-size:.88rem;line-height:1.6}
+
+    /* ── Swap Box ── */
+    .swap-box{background:linear-gradient(135deg,#f0f4ff,#e8ecfa);border:2px solid #c4d0f5;border-radius:14px;padding:18px 22px;margin-top:30px}
+    .swap-box h4{color:#4a5a99;font-size:.95rem;margin-bottom:10px;font-weight:600}
+    .swap-box p{color:#5b6faa;font-size:.88rem;line-height:1.7}
 
     /* ── Budget ── */
     .budget{
@@ -250,6 +263,15 @@
     .budget-value{font-size:1.15rem;font-weight:600}
     .budget-total{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.3)}
     .budget-total .budget-value{font-size:1.4rem}
+    .budget-tip{font-size:.8rem;opacity:.8;margin-top:12px}
+
+    /* ── Logistics Checklist ── */
+    .logistics{background:linear-gradient(135deg,#f8f9fa,#f0f2f5);border:2px solid #e0e4ea;border-radius:18px;padding:28px;margin-top:28px}
+    .logistics h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:18px;color:var(--text-dark)}
+    .logistics ul{list-style:none;padding:0}
+    .logistics li{padding:8px 0 8px 26px;position:relative;color:var(--text-muted);font-size:.9rem;line-height:1.7;border-bottom:1px dashed #e0e4ea}
+    .logistics li:last-child{border-bottom:none}
+    .logistics li::before{content:"✓";position:absolute;left:0;color:var(--rose);font-weight:700;font-size:1rem}
 
     /* ── Weather ── */
     .weather-note{background:linear-gradient(135deg,#e8f4fd,#d1ecf1);border:2px solid #c4e1f5;border-radius:14px;padding:18px 22px;margin-top:28px}
@@ -264,8 +286,6 @@
     .parking-option h4{font-size:1rem;color:var(--text-dark);margin-bottom:8px;font-weight:600}
     .parking-option p{font-size:.88rem;color:var(--text-muted);margin-bottom:10px;line-height:1.6}
     .parking-links{display:flex;gap:8px;flex-wrap:wrap}
-    .parking-alert{background:linear-gradient(135deg,#fff8e7,#fff3d0);border:2px solid #ffd966;border-radius:14px;padding:16px 20px;margin-top:18px}
-    .parking-alert p{color:#8b6914;font-size:.85rem;line-height:1.6;margin:0}
 
     /* ── Addresses & Links Section ── */
     .addresses-section{background:linear-gradient(135deg,#fff8fa,#fff0f5);border:2px solid #ffe4f1;border-radius:18px;padding:28px;margin-top:35px}
@@ -290,7 +310,8 @@
     /* ── Responsive ── */
     @media(max-width:768px){
       .hero h1{font-size:2.4rem}
-      .hero-card{padding:30px 22px}
+      .chooser{gap:16px}
+      .choose-card{padding:30px 22px;min-width:220px}
       .card-title{font-size:1.25rem}
       .section-header{padding:35px 25px;border-radius:20px 20px 0 0}
       .section-header h2{font-size:1.7rem}
@@ -298,10 +319,11 @@
       .meta{flex-direction:column;gap:12px}
       .stop{padding:24px}
       .stop-title{font-size:1.4rem}
-      .menu-lanes{grid-template-columns:1fr}
+      .budget-items{gap:20px}
     }
     @media(max-width:400px){
       .hero h1{font-size:2rem}
+      .choose-card{min-width:100%}
     }
   </style>
 </head>
@@ -315,243 +337,443 @@
     <div class="cupid-icon">&#128152;</div>
     <div class="hero-brand">DateFlo</div>
     <h1>Juan &amp; Alex's <span>Sunday Date</span></h1>
-    <p class="hero-sub">Your date plan for <strong>Sunday, March 8, 2026</strong></p>
-    <p class="hero-tagline">A calm, pretty park walk &rarr; a cozy Moroccan dinner &rarr; a martini lounge moment in the same building. The last stop is within about 1 to 3 minutes of your car.</p>
+    <p class="hero-sub">Two date plans for <strong>Sunday, March 8, 2026</strong> in North Park. Pick the one that feels right.</p>
+    <p class="hero-note">Both plans keep everything in one tight North Park cluster &mdash; park once, walk everywhere, and end close to the car.</p>
 
-    <div class="hero-card" onclick="showPlan()">
-      <span class="card-emoji">&#127803;</span>
-      <div class="card-label">Hillcrest Park-and-Play</div>
-      <div class="card-title">Park Stroll + Kous Kous Moroccan + Martini Nightcap</div>
-      <p class="card-desc">Everything stays in one tight Hillcrest/Mission Hills pocket &mdash; relaxed, intentional, and easy to end right by the car.</p>
-      <span class="card-cta">View the Full Plan &rarr;</span>
+    <div class="chooser">
+      <div class="choose-card" onclick="showOption('A')">
+        <span class="card-emoji">&#127918;</span>
+        <div class="card-label">Plan 1</div>
+        <div class="card-title">Playful &amp; Dressed-Up</div>
+        <p class="card-desc">Bookstore browse &rarr; dinner at One Door North &rarr; arcade &rarr; gelato. Polished without feeling stiff.</p>
+        <span class="card-cta">View This Date &rarr;</span>
+      </div>
+      <div class="choose-card" onclick="showOption('B')">
+        <span class="card-emoji">&#127912;</span>
+        <div class="card-label">Plan 2</div>
+        <div class="card-title">Artsy &amp; A Little Softer</div>
+        <p class="card-desc">Gallery &rarr; bookstore &rarr; dinner at Encontro &rarr; quiet close. Calm, thoughtful, and intentional.</p>
+        <span class="card-cta">View This Date &rarr;</span>
+      </div>
     </div>
-    <p class="arrow-hint">&darr; tap to see every detail</p>
+    <p class="arrow-hint">&darr; tap a card to see the full plan</p>
   </div>
 
-  <!-- ══════════ THE PLAN ══════════ -->
-  <div class="date-wrap" id="thePlan">
-    <button class="back-btn" onclick="goBack()">&larr; Back</button>
+  <!-- ══════════ PLAN 1: PLAYFUL & DRESSED-UP ══════════ -->
+  <div class="date-wrap" id="optionA">
+    <button class="back-btn" onclick="goBack()">&larr; Back to Options</button>
 
     <div class="section-header">
-      <div class="section-badge">&#127803; The Plan</div>
-      <h2>Hillcrest Park-and-Play Date</h2>
-      <p>Built so the last stop is within about 1 to 3 minutes of your car</p>
+      <div class="section-badge">&#127918; Plan 1</div>
+      <h2>Playful &amp; Dressed-Up</h2>
+      <p>Polished without feeling stiff &mdash; intentional, fun, and easy</p>
     </div>
     <div class="content-card">
       <div class="meta">
         <div class="meta-item"><div class="meta-label">Date</div><div class="meta-value">Sunday, March 8, 2026</div></div>
-        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">~5&ndash;6 hours</div></div>
-        <div class="meta-item"><div class="meta-label">Area</div><div class="meta-value">Hillcrest / Mission Hills</div></div>
+        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">~5 hours</div></div>
+        <div class="meta-item"><div class="meta-label">Area</div><div class="meta-value">North Park</div></div>
       </div>
       <div class="summary">
         <h3 class="summary-title">&#127801; The Vibe</h3>
-        <p>A calm, pretty park walk that feels intentional, then a cozy Moroccan dinner that feels different from your usual go-tos, finishing with a martini lounge moment in the same building so you end the date basically at your car. Everything stays in one tight Hillcrest/Mission Hills pocket so it stays relaxed and not rushed.</p>
+        <p>This one feels polished without feeling stiff. You start with a cozy browse, slide into a more special dinner, get one genuinely fun activity after, then end with gelato before the short walk back to the car. It fits you both well because it feels intentional, gives you something to do after dinner, and still stays easy.</p>
+      </div>
+      <div class="route-tag">
+        <p>&#128694; <strong>Route:</strong> Parking &rarr; Bookstore &rarr; Dinner &rarr; Arcade &rarr; Gelato &rarr; Car</p>
       </div>
 
-      <!-- Stop 1: Mission Hills Park -->
+      <!-- Stop 1: Verbatim Books -->
       <div class="stop">
         <div class="stop-number">1</div>
         <div class="stop-header">
-          <h3 class="stop-title">Mission Hills Park (Pioneer Park) Stroll</h3>
-          <p class="stop-location">1521 Washington Pl, San Diego, CA 92103</p>
+          <h3 class="stop-title">Browse Verbatim Books</h3>
+          <p class="stop-location">North Park</p>
+          <p class="stop-phone">(619) 501-7466</p>
         </div>
+        <div class="stop-time">4:00 &ndash; 4:45 PM</div>
         <div class="stop-buttons">
-          <a href="https://www.google.com/maps?q=1521+Washington+Pl,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
-          <a href="https://maps.apple.com/?q=1521%20Washington%20Pl,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
-          <a href="https://www.sandiego.gov/park-and-recreation/parks/regional/presidio/missionhills" target="_blank" class="btn btn-menu"><i data-lucide="external-link"></i> Park Info</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Verbatim+Books+North+Park+San+Diego" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=Verbatim%20Books%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
+          <a href="tel:6195017466" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
         </div>
-        <div class="vibe-box">scenic &bull; calm &bull; old-San-Diego</div>
+        <div class="vibe-box">intimate &bull; playful &bull; low-energy opener</div>
         <div class="description">
-          <p>You start with a slow wander under big trees and open lawn space. It feels like a small &ldquo;reset&rdquo; before dinner, and it scratches that spontaneous-overlook-date feeling without needing a big drive. The park is available from 6 AM to dusk.</p>
-          <p><strong>What you do:</strong> Take one loop, then sit for a few minutes and people-watch.</p>
+          <p>This is a really good opener because it feels intimate and playful without using up a lot of energy early. Pick one book for each other, flip through the art and zines, and let it feel a little spontaneous.</p>
+          <p><strong>How:</strong> Walk a few minutes from the garage.</p>
         </div>
-        <div class="description-highlight">
-          <h4>&#10024; You might like:</h4>
-          <ul><li>Bringing something small to share (sparkling water, a little snack) so it feels like a mini picnic without effort.</li></ul>
-        </div>
-        <div class="backup-box">
-          <h5>&#128203; Backup Plan</h5>
-          <p>Keep it even simpler and do a short neighborhood walk around Washington St instead, then head straight to dinner early. Backup exists so the start stays easy even if you want less walking.</p>
-        </div>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~8 min walk to next stop</div>
       </div>
 
-      <!-- Stop 2: Kous Kous -->
+      <!-- Stop 2: One Door North -->
       <div class="stop">
         <div class="stop-number">2</div>
         <div class="stop-header">
-          <h3 class="stop-title">Dinner at Kous Kous Moroccan Bistro</h3>
-          <p class="stop-location">3940 Fourth Ave #110, San Diego, CA 92103</p>
-          <p class="stop-phone">(619) 295-5560</p>
+          <h3 class="stop-title">Dinner at One Door North</h3>
+          <p class="stop-location">30th Street, North Park</p>
+          <p class="stop-phone">(619) 618-1285</p>
         </div>
+        <div class="stop-time">5:00 &ndash; 6:30 PM</div>
         <div class="stop-buttons">
-          <a href="https://www.google.com/maps?q=3940+Fourth+Ave+%23110,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
-          <a href="https://maps.apple.com/?q=3940%20Fourth%20Ave%20%23110,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
-          <a href="tel:6192955560" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
-          <a href="https://places.singleplatform.com/kous-kous-moroccan-bistro/menu" target="_blank" class="btn btn-menu"><i data-lucide="utensils"></i> Menu</a>
-          <a href="https://www.opentable.com/r/kous-kous-moroccan-bistro-reservations-san-diego" target="_blank" class="btn btn-reserve"><i data-lucide="calendar"></i> Reserve on OpenTable</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=One+Door+North+San+Diego" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=One%20Door%20North%20San%20Diego" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
+          <a href="tel:6196181285" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
+          <a href="https://www.onedoornorthsd.com/menus" target="_blank" class="btn btn-menu"><i data-lucide="utensils"></i> Menu</a>
+          <a href="https://www.opentable.com/r/one-door-north-san-diego" target="_blank" class="btn btn-reserve"><i data-lucide="calendar"></i> Reserve on OpenTable</a>
         </div>
-        <div class="vibe-box">intimate &bull; warm-lit &bull; &ldquo;new experience&rdquo;</div>
+        <div class="vibe-box">dress up a little &bull; still fun &bull; still intimate</div>
         <div class="description">
-          <p>This is your &ldquo;we got ready&rdquo; anchor. Moroccan food gives you bold, memorable flavors without stepping into the sweet-sauce zone you dislike. OpenTable is the move here so dinner is locked in.</p>
-          <p><strong>What you do:</strong> Share one starter, then each pick a main that fits your lane (savory-forward or adventurous), and finish with mint tea so you don't feel rushed heading upstairs after.</p>
+          <p>This is the nicest fit for the &ldquo;dress up a little, still fun, still intimate&rdquo; mood. The camp-style room makes it feel different from a regular dinner, and the menu is broad enough to avoid the food categories you were less excited about. Sunday hours until 9 PM.</p>
+          <p><strong>Good move:</strong> Share one starter, keep mains balanced, and leave a little room for the activity after.</p>
         </div>
-        <div class="menu-recommendations">
-          <h4>&#127869; What to Order</h4>
-          <p style="text-align:center;color:var(--text-muted);font-size:.82rem;margin-bottom:14px">Two routes tuned to your tastes &mdash; overlap a bit because you both like flavorful, memorable meals.</p>
-          <div class="menu-lanes">
-            <div class="menu-lane">
-              <h5>&#10024; Alex&rsquo;s Route &mdash; Savory, Not Sweet-Forward</h5>
-              <ul>
-                <li>Chicken tagine with olives and lemon</li>
-                <li>Harira soup (hearty, comforting starter)</li>
-                <li>Chicken or shrimp kabobs (simple, flavorful, reliable)</li>
-              </ul>
-              <p style="font-size:.78rem;color:#999;margin-top:8px">Clean, savory, no sweet-sauce territory.</p>
-            </div>
-            <div class="menu-lane">
-              <h5>&#128293; Juan&rsquo;s Route &mdash; A Little Bolder, Memorable</h5>
-              <ul>
-                <li>Lamb tagine with honey, nuts, and fruit (the &ldquo;wow&rdquo; dish)</li>
-                <li>Chicken or shrimp b'stila in phyllo (unique, date-night fun)</li>
-                <li>Couscous main (classic centerpiece, easy to share)</li>
-              </ul>
-              <p style="font-size:.78rem;color:#999;margin-top:8px">Bold, adventurous, and shareable.</p>
-            </div>
-          </div>
-        </div>
-        <div class="description-highlight">
-          <h4>&#128221; Reservation Note</h4>
-          <p>Reserve on OpenTable so it doesn't turn into a wait. This keeps the dinner locked in and stress-free.</p>
-        </div>
-        <div class="backup-box">
-          <h5>&#128203; Backup Plan</h5>
-          <p><strong>Parma Cucina Italiana</strong> (Hillcrest) is open Sundays and takes reservations, so you still get a cozy date-night dinner without gambling on walk-in timing. Backup exists to keep dinner stress-free if your preferred slot disappears.</p>
-          <div class="parking-links" style="margin-top:10px">
-            <a href="https://www.opentable.com/r/parma-cucina-italiana" target="_blank" class="btn btn-reserve" style="font-size:.78rem;padding:7px 14px"><i data-lucide="calendar"></i> Reserve Parma</a>
-            <a href="https://parmaitaliankitchen.com/" target="_blank" class="btn btn-menu" style="font-size:.78rem;padding:7px 14px"><i data-lucide="external-link"></i> Parma Site</a>
-          </div>
-        </div>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~5 min walk to next stop</div>
       </div>
 
-      <!-- Stop 3: Martinis -->
+      <!-- Stop 3: Coin-Op -->
       <div class="stop">
         <div class="stop-number">3</div>
         <div class="stop-header">
-          <h3 class="stop-title">Martini Lounge Nightcap</h3>
-          <p class="stop-location">3940 Fourth Ave (2nd floor), San Diego, CA 92103</p>
-          <p class="stop-phone">(619) 546-9983</p>
+          <h3 class="stop-title">Coin-Op Game Room</h3>
+          <p class="stop-location">30th Street, North Park</p>
+          <p class="stop-phone">(619) 255-8523</p>
         </div>
+        <div class="stop-time">6:40 &ndash; 7:55 PM</div>
         <div class="stop-buttons">
-          <a href="https://www.google.com/maps?q=3940+Fourth+Ave,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
-          <a href="https://maps.apple.com/?q=3940%20Fourth%20Ave,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
-          <a href="tel:6195469983" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
-          <a href="https://www.martinissandiego.com/menu/" target="_blank" class="btn btn-menu"><i data-lucide="wine"></i> Drink Menu</a>
-          <a href="https://www.martinissandiego.com/" target="_blank" class="btn btn-menu"><i data-lucide="external-link"></i> Website</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Coin+Op+Game+Room+North+Park+San+Diego" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=Coin%20Op%20Game%20Room%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
+          <a href="tel:6192558523" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
+          <a href="https://www.coinopsd.com/north-park-menu" target="_blank" class="btn btn-menu"><i data-lucide="utensils"></i> Menu</a>
         </div>
-        <div class="vibe-box">playful &bull; nightlife &bull; &ldquo;date not just dinner&rdquo;</div>
+        <div class="vibe-box">fun &bull; competitive &bull; &ldquo;real activity&rdquo;</div>
         <div class="description">
-          <p>You go upstairs for one drink and a little live-entertainment energy. The key here is that it's at the <strong>same address</strong> as dinner, so the last stop stays very close to where you parked. Their site lists Sunday hours and happy hour details, so it's worth planning this as an early-evening finish.</p>
-          <p><strong>What you do:</strong> One round each, linger for the vibe, then head out while it still feels special.</p>
+          <p>This is the &ldquo;real activity&rdquo; that keeps it from turning into just dinner out. It is fun, a little competitive, and easy to settle into without needing a reservation or a huge time commitment.</p>
+          <p><strong>Hours:</strong> Sundays 2 PM &ndash; Midnight</p>
+          <p><strong>Note:</strong> Free Play Sunday is the last Sunday of the month, so March 8 is a normal arcade night &mdash; not the crowded free-play version.</p>
         </div>
-        <div class="description-highlight">
-          <h4>&#10024; You might like:</h4>
-          <ul><li>Catching their happy hour window if it lines up, then keeping the rest of the night slow and sweet.</li></ul>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~7 min walk to next stop</div>
+      </div>
+
+      <!-- Stop 4: Gelati & Peccati -->
+      <div class="stop">
+        <div class="stop-number">4</div>
+        <div class="stop-header">
+          <h3 class="stop-title">Gelato at Gelati &amp; Peccati</h3>
+          <p class="stop-location">3066 B University Ave, North Park</p>
+          <p class="stop-phone">(619) 310-6305</p>
         </div>
-        <div class="backup-box">
-          <h5>&#128203; Backup Plan</h5>
-          <p>If you'd rather keep it quieter, stay downstairs and do Moroccan mint tea and dessert as your &ldquo;nightcap&rdquo; instead. Backup exists so the ending can match your energy without adding distance from the car.</p>
+        <div class="stop-time">8:05 &ndash; 8:40 PM</div>
+        <div class="stop-buttons">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Gelati+e+Peccati+North+Park+San+Diego" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=Gelati%20e%20Peccati%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
+          <a href="tel:6193106305" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
         </div>
+        <div class="vibe-box">sweet &bull; soft landing &bull; easy close</div>
+        <div class="description">
+          <p>This lands the night softly instead of ending on a noisy note. Open Sundays until 9 PM, so the timing is comfortable. Also a nice budget control point &mdash; keep it simple with gelato, or stretch it with coffee if the night still has energy.</p>
+        </div>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~6 min walk back to garage</div>
+      </div>
+
+      <!-- Smooth Swap -->
+      <div class="swap-box">
+        <h4>&#128260; Smooth Swaps</h4>
+        <p><strong>If One Door North has a 25&ndash;30+ min wait:</strong> Switch to <strong>Encontro</strong> &mdash; nearby, open Sundays, keeps the same North Park loop intact.</p>
+        <p style="margin-top:8px"><strong>If the arcade feels too loud or packed:</strong> Skip straight to gelato and take the slower walk back together.</p>
       </div>
 
       <!-- Budget -->
       <div class="budget">
         <h3 class="budget-title">&#128176; Budget for Two</h3>
         <div class="budget-items">
-          <div class="budget-item"><div class="budget-label">Park Stroll</div><div class="budget-value">$0</div></div>
-          <div class="budget-item"><div class="budget-label">Kous Kous Dinner</div><div class="budget-value">$70 &ndash; $140</div></div>
-          <div class="budget-item"><div class="budget-label">Drinks Upstairs</div><div class="budget-value">$25 &ndash; $60</div></div>
+          <div class="budget-item"><div class="budget-label">Bookstore Browse</div><div class="budget-value">$0 &ndash; $20</div></div>
+          <div class="budget-item"><div class="budget-label">One Door North</div><div class="budget-value">$60 &ndash; $85</div></div>
+          <div class="budget-item"><div class="budget-label">Arcade</div><div class="budget-value">$10 &ndash; $25</div></div>
+          <div class="budget-item"><div class="budget-label">Gelato</div><div class="budget-value">$12 &ndash; $20</div></div>
         </div>
-        <div class="budget-total budget-item"><div class="budget-label">Estimated Total</div><div class="budget-value">$95 &ndash; $200</div></div>
-        <p style="font-size:.8rem;opacity:.8;margin-top:12px">Closest to ~$100 target if you share 1 starter + 2 mains and keep drinks modest.</p>
+        <div class="budget-total budget-item"><div class="budget-label">Estimated Total</div><div class="budget-value">$95 &ndash; $140</div></div>
+        <p class="budget-tip">To stay closer to ~$100: garage parking, one shared dessert, and lighter arcade spend.</p>
+      </div>
+
+      <!-- Logistics -->
+      <div class="logistics">
+        <h3>&#128221; Logistics Checklist</h3>
+        <ul>
+          <li><strong>Reservation:</strong> Reserve One Door North a few days ahead &mdash; it has an active reservation page and Sunday dinner can tighten up.</li>
+          <li><strong>What to bring:</strong> Just normal date-night stuff. Nothing special needed.</li>
+          <li><strong>Parking:</strong> Free street parking can work, but double-check curb signs and stay clear of crosswalk corners.</li>
+        </ul>
       </div>
 
       <!-- Weather -->
       <div class="weather-note">
-        <h4>&#9748;&#65039; Weather Heads-Up</h4>
-        <p>Early March can cool off fast after sunset. A light jacket makes the park stroll and the walk back to the car feel cozy instead of chilly.</p>
+        <h4>&#9748;&#65039; Weather &mdash; Sunday, March 8</h4>
+        <p>Warm afternoon in the low 80s, settling into upper 60s at night. A light layer for later is enough &mdash; nice day for a dressed-up date. The walking parts will feel great and the evening stays comfortable.</p>
       </div>
 
       <!-- Parking -->
       <div class="parking-section">
-        <h3>&#127359;&#65039; Parking</h3>
+        <h3>&#127359;&#65039; Parking (Both Plans)</h3>
+        <div class="parking-option">
+          <h4>&#127359;&#65039; Paid &mdash; North Park Garage (Recommended)</h4>
+          <p><strong>3829 29th St</strong> &mdash; Open 24 hours. $1/hr, $5 daytime max (6 AM&ndash;6 PM), $5 flat evening (6 PM&ndash;6 AM).</p>
+          <div class="parking-links">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=3829+29th+St+San+Diego+CA+92104" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
+            <a href="https://maps.apple.com/?q=3829%2029th%20St%20San%20Diego%20CA%2092104" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
+          </div>
+        </div>
         <div class="parking-option">
           <h4>&#127383; Free Street Parking</h4>
-          <p>Free street parking is often available on nearby residential blocks, but always check posted signs and any meter rules.</p>
-          <p><strong>Suggested free-street pin:</strong> 3830 Front St, San Diego, CA 92103</p>
+          <p>Best free curb options around <strong>Ray Street</strong> and nearby blocks like 31st St / Gunn St. Check every sign &mdash; San Diego prohibits parking within 20 feet of marked or unmarked crosswalks.</p>
           <div class="parking-links">
-            <a href="https://www.google.com/maps?q=3830+Front+St,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
-            <a href="https://maps.apple.com/?q=3830%20Front%20St,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Ray+St+and+North+Park+Way+San+Diego+CA" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Ray St Area</a>
+            <a href="https://maps.apple.com/?q=Ray%20St%20and%20North%20Park%20Way%20San%20Diego%20CA" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
           </div>
-        </div>
-        <div class="parking-option">
-          <h4>&#127359;&#65039; Paid Parking &mdash; LAZ Parking (Recommended)</h4>
-          <p>This is the cleanest option for ending within minutes of the car, because it's basically next door. <strong>Open 24/7.</strong></p>
-          <p><strong>LAZ Parking:</strong> 3930 4th Ave, San Diego, CA 92103</p>
-          <div class="parking-links">
-            <a href="https://www.lazparking.com/local/san-diego-ca/4th-avenue-medical" target="_blank" class="btn btn-menu"><i data-lucide="external-link"></i> Reserve / Info</a>
-            <a href="https://www.google.com/maps?q=3930+4th+Ave,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir"><i data-lucide="map"></i> Google Maps</a>
-            <a href="https://maps.apple.com/?q=3930%204th%20Ave,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir"><i data-lucide="navigation"></i> Apple Maps</a>
-          </div>
-        </div>
-        <div class="parking-alert">
-          <p>&#9888;&#65039; <strong>Heads up:</strong> If your Sunday lands on a weekend with a big Balboa Park event (like the large rummage sale weekend listed for March 7&ndash;8, 2026), parking demand nearby can jump.</p>
         </div>
       </div>
 
-      <!-- Addresses & Links -->
+      <!-- Addresses -->
       <div class="addresses-section">
-        <h3>&#128205; Addresses &amp; Main Links</h3>
-
+        <h3>&#128205; Plan 1 Venues</h3>
         <div class="address-block">
-          <h4>Mission Hills Park (Pioneer Park)</h4>
-          <p>&#128205; 1521 Washington Pl, San Diego, CA 92103</p>
-          <p>&#127807; <a href="https://www.sandiego.gov/park-and-recreation/parks/regional/presidio/missionhills" target="_blank">Official Park Info</a></p>
+          <h4>Verbatim Books</h4>
+          <p>&#128222; (619) 501-7466</p>
           <div class="address-links">
-            <a href="https://www.google.com/maps?q=1521+Washington+Pl,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
-            <a href="https://maps.apple.com/?q=1521%20Washington%20Pl,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Verbatim+Books+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=Verbatim%20Books%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
           </div>
         </div>
-
         <div class="address-block">
-          <h4>Kous Kous Moroccan Bistro</h4>
-          <p>&#128205; 3940 Fourth Ave #110, San Diego, CA 92103</p>
-          <p>&#128222; (619) 295-5560</p>
-          <p>&#127869; <a href="https://www.opentable.com/r/kous-kous-moroccan-bistro-reservations-san-diego" target="_blank">OpenTable Reservations</a> &nbsp;|&nbsp; <a href="https://places.singleplatform.com/kous-kous-moroccan-bistro/menu" target="_blank">Menu</a></p>
+          <h4>One Door North</h4>
+          <p>&#128222; (619) 618-1285</p>
+          <p>&#127869; <a href="https://www.onedoornorthsd.com/menus" target="_blank">Menu</a> &nbsp;|&nbsp; <a href="https://www.opentable.com/r/one-door-north-san-diego" target="_blank">Reservations</a></p>
           <div class="address-links">
-            <a href="https://www.google.com/maps?q=3940+Fourth+Ave+%23110,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
-            <a href="https://maps.apple.com/?q=3940%20Fourth%20Ave%20%23110,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=One+Door+North+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=One%20Door%20North%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
           </div>
         </div>
-
         <div class="address-block">
-          <h4>Martinis (Nightcap &mdash; Same Building, 2nd Floor)</h4>
-          <p>&#128205; 3940 Fourth Ave (2nd floor), San Diego, CA 92103</p>
-          <p>&#128222; (619) 546-9983</p>
-          <p>&#127864; <a href="https://www.martinissandiego.com/" target="_blank">Website</a> &nbsp;|&nbsp; <a href="https://www.martinissandiego.com/menu/" target="_blank">Menu</a></p>
+          <h4>Coin-Op Game Room</h4>
+          <p>&#128222; (619) 255-8523</p>
+          <p>&#127918; <a href="https://www.coinopsd.com/north-park-menu" target="_blank">North Park Menu</a></p>
           <div class="address-links">
-            <a href="https://www.google.com/maps?q=3940+Fourth+Ave,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
-            <a href="https://maps.apple.com/?q=3940%20Fourth%20Ave,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Coin+Op+Game+Room+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=Coin%20Op%20Game%20Room%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
           </div>
         </div>
-
         <div class="address-block">
-          <h4>Backup Dinner: Parma Cucina Italiana</h4>
-          <p>&#128205; 3850 Fifth Ave, San Diego, CA 92103</p>
-          <p>&#128222; (619) 543-0049</p>
-          <p>&#127837; <a href="https://parmaitaliankitchen.com/" target="_blank">Website</a> &nbsp;|&nbsp; <a href="https://www.opentable.com/r/parma-cucina-italiana" target="_blank">OpenTable</a></p>
+          <h4>Gelati &amp; Peccati</h4>
+          <p>&#128205; 3066 B University Ave, North Park</p>
+          <p>&#128222; (619) 310-6305</p>
           <div class="address-links">
-            <a href="https://www.google.com/maps?q=3850+Fifth+Ave,+San+Diego,+CA+92103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
-            <a href="https://maps.apple.com/?q=3850%20Fifth%20Ave,%20San%20Diego,%20CA%2092103" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Gelati+e+Peccati+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=Gelati%20e%20Peccati%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px"><i data-lucide="navigation"></i> Apple</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p class="footer-tagline">&ldquo;Let us make date planning feel fun.&rdquo;</p>
+    </div>
+  </div>
+
+  <!-- ══════════ PLAN 2: ARTSY & SOFTER ══════════ -->
+  <div class="date-wrap" id="optionB">
+    <button class="back-btn" onclick="goBack()">&larr; Back to Options</button>
+
+    <div class="section-header" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">
+      <div class="section-badge">&#127912; Plan 2</div>
+      <h2>Artsy &amp; A Little Softer</h2>
+      <p>Calm, thoughtful, and &ldquo;we planned this on purpose&rdquo;</p>
+    </div>
+    <div class="content-card">
+      <div class="meta" style="border-left-color:#5b86e5">
+        <div class="meta-item"><div class="meta-label" style="color:#5b86e5">Date</div><div class="meta-value">Sunday, March 8, 2026</div></div>
+        <div class="meta-item"><div class="meta-label" style="color:#5b86e5">Duration</div><div class="meta-value">~4.5&ndash;5 hours</div></div>
+        <div class="meta-item"><div class="meta-label" style="color:#5b86e5">Area</div><div class="meta-value">North Park</div></div>
+      </div>
+      <div class="summary">
+        <h3 class="summary-title">&#127801; The Vibe</h3>
+        <p>This one feels more calm, thoughtful, and a little more &ldquo;we planned this on purpose.&rdquo; You start with art, add a bookstore stop, then settle into dinner and finish with a mellow North Park close before heading back to the car. Lower-energy rhythm that still feels like a full date, not just errands plus food.</p>
+      </div>
+      <div class="route-tag" style="background:linear-gradient(135deg,#f0f4ff,#e8ecfa);border-color:#c4d0f5">
+        <p style="color:#4a5a99">&#128694; <strong>Route:</strong> Parking &rarr; Gallery &rarr; Bookstore &rarr; Dinner &rarr; Quiet Close &rarr; Car</p>
+      </div>
+
+      <!-- Stop 1: ART Produce -->
+      <div class="stop">
+        <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">1</div>
+        <div class="stop-header">
+          <h3 class="stop-title">Start at ART Produce Gallery</h3>
+          <p class="stop-location">University Avenue, North Park</p>
+          <p class="stop-phone">(619) 584-4448</p>
+        </div>
+        <div class="stop-time" style="background:linear-gradient(135deg,#f0f4ff,#e8ecfa);color:#4a5a99">2:30 &ndash; 3:15 PM</div>
+        <div class="stop-buttons">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=ART+Produce+Gallery+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=ART%20Produce%20Gallery%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple Maps</a>
+          <a href="tel:6195844448" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
+        </div>
+        <div class="vibe-box" style="border-left-color:#5b86e5;color:#4a70c7">new experience &bull; calm &bull; concrete</div>
+        <div class="description">
+          <p>This gives you the &ldquo;new experience&rdquo; piece without making the whole date heavy or formal. It's an active North Park gallery, and it's a good opener because there is something concrete to do right away, but the mood stays calm.</p>
+        </div>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~7&ndash;10 min walk to next stop</div>
+      </div>
+
+      <!-- Stop 2: Verbatim Books -->
+      <div class="stop">
+        <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">2</div>
+        <div class="stop-header">
+          <h3 class="stop-title">Wander Verbatim Books</h3>
+          <p class="stop-location">30th Street, North Park</p>
+          <p class="stop-phone">(619) 501-7466</p>
+        </div>
+        <div class="stop-time" style="background:linear-gradient(135deg,#f0f4ff,#e8ecfa);color:#4a5a99">3:25 &ndash; 4:10 PM</div>
+        <div class="stop-buttons">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Verbatim+Books+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=Verbatim%20Books%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple Maps</a>
+          <a href="tel:6195017466" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
+        </div>
+        <div class="vibe-box" style="border-left-color:#5b86e5;color:#4a70c7">intimate &bull; thoughtful &bull; unhurried</div>
+        <div class="description">
+          <p>This keeps the date from feeling rushed and gives you a second shared moment that is still intimate. It is also the kind of stop that feels thoughtful instead of overproduced.</p>
+        </div>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~8 min walk to next stop</div>
+      </div>
+
+      <!-- Stop 3: Encontro -->
+      <div class="stop">
+        <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">3</div>
+        <div class="stop-header">
+          <h3 class="stop-title">Dinner at Encontro</h3>
+          <p class="stop-location">University Ave &amp; 30th, North Park</p>
+          <p class="stop-phone">(619) 291-1220</p>
+        </div>
+        <div class="stop-time" style="background:linear-gradient(135deg,#f0f4ff,#e8ecfa);color:#4a5a99">4:20 &ndash; 5:45 PM</div>
+        <div class="stop-buttons">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Encontro+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=Encontro%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple Maps</a>
+          <a href="tel:6192911220" class="btn btn-phone"><i data-lucide="phone"></i> Call</a>
+          <a href="https://www.encontrosd.com/menu" target="_blank" class="btn btn-menu" style="color:#5b86e5;border-color:#5b86e5"><i data-lucide="utensils"></i> Menu</a>
+          <a href="https://www.opentable.com/r/encontro-san-diego" target="_blank" class="btn btn-reserve"><i data-lucide="calendar"></i> Reserve on OpenTable</a>
+        </div>
+        <div class="vibe-box" style="border-left-color:#5b86e5;color:#4a70c7">lively enough &bull; not scene-heavy &bull; flexible menu</div>
+        <div class="description">
+          <p>Encontro is a strong choice for this plan because it feels lively enough to still be a date, but not so scene-heavy that it crowds out the quieter parts. The menu gives you enough flexibility to keep dinner satisfying without going too heavy.</p>
+        </div>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~2 min walk to next stop</div>
+      </div>
+
+      <!-- Stop 4: Quiet Close -->
+      <div class="stop">
+        <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">4</div>
+        <div class="stop-header">
+          <h3 class="stop-title">Slow Close Near North Park Mini Park</h3>
+          <p class="stop-location">Just behind the Observatory area</p>
+        </div>
+        <div class="stop-time" style="background:linear-gradient(135deg,#f0f4ff,#e8ecfa);color:#4a5a99">5:55 &ndash; 6:25 PM</div>
+        <div class="stop-buttons">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=North+Park+Mini+Park+San+Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google Maps</a>
+          <a href="https://maps.apple.com/?q=North%20Park%20Mini%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple Maps</a>
+        </div>
+        <div class="vibe-box" style="border-left-color:#5b86e5;color:#4a70c7">wind-down &bull; mellow &bull; near the car</div>
+        <div class="description">
+          <p>This is the cleaner ending for the softer plan. It gives you a real wind-down, keeps you in the same cluster, and lets the night end near the car instead of with one more crowded stop.</p>
+        </div>
+        <div class="walk-tag"><i data-lucide="footprints" style="width:16px;height:16px"></i> ~5&ndash;8 min walk back to garage</div>
+      </div>
+
+      <!-- Smooth Swap -->
+      <div class="swap-box">
+        <h4>&#128260; Smooth Swaps</h4>
+        <p><strong>If ART Produce feels too short:</strong> Give that extra time to Verbatim and keep the rest of the plan exactly the same.</p>
+        <p style="margin-top:8px"><strong>If Encontro has a long wait:</strong> Slide to <strong>One Door North</strong> and keep the same general walk loop.</p>
+      </div>
+
+      <!-- Budget -->
+      <div class="budget" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">
+        <h3 class="budget-title">&#128176; Budget for Two</h3>
+        <div class="budget-items">
+          <div class="budget-item"><div class="budget-label">Gallery</div><div class="budget-value">Free</div></div>
+          <div class="budget-item"><div class="budget-label">Bookstore Browse</div><div class="budget-value">$0 &ndash; $20</div></div>
+          <div class="budget-item"><div class="budget-label">Encontro Dinner</div><div class="budget-value">$55 &ndash; $80</div></div>
+          <div class="budget-item"><div class="budget-label">Quiet Close</div><div class="budget-value">Free</div></div>
+        </div>
+        <div class="budget-total budget-item"><div class="budget-label">Estimated Total</div><div class="budget-value">$70 &ndash; $115</div></div>
+        <p class="budget-tip">This is the easier one to keep right around the ~$100 target.</p>
+      </div>
+
+      <!-- Logistics -->
+      <div class="logistics">
+        <h3>&#128221; Logistics Checklist</h3>
+        <ul>
+          <li><strong>Reservation:</strong> Encontro appears bookable through OpenTable &mdash; lock it in if you want the day to feel fully set.</li>
+          <li><strong>Time note:</strong> This works best as an afternoon into early evening date, while the gallery and bookstore are comfortably open.</li>
+          <li><strong>Parking:</strong> Garage is the easy choice, curb parking is the nice surprise.</li>
+        </ul>
+      </div>
+
+      <!-- Weather -->
+      <div class="weather-note">
+        <h4>&#9748;&#65039; Weather &mdash; Sunday, March 8</h4>
+        <p>Warm afternoon in the low 80s, settling into upper 60s at night. A light layer for later is enough &mdash; the warm afternoon makes the walking parts nice, and the evening stays comfortable.</p>
+      </div>
+
+      <!-- Parking -->
+      <div class="parking-section">
+        <h3>&#127359;&#65039; Parking (Both Plans)</h3>
+        <div class="parking-option">
+          <h4>&#127359;&#65039; Paid &mdash; North Park Garage (Recommended)</h4>
+          <p><strong>3829 29th St</strong> &mdash; Open 24 hours. $1/hr, $5 daytime max (6 AM&ndash;6 PM), $5 flat evening (6 PM&ndash;6 AM).</p>
+          <div class="parking-links">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=3829+29th+St+San+Diego+CA+92104" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google Maps</a>
+            <a href="https://maps.apple.com/?q=3829%2029th%20St%20San%20Diego%20CA%2092104" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple Maps</a>
+          </div>
+        </div>
+        <div class="parking-option">
+          <h4>&#127383; Free Street Parking</h4>
+          <p>Best free curb options around <strong>Ray Street</strong> and nearby blocks like 31st St / Gunn St. Check every sign &mdash; San Diego prohibits parking within 20 feet of marked or unmarked crosswalks.</p>
+          <div class="parking-links">
+            <a href="https://www.google.com/maps/search/?api=1&query=Ray+St+and+North+Park+Way+San+Diego+CA" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Ray St Area</a>
+            <a href="https://maps.apple.com/?q=Ray%20St%20and%20North%20Park%20Way%20San%20Diego%20CA" target="_blank" class="btn btn-dir" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Addresses -->
+      <div class="addresses-section">
+        <h3>&#128205; Plan 2 Venues</h3>
+        <div class="address-block">
+          <h4>ART Produce Gallery</h4>
+          <p>&#128222; (619) 584-4448</p>
+          <div class="address-links">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=ART+Produce+Gallery+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=ART%20Produce%20Gallery%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple</a>
+          </div>
+        </div>
+        <div class="address-block">
+          <h4>Verbatim Books</h4>
+          <p>&#128222; (619) 501-7466</p>
+          <div class="address-links">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Verbatim+Books+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=Verbatim%20Books%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple</a>
+          </div>
+        </div>
+        <div class="address-block">
+          <h4>Encontro</h4>
+          <p>&#128222; (619) 291-1220</p>
+          <p>&#127869; <a href="https://www.encontrosd.com/menu" target="_blank">Menu</a> &nbsp;|&nbsp; <a href="https://www.opentable.com/r/encontro-san-diego" target="_blank">Reservations</a></p>
+          <div class="address-links">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Encontro+North+Park+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=Encontro%20North%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple</a>
+          </div>
+        </div>
+        <div class="address-block">
+          <h4>North Park Mini Park</h4>
+          <div class="address-links">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=North+Park+Mini+Park+San+Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="map"></i> Google</a>
+            <a href="https://maps.apple.com/?q=North%20Park%20Mini%20Park%20San%20Diego" target="_blank" class="btn btn-dir" style="font-size:.78rem;padding:7px 12px;background:linear-gradient(135deg,#5b86e5,#36d1dc)"><i data-lucide="navigation"></i> Apple</a>
           </div>
         </div>
       </div>
@@ -580,15 +802,18 @@
       }
     })();
 
-    // Show/hide plan
-    function showPlan(){
+    // Show/hide options
+    function showOption(opt){
       document.getElementById('hero').style.display='none';
-      document.getElementById('thePlan').classList.add('visible');
+      document.getElementById('optionA').classList.remove('visible');
+      document.getElementById('optionB').classList.remove('visible');
+      document.getElementById('option'+opt).classList.add('visible');
       window.scrollTo({top:0,behavior:'smooth'});
       lucide.createIcons();
     }
     function goBack(){
-      document.getElementById('thePlan').classList.remove('visible');
+      document.getElementById('optionA').classList.remove('visible');
+      document.getElementById('optionB').classList.remove('visible');
       document.getElementById('hero').style.display='flex';
       window.scrollTo({top:0,behavior:'smooth'});
     }
