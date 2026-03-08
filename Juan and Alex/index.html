@@ -307,6 +307,41 @@
     }
     .footer-tagline{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--rose-deep);font-style:italic}
 
+    /* ── Hero Image ── */
+    .hero-img{
+      width:100%;max-width:500px;border-radius:24px;
+      box-shadow:0 12px 40px rgba(196,69,105,.18);
+      margin-bottom:24px;
+    }
+
+    /* ── Calendar Section ── */
+    .calendar-section{
+      background:linear-gradient(135deg,#fff8fa,#fff0f5);
+      border:2px solid #ffe4f1;border-radius:20px;
+      padding:32px;margin-top:35px;text-align:center;
+    }
+    .calendar-section h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:8px;color:var(--text-dark)}
+    .calendar-section p{font-size:.9rem;color:var(--text-muted);margin-bottom:22px}
+    .calendar-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .cal-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:14px 28px;border-radius:14px;text-decoration:none;
+      font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;
+      transition:all .3s ease;cursor:pointer;border:none;
+    }
+    .cal-btn:hover{transform:translateY(-3px)}
+    .cal-btn-google{
+      background:linear-gradient(135deg,#4285f4,#34a853);color:white;
+      box-shadow:0 6px 20px rgba(66,133,244,.3);
+    }
+    .cal-btn-google:hover{box-shadow:0 10px 30px rgba(66,133,244,.45)}
+    .cal-btn-apple{
+      background:linear-gradient(135deg,#333,#555);color:white;
+      box-shadow:0 6px 20px rgba(0,0,0,.2);
+    }
+    .cal-btn-apple:hover{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .cal-btn svg,.cal-btn i{width:18px;height:18px}
+
     /* ── Responsive ── */
     @media(max-width:768px){
       .hero h1{font-size:2.4rem}
@@ -334,7 +369,7 @@
 
   <!-- ══════════ HERO / LANDING ══════════ -->
   <div class="hero" id="hero">
-    <div class="cupid-icon">&#128152;</div>
+    <img src="https://raw.githubusercontent.com/ene120/DateFlo/refs/heads/main/Juan%20and%20Alex's%20Date%20Plan.png" alt="Juan and Alex's Date Plan" class="hero-img">
     <div class="hero-brand">DateFlo</div>
     <h1>Juan &amp; Alex's <span>Sunday Date</span></h1>
     <p class="hero-sub">Two date plans for <strong>Sunday, March 8, 2026</strong> in North Park. Pick the one that feels right.</p>
@@ -571,6 +606,16 @@
       </div>
     </div>
 
+    <!-- Add to Calendar -->
+    <div class="calendar-section">
+      <h3>&#128197; Add Plan 1 to Your Calendar</h3>
+      <p>Save all the details so you don't have to check back.</p>
+      <div class="calendar-btns">
+        <a class="cal-btn cal-btn-google" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Juan+%26+Alex%27s+Date+%E2%80%93+Plan+1%3A+Playful+%26+Dressed-Up&dates=20260308T230000Z/20260309T034000Z&details=PLAN+1%3A+PLAYFUL+%26+DRESSED-UP+%F0%9F%8E%AE%0A%0ASCHEDULE%3A%0A%F0%9F%93%96+4%3A00-4%3A45+PM+%E2%80%94+Browse+Verbatim+Books%0APhone%3A+%28619%29+501-7466%0A%0A%F0%9F%8D%BD+5%3A00-6%3A30+PM+%E2%80%94+Dinner+at+One+Door+North%0APhone%3A+%28619%29+618-1285%0AReservations%3A+opentable.com%2Fr%2Fone-door-north-san-diego%0AMenu%3A+onedoornorthsd.com%2Fmenus%0A%0A%F0%9F%95%B9+6%3A40-7%3A55+PM+%E2%80%94+Coin-Op+Game+Room%0APhone%3A+%28619%29+255-8523%0ASunday+hours%3A+2+PM+-+Midnight%0A%0A%F0%9F%A7%81+8%3A05-8%3A40+PM+%E2%80%94+Gelato+at+Gelati+%26+Peccati%0A3066+B+University+Ave%0APhone%3A+%28619%29+310-6305%0A%0APARKING%3A+North+Park+Garage%2C+3829+29th+St%0A%241%2Fhr%2C+%245+daytime+max+%286AM-6PM%29%2C+%245+flat+evening%0A%0ABUDGET%3A+%7E%2495-%24140+for+two%0A%0ASMOOTH+SWAP%3A+If+One+Door+North+has+25%2B+min+wait%2C+switch+to+Encontro.+If+arcade+is+too+loud%2C+skip+to+gelato.&location=North+Park%2C+San+Diego%2C+CA" target="_blank"><i data-lucide="calendar"></i> Add to Google Calendar</a>
+        <button class="cal-btn cal-btn-apple" onclick="downloadICS('plan1')"><i data-lucide="calendar"></i> Add to Apple Calendar</button>
+      </div>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
       <p class="footer-tagline">&ldquo;Let us make date planning feel fun.&rdquo;</p>
@@ -779,6 +824,16 @@
       </div>
     </div>
 
+    <!-- Add to Calendar -->
+    <div class="calendar-section">
+      <h3>&#128197; Add Plan 2 to Your Calendar</h3>
+      <p>Save all the details so you don't have to check back.</p>
+      <div class="calendar-btns">
+        <a class="cal-btn cal-btn-google" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Juan+%26+Alex%27s+Date+%E2%80%93+Plan+2%3A+Artsy+%26+A+Little+Softer&dates=20260308T213000Z/20260309T012500Z&details=PLAN+2%3A+ARTSY+%26+A+LITTLE+SOFTER+%F0%9F%8E%A8%0A%0ASCHEDULE%3A%0A%F0%9F%96%BC+2%3A30-3%3A15+PM+%E2%80%94+ART+Produce+Gallery%0APhone%3A+%28619%29+584-4448%0A%0A%F0%9F%93%96+3%3A25-4%3A10+PM+%E2%80%94+Wander+Verbatim+Books%0APhone%3A+%28619%29+501-7466%0A%0A%F0%9F%8D%BD+4%3A20-5%3A45+PM+%E2%80%94+Dinner+at+Encontro%0APhone%3A+%28619%29+291-1220%0AReservations%3A+opentable.com%2Fr%2Fencontro-san-diego%0AMenu%3A+encontrosd.com%2Fmenu%0A%0A%F0%9F%8C%BF+5%3A55-6%3A25+PM+%E2%80%94+Slow+close+near+North+Park+Mini+Park%0A%0APARKING%3A+North+Park+Garage%2C+3829+29th+St%0A%241%2Fhr%2C+%245+daytime+max+%286AM-6PM%29%2C+%245+flat+evening%0A%0ABUDGET%3A+%7E%2470-%24115+for+two%0A%0ASMOOTH+SWAP%3A+If+ART+Produce+feels+short%2C+give+extra+time+to+Verbatim.+If+Encontro+has+long+wait%2C+slide+to+One+Door+North.&location=North+Park%2C+San+Diego%2C+CA" target="_blank"><i data-lucide="calendar"></i> Add to Google Calendar</a>
+        <button class="cal-btn cal-btn-apple" onclick="downloadICS('plan2')"><i data-lucide="calendar"></i> Add to Apple Calendar</button>
+      </div>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
       <p class="footer-tagline">&ldquo;Let us make date planning feel fun.&rdquo;</p>
@@ -816,6 +871,80 @@
       document.getElementById('optionB').classList.remove('visible');
       document.getElementById('hero').style.display='flex';
       window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // Download ICS for Apple Calendar
+    function downloadICS(plan){
+      var title, dtStart, dtEnd, desc, loc;
+      if(plan==='plan1'){
+        title='Juan & Alex\\'s Date – Plan 1: Playful & Dressed-Up';
+        dtStart='20260308T230000Z';
+        dtEnd='20260309T034000Z';
+        loc='North Park, San Diego, CA';
+        desc='PLAN 1: PLAYFUL & DRESSED-UP 🎮\\n\\n'+
+          'SCHEDULE:\\n'+
+          '📖 4:00-4:45 PM — Browse Verbatim Books\\n'+
+          'Phone: (619) 501-7466\\n\\n'+
+          '🍽 5:00-6:30 PM — Dinner at One Door North\\n'+
+          'Phone: (619) 618-1285\\n'+
+          'Reservations: opentable.com/r/one-door-north-san-diego\\n'+
+          'Menu: onedoornorthsd.com/menus\\n\\n'+
+          '🕹 6:40-7:55 PM — Coin-Op Game Room\\n'+
+          'Phone: (619) 255-8523\\n'+
+          'Sunday hours: 2 PM - Midnight\\n\\n'+
+          '🧁 8:05-8:40 PM — Gelato at Gelati & Peccati\\n'+
+          '3066 B University Ave\\n'+
+          'Phone: (619) 310-6305\\n\\n'+
+          'PARKING: North Park Garage, 3829 29th St\\n'+
+          '$1/hr, $5 daytime max (6AM-6PM), $5 flat evening\\n\\n'+
+          'BUDGET: ~$95-$140 for two\\n\\n'+
+          'SMOOTH SWAP: If One Door North has 25+ min wait, switch to Encontro. If arcade is too loud, skip to gelato.';
+      } else {
+        title='Juan & Alex\\'s Date – Plan 2: Artsy & A Little Softer';
+        dtStart='20260308T213000Z';
+        dtEnd='20260309T012500Z';
+        loc='North Park, San Diego, CA';
+        desc='PLAN 2: ARTSY & A LITTLE SOFTER 🎨\\n\\n'+
+          'SCHEDULE:\\n'+
+          '🖼 2:30-3:15 PM — ART Produce Gallery\\n'+
+          'Phone: (619) 584-4448\\n\\n'+
+          '📖 3:25-4:10 PM — Wander Verbatim Books\\n'+
+          'Phone: (619) 501-7466\\n\\n'+
+          '🍽 4:20-5:45 PM — Dinner at Encontro\\n'+
+          'Phone: (619) 291-1220\\n'+
+          'Reservations: opentable.com/r/encontro-san-diego\\n'+
+          'Menu: encontrosd.com/menu\\n\\n'+
+          '🌿 5:55-6:25 PM — Slow close near North Park Mini Park\\n\\n'+
+          'PARKING: North Park Garage, 3829 29th St\\n'+
+          '$1/hr, $5 daytime max (6AM-6PM), $5 flat evening\\n\\n'+
+          'BUDGET: ~$70-$115 for two\\n\\n'+
+          'SMOOTH SWAP: If ART Produce feels short, give extra time to Verbatim. If Encontro has long wait, slide to One Door North.';
+      }
+      var ics=[
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//DateFlo//Date Plan//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'DTSTART:'+dtStart,
+        'DTEND:'+dtEnd,
+        'SUMMARY:'+title.replace(/,/g,'\\,'),
+        'DESCRIPTION:'+desc.replace(/\n/g,'\\n'),
+        'LOCATION:'+loc,
+        'STATUS:CONFIRMED',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+      var blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');
+      a.href=url;
+      a.download=plan==='plan1'?'Juan-Alex-Plan1.ics':'Juan-Alex-Plan2.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     lucide.createIcons();
