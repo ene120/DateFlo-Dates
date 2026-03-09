@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDSU Blind Date Show & Mixer — DateFlo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose: #e8728a;
+      --rose-light: #fde2e8;
+      --rose-glow: #f9c4d0;
+      --blush: #fff0f3;
+      --mauve: #c4a0b0;
+      --deep-rose: #c94e6a;
+      --deep-mauve: #8a5070;
+      --charcoal: #2a2028;
+      --text-dark: #2c2230;
+      --text-mid: #6a5565;
+      --text-light: #9a8892;
+      --card-bg: rgba(255, 255, 255, 0.6);
+      --input-bg: rgba(255, 255, 255, 0.75);
+      --border: rgba(200, 160, 180, 0.3);
+      --shadow: rgba(140, 80, 110, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text-dark);
+      background: linear-gradient(160deg, var(--blush) 0%, #fef6f8 15%, #fdf0f4 30%, #f8e8ef 50%, #f4e4ee 65%, #f0e0ea 80%, var(--rose-light) 100%);
+      background-attachment: fixed;
+    }
+
+    /* Floating hearts */
+    .floating-hearts {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      opacity: 0;
+      animation: floatHeart linear infinite;
+      font-size: 16px;
+    }
+    .heart:nth-child(1) { left: 5%; animation-duration: 12s; animation-delay: 0s; font-size: 14px; }
+    .heart:nth-child(2) { left: 15%; animation-duration: 15s; animation-delay: 2s; font-size: 10px; }
+    .heart:nth-child(3) { left: 30%; animation-duration: 11s; animation-delay: 4s; font-size: 18px; }
+    .heart:nth-child(4) { left: 45%; animation-duration: 14s; animation-delay: 1s; font-size: 12px; }
+    .heart:nth-child(5) { left: 60%; animation-duration: 13s; animation-delay: 3s; font-size: 16px; }
+    .heart:nth-child(6) { left: 75%; animation-duration: 16s; animation-delay: 5s; font-size: 11px; }
+    .heart:nth-child(7) { left: 88%; animation-duration: 12s; animation-delay: 2.5s; font-size: 14px; }
+    .heart:nth-child(8) { left: 50%; animation-duration: 17s; animation-delay: 6s; font-size: 9px; }
+    .heart:nth-child(9) { left: 22%; animation-duration: 14s; animation-delay: 7s; font-size: 13px; }
+    .heart:nth-child(10) { left: 70%; animation-duration: 11s; animation-delay: 0.5s; font-size: 15px; }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+      10% { opacity: 0.15; }
+      50% { opacity: 0.2; }
+      90% { opacity: 0.1; }
+      100% { transform: translateY(-100px) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+
+    /* Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb.one {
+      width: 400px; height: 400px;
+      background: var(--rose-glow);
+      top: -100px; left: -100px;
+      animation: floatOrb 9s ease-in-out infinite;
+    }
+    .orb.two {
+      width: 320px; height: 320px;
+      background: #f0a0b8;
+      bottom: -80px; right: -80px;
+      animation: floatOrb 11s ease-in-out infinite reverse;
+    }
+    .orb.three {
+      width: 220px; height: 220px;
+      background: #e8b0c8;
+      top: 45%; left: 55%;
+      animation: floatOrb 13s ease-in-out infinite;
+    }
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(25px, -18px); }
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 50px 0 28px;
+    }
+    .hosted-by {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--deep-rose);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    /* Cupid arrow decoration */
+    .arrow-deco {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .arrow-line {
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose));
+    }
+    .arrow-line.right {
+      background: linear-gradient(90deg, var(--rose), transparent);
+    }
+    .arrow-icon {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      color: var(--rose);
+      font-size: 18px;
+    }
+
+    /* Cupid bow SVG */
+    .cupid-bow {
+      width: 28px;
+      height: 28px;
+    }
+
+    .event-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 46px;
+      line-height: 1.05;
+      margin-bottom: 4px;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--deep-rose), var(--deep-mauve), #6a4a7a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .event-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--deep-mauve);
+      margin-bottom: 18px;
+    }
+    .tagline {
+      font-size: 15px;
+      color: var(--text-mid);
+      max-width: 300px;
+      margin: 0 auto 10px;
+      line-height: 1.55;
+    }
+    .student-badge {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--deep-rose);
+      background: rgba(201, 78, 106, 0.08);
+      border: 1px solid rgba(201, 78, 106, 0.2);
+      border-radius: 20px;
+      padding: 5px 14px;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    /* Heart dividers */
+    .heart-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 8px 0 28px;
+    }
+    .heart-divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose-glow), transparent);
+    }
+    .heart-divider-icon {
+      color: var(--rose);
+      font-size: 12px;
+      opacity: 0.6;
+    }
+
+    /* Details */
+    .details-strip {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .detail-item {
+      text-align: center;
+      padding: 12px 16px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      min-width: 100px;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+    .detail-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--deep-rose);
+      margin-bottom: 3px;
+      font-weight: 700;
+    }
+    .detail-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* Address */
+    .address-line {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    .address-line a {
+      color: var(--deep-rose);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .address-line a:hover {
+      text-decoration: underline;
+    }
+
+    /* Info line */
+    .info-line {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-mid);
+      margin-bottom: 16px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .price-highlight {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--deep-rose);
+      vertical-align: middle;
+    }
+
+    /* Calendar Buttons */
+    .calendar-btns {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .cal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .cal-btn.apple {
+      background: var(--charcoal);
+      color: white;
+      border-color: var(--charcoal);
+    }
+    .cal-btn.google {
+      background: var(--card-bg);
+      color: var(--text-dark);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .cal-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px var(--shadow);
+    }
+    .cal-btn svg { width: 16px; height: 16px; }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 4px 0 28px;
+    }
+
+    /* Section Title */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+    .section-desc {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 26px;
+    }
+
+    /* Form Card */
+    .form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 22px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .form-card::before {
+      content: '♥';
+      position: absolute;
+      top: -8px;
+      right: 16px;
+      font-size: 40px;
+      opacity: 0.04;
+      color: var(--deep-rose);
+      transform: rotate(15deg);
+    }
+    .form-card::after {
+      content: '♥';
+      position: absolute;
+      bottom: -5px;
+      left: 20px;
+      font-size: 30px;
+      opacity: 0.04;
+      color: var(--deep-rose);
+      transform: rotate(-10deg);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group:last-of-type { margin-bottom: 0; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--text-dark);
+    }
+    .form-label .required { color: var(--deep-rose); }
+    .form-label .optional {
+      font-weight: 400;
+      color: var(--text-light);
+      font-size: 11px;
+    }
+    .form-hint {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+    .form-input {
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: var(--text-dark);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-input::placeholder { color: #c5b5be; }
+    .form-input:focus {
+      border-color: var(--deep-rose);
+      box-shadow: 0 0 0 3px rgba(201, 78, 106, 0.1);
+      background: #fff;
+    }
+    textarea.form-input {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    /* Radio */
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .radio-option {
+      flex: 1;
+      min-width: calc(33.33% - 6px);
+    }
+    .radio-option.half { min-width: calc(50% - 4px); }
+    .radio-option input { display: none; }
+    .radio-option label {
+      display: block;
+      padding: 11px 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      text-align: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      color: var(--text-mid);
+    }
+    .radio-option input:checked + label {
+      background: linear-gradient(135deg, var(--rose), var(--deep-mauve));
+      border-color: transparent;
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(201, 78, 106, 0.2);
+    }
+    .radio-option label:hover { border-color: var(--rose); }
+
+    /* Submit */
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--deep-rose), var(--deep-mauve), #6a4a7a);
+      color: white;
+      border: none;
+      border-radius: 13px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 24px;
+      box-shadow: 0 4px 16px rgba(180, 70, 100, 0.25);
+      position: relative;
+    }
+    .submit-btn::after {
+      content: '♥';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      opacity: 0.5;
+    }
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(180, 70, 100, 0.35);
+    }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* Success */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      animation: fadeUp 0.5s ease;
+    }
+    .success-screen.show { display: block; }
+    .success-emoji { font-size: 56px; margin-bottom: 18px; }
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--deep-rose), var(--deep-mauve));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .success-msg {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.6;
+      max-width: 300px;
+      margin: 0 auto 24px;
+    }
+    .success-cal-label {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 36px 0 40px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--deep-rose), var(--deep-mauve));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+    .footer-text {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .footer-heart {
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--rose);
+      opacity: 0.4;
+      letter-spacing: 6px;
+    }
+
+    .form-section { animation: fadeUp 0.4s ease; }
+
+    @media (max-width: 360px) {
+      .event-title { font-size: 38px; }
+      .detail-item { min-width: 85px; padding: 10px 12px; }
+      .radio-option { min-width: calc(50% - 4px); }
+      .cal-btn { padding: 9px 12px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="floating-hearts">
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+  </div>
+
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hosted-by">Hosted by DateFlo</div>
+      <div class="arrow-deco">
+        <span class="arrow-line"></span>
+        <span class="arrow-icon">🏹 ♥</span>
+        <span class="arrow-line right"></span>
+      </div>
+      <div class="event-title">SDSU Blind Date</div>
+      <div class="event-subtitle">Show & Mixer</div>
+      <div class="tagline">Grab a mocktail. Watch the show.<br>Bring your date or find one.</div>
+      <div class="student-badge">Hosted by SDSU Students, for SDSU Students</div>
+    </div>
+
+    <!-- EVENT DETAILS -->
+    <div class="details-strip">
+      <div class="detail-item">
+        <div class="detail-label">When</div>
+        <div class="detail-value">Sat, Mar 21</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Doors</div>
+        <div class="detail-value">5:30 PM</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Show</div>
+        <div class="detail-value">6:15 PM</div>
+      </div>
+    </div>
+
+    <div class="address-line">
+      <a href="https://maps.google.com/?q=5360+West+Falls+View+Dr+San+Diego+CA" target="_blank">📍 5360 West Falls View Dr, San Diego, CA</a>
+    </div>
+
+    <div class="info-line">
+      <span class="price-highlight">$6</span> at the door (cash or Venmo) · Max capacity: 100 · Dress Code: Date Night Chic
+    </div>
+
+    <!-- Calendar Buttons -->
+    <div id="preFormCal" class="calendar-btns">
+      <a class="cal-btn apple" id="appleCal" href="#" download="dateflo-blind-date.ics">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Apple Calendar
+      </a>
+      <a class="cal-btn google" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=SDSU+Blind+Date+Show+%26+Mixer+%7C+DateFlo&dates=20260321T173000/20260321T213000&details=SDSU+Blind+Date+Show+%26+Mixer+hosted+by+DateFlo%0A%0A%F0%9F%93%8D+5360+West+Falls+View+Dr%2C+San+Diego%2C+CA%0A%F0%9F%95%90+Doors+open+at+5%3A30+PM+%7C+Show+starts+at+6%3A15+PM%0A%F0%9F%92%B0+%246+entry+%28cash+or+Venmo%29%0A%F0%9F%91%94+Dress+Code%3A+Date+Night+Chic%0A%0AWatch+live+blind+dates+happen+on+stage%2C+then+stay+for+the+mixer.+Bring+your+date+or+find+one.+Singles+and+couples+welcome.%0A%0AMocktail+drinks+included.+Hosted+by+SDSU+students%2C+for+SDSU+students.%0A%0AHosted+by+DateFlo+%E2%80%94+Let+us+make+date+planning+feel+fun.&location=5360+West+Falls+View+Dr%2C+San+Diego%2C+CA" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2z" stroke="currentColor" stroke-width="1.8"/><path d="M16 2v4M8 2v4M4 10h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Google Calendar
+      </a>
+    </div>
+
+    <div class="heart-divider">
+      <span class="heart-divider-line"></span>
+      <span class="heart-divider-icon">♥</span>
+      <span class="heart-divider-line"></span>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-section" id="formSection">
+      <div class="section-title">Sign Up</div>
+      <div class="section-desc">Takes less than a minute.</div>
+
+      <div class="form-card">
+        <form id="rsvpForm" onsubmit="handleSubmit(event)">
+
+          <!-- Name -->
+          <div class="form-group">
+            <label class="form-label">Name <span class="required">*</span></label>
+            <input type="text" class="form-input" placeholder="Your name" required>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label class="form-label">Phone Number <span class="required">*</span></label>
+            <div class="form-hint">We'll text once and leave you alone. Unlike your ex.</div>
+            <input type="tel" class="form-input" placeholder="" required>
+          </div>
+
+          <!-- Single or Taken -->
+          <div class="form-group">
+            <label class="form-label">Are you single or in a relationship? <span class="required">*</span></label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="status" id="status-single" value="single" required>
+                <label for="status-single">Single</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="status" id="status-taken" value="taken">
+                <label for="status-taken">In a relationship</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="status" id="status-complicated" value="complicated">
+                <label for="status-complicated">It's complicated</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Worst Date -->
+          <div class="form-group">
+            <label class="form-label">If you're the one planning the dates, what part drains you the most? <span class="optional">(optional)</span></label>
+            <textarea class="form-input" placeholder=""></textarea>
+          </div>
+
+          <!-- DateFlo pitch + Instagram -->
+          <div class="form-group">
+            <label class="form-label">Instagram <span class="optional">(optional)</span></label>
+            <input type="text" class="form-input" placeholder="@yourhandle">
+          </div>
+
+          <button type="submit" class="submit-btn">I'm Pulling Up →</button>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-emoji">🎉</div>
+      <div class="success-title">You're In.</div>
+      <div class="success-msg">We'll text you before the event. Show up looking good — Date Night Chic, remember?<br><br>See you March 21st.</div>
+      <div class="success-cal-label">Don't forget — add it to your calendar</div>
+      <div class="calendar-btns">
+        <a class="cal-btn apple" id="appleCal2" href="#" download="dateflo-blind-date.ics">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Apple Calendar
+        </a>
+        <a class="cal-btn google" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=SDSU+Blind+Date+Show+%26+Mixer+%7C+DateFlo&dates=20260321T173000/20260321T213000&details=SDSU+Blind+Date+Show+%26+Mixer+hosted+by+DateFlo%0A%0A%F0%9F%93%8D+5360+West+Falls+View+Dr%2C+San+Diego%2C+CA%0A%F0%9F%95%90+Doors+open+at+5%3A30+PM+%7C+Show+starts+at+6%3A15+PM%0A%F0%9F%92%B0+%246+entry+%28cash+or+Venmo%29%0A%F0%9F%91%94+Dress+Code%3A+Date+Night+Chic%0A%0AWatch+live+blind+dates+happen+on+stage%2C+then+stay+for+the+mixer.+Bring+your+date+or+find+one.+Singles+and+couples+welcome.%0A%0AMocktail+drinks+included.+Hosted+by+SDSU+students%2C+for+SDSU+students.%0A%0AHosted+by+DateFlo+%E2%80%94+Let+us+make+date+planning+feel+fun.&location=5360+West+Falls+View+Dr%2C+San+Diego%2C+CA" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M18 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2z" stroke="currentColor" stroke-width="1.8"/><path d="M16 2v4M8 2v4M4 10h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Google Calendar
+        </a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-logo">DateFlo</div>
+      <div class="footer-text">Let us make date planning feel fun.</div>
+      <div class="footer-heart">♥ ♥ ♥</div>
+    </div>
+
+  </div>
+
+  <script>
+    function setupAppleCalLinks() {
+      const icsLines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'PRODID:-//DateFlo//Event//EN',
+        'BEGIN:VEVENT',
+        'UID:dateflo-blinddate-20260321@dateflo.com',
+        'DTSTART;TZID=America/Los_Angeles:20260321T173000',
+        'DTEND;TZID=America/Los_Angeles:20260321T213000',
+        'SUMMARY:SDSU Blind Date Show & Mixer | DateFlo',
+        'DESCRIPTION:SDSU Blind Date Show & Mixer hosted by DateFlo\\n\\n' +
+          '5360 West Falls View Dr\\, San Diego\\, CA\\n' +
+          'Doors open at 5:30 PM | Show starts at 6:15 PM\\n' +
+          '$6 entry (cash or Venmo)\\n' +
+          'Dress Code: Date Night Chic\\n\\n' +
+          'Watch live blind dates happen on stage\\, then stay for the mixer. ' +
+          'Bring your date or find one. Singles and couples welcome.\\n\\n' +
+          'Mocktail drinks included. Hosted by SDSU students\\, for SDSU students.\\n\\n' +
+          'Hosted by DateFlo - Let us make date planning feel fun.',
+        'LOCATION:5360 West Falls View Dr\\, San Diego\\, CA',
+        'STATUS:CONFIRMED',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ];
+
+      const icsContent = icsLines.join('\r\n');
+      const dataUri = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent);
+
+      document.querySelectorAll('.cal-btn.apple').forEach(function(btn) {
+        btn.href = dataUri;
+        btn.setAttribute('download', 'dateflo-blind-date.ics');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', setupAppleCalLinks);
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('rsvpForm');
+      const inputs = form.querySelectorAll('input, textarea');
+      
+      const formData = {
+        sheet1: {
+          name: form.querySelector('input[placeholder="Your name"]').value,
+          phone: form.querySelector('input[type="tel"]').value,
+          status: form.querySelector('input[name="status"]:checked') ? form.querySelector('input[name="status"]:checked').value : '',
+          worstDate: form.querySelector('textarea').value,
+          instagram: form.querySelector('input[placeholder="@yourhandle"]').value
+        }
+      };
+
+      fetch('https://api.sheety.co/6b249c9bdc44a5c25792e70f29910f76/dateFloEventFormSubmissions/sheet1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Submission saved:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('preFormCal').style.display = 'none';
+      const success = document.getElementById('successScreen');
+      success.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
