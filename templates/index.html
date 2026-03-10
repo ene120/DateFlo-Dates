@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DateFlo — Design Templates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1a0a10 0%, #2d1320 30%, #1a0a10 100%);
+      color: #fff;
+    }
+
+    /* ── Floating hearts ── */
+    .floating-hearts { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .floating-hearts span {
+      position: absolute; font-size: 1.1rem; opacity: 0;
+      animation: floatUp 13s ease-in infinite;
+    }
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+      10%  { opacity: 0.25; }
+      90%  { opacity: 0.08; }
+      100% { opacity: 0; transform: translateY(-10vh) rotate(360deg); }
+    }
+
+    .page { position: relative; z-index: 1; padding: 3rem 1.5rem 4rem; max-width: 900px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .header { text-align: center; margin-bottom: 3rem; }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #e05780, #ff6b9d, #f8a4c0);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: .4rem;
+    }
+    .subtitle {
+      font-size: .95rem; font-weight: 300; color: rgba(255,255,255,.55);
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .divider {
+      width: 60px; height: 2px; margin: 1.5rem auto 0;
+      background: linear-gradient(90deg, transparent, #e05780, transparent);
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      text-decoration: none; color: #fff;
+      display: flex; flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #e05780;
+      box-shadow: 0 12px 40px rgba(224,87,128,.15);
+    }
+
+    .card-color {
+      height: 140px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -1px;
+      position: relative; overflow: hidden;
+    }
+    .card-color span { position: relative; z-index: 1; text-shadow: 0 2px 12px rgba(0,0,0,.35); }
+
+    /* Per-template color strips */
+    .c1 { background: linear-gradient(135deg, #0d0d0d, #1a1a1a); }
+    .c2 { background: linear-gradient(135deg, #1a0000, #440000, #cc0000); }
+    .c3 { background: linear-gradient(135deg, #faf5f0, #f0e0d0); color: #2d2a26; }
+    .c3 span { text-shadow: none; }
+    .c4 { background: linear-gradient(135deg, #1a0a2e, #2d1b69, #0a0a23); }
+    .c5 { background: linear-gradient(135deg, #fff0f5, #ffe4f1); color: #c44569; }
+    .c5 span { text-shadow: none; }
+
+    .card-body { padding: 1.2rem 1.4rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700; margin-bottom: .4rem;
+    }
+    .card-desc {
+      font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55);
+      line-height: 1.6; flex: 1;
+    }
+    .card-tag {
+      display: inline-block; margin-top: .8rem;
+      font-size: .7rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+      color: #e05780; border: 1px solid rgba(224,87,128,.3); border-radius: 20px;
+      padding: .25rem .7rem; align-self: flex-start;
+    }
+
+    @media (max-width: 480px) {
+      .page { padding: 2rem 1rem 3rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="floating-hearts">
+    <span style="left:5%;animation-delay:0s;animation-duration:10s">&#x2665;</span>
+    <span style="left:18%;animation-delay:2.2s;animation-duration:14s">&#x2665;</span>
+    <span style="left:30%;animation-delay:4s;animation-duration:11s">&#x2665;</span>
+    <span style="left:45%;animation-delay:1s;animation-duration:13s">&#x2665;</span>
+    <span style="left:58%;animation-delay:3.5s;animation-duration:10s">&#x2665;</span>
+    <span style="left:72%;animation-delay:5s;animation-duration:15s">&#x2665;</span>
+    <span style="left:85%;animation-delay:0.5s;animation-duration:12s">&#x2665;</span>
+    <span style="left:95%;animation-delay:2.5s;animation-duration:14s">&#x2665;</span>
+  </div>
+
+  <div class="page">
+    <div class="header">
+      <div class="logo">DateFlo</div>
+      <div class="subtitle">Design Templates</div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="grid">
+
+      <a class="card" href="01-dark-editorial/">
+        <div class="card-color c1"><span>01</span></div>
+        <div class="card-body">
+          <div class="card-name">Dark Editorial</div>
+          <div class="card-desc">Moody dark theme with editorial typography. Clean blacks, crisp whites, and warm accent pops.</div>
+          <span class="card-tag">Dark</span>
+        </div>
+      </a>
+
+      <a class="card" href="02-red-black-bold/">
+        <div class="card-color c2"><span>02</span></div>
+        <div class="card-body">
+          <div class="card-name">Red &amp; Black Bold</div>
+          <div class="card-desc">High-energy crimson and deep black with bold type. Dramatic and unapologetically striking.</div>
+          <span class="card-tag">Bold</span>
+        </div>
+      </a>
+
+      <a class="card" href="03-clean-terracotta/">
+        <div class="card-color c3"><span>03</span></div>
+        <div class="card-body">
+          <div class="card-name">Clean Terracotta</div>
+          <div class="card-desc">Warm neutrals with terracotta and cream. Earthy, elegant, and effortlessly natural.</div>
+          <span class="card-tag">Warm</span>
+        </div>
+      </a>
+
+      <a class="card" href="04-gradient-glass/">
+        <div class="card-color c4"><span>04</span></div>
+        <div class="card-body">
+          <div class="card-name">Gradient Glassmorphism</div>
+          <div class="card-desc">Frosted glass panels on a deep violet-to-midnight gradient. Modern and luminous.</div>
+          <span class="card-tag">Glass</span>
+        </div>
+      </a>
+
+      <a class="card" href="05-cupid-blush/">
+        <div class="card-color c5"><span>05</span></div>
+        <div class="card-body">
+          <div class="card-name">Cupid Blush</div>
+          <div class="card-desc">Light blush pink with floating hearts and white cards. Romantic, airy, and warm — matching dateflo.com's signature style.</div>
+          <span class="card-tag">Romantic</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>
