@@ -867,11 +867,11 @@
             var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
             var availStr=months[availDate.getMonth()]+' '+availDate.getDate();
             var daysUntilAvail=Math.ceil((availDate-new Date())/(1000*60*60*24));
-            var msg='We want to make sure you get the most accurate forecast, not a guess! ';
+            var msg='We love your date too much to guess the weather! ';
             if(daysUntilAvail>0){
-              msg+='A reliable forecast will be ready by '+availStr+' ('+daysUntilAvail+' day'+(daysUntilAvail===1?'':'s')+' from now). Check back then for real-time weather details \u2764\uFE0F';
+              msg+='A real forecast will be ready by '+availStr+' ('+daysUntilAvail+' day'+(daysUntilAvail===1?'':'s')+' from now). Come back then and we\u2019ll have the full picture: temps, sunset time, whether you\u2019ll need an umbrella, and if you should bring a jacket. We\u2019ve got you.';
             } else {
-              msg+='A forecast should be available very soon \u2014 try refreshing in a bit! \u2764\uFE0F';
+              msg+='A real forecast should be available very soon. Try refreshing in a bit and we\u2019ll have the full picture for you!';
             }
             el.querySelector('p').textContent=msg;
             return;
