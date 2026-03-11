@@ -1,4 +1,4 @@
-// Google Apps Script — paste into a NEW Google Sheet's Apps Script editor
+// Google Apps Script: paste into a NEW Google Sheet's Apps Script editor
 // Sheet should have one tab called "Early Signups" with headers:
 // Timestamp | Name | Phone | Year
 

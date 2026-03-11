@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DateFlo — Early Access</title>
+  <title>DateFlo Early Access</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -56,18 +56,18 @@
       transform: scale(0.95);
     }
 
-    /* Slide 1 — Intro */
+    /* Slide 1: Intro */
     .logo {
-      width: 180px;
-      margin-bottom: 2rem;
+      width: min(220px, 18vw);
+      margin-bottom: 2vh;
       filter: drop-shadow(0 0 30px rgba(200, 80, 120, 0.3));
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
+      font-size: clamp(3rem, 7vw, 8rem);
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1vh;
       background: linear-gradient(135deg, #e8a0b8, #f0c0d0, #e8a0b8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -75,20 +75,20 @@
     }
 
     .tagline {
-      font-size: 1.3rem;
+      font-size: clamp(1.2rem, 2.5vw, 3rem);
       font-weight: 300;
       color: rgba(255,255,255,0.85);
-      max-width: 600px;
-      line-height: 1.7;
+      max-width: 80vw;
+      line-height: 1.6;
       letter-spacing: 0.3px;
     }
 
-    /* Slide 2 — QR */
+    /* Slide 2: QR */
     .qr-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
+      font-size: clamp(2rem, 5vw, 5.5rem);
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.5vh;
       background: linear-gradient(135deg, #e8a0b8, #f0c0d0, #e8a0b8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -96,35 +96,35 @@
     }
 
     .qr-subtitle {
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2vw, 2.2rem);
       font-weight: 300;
       color: rgba(255,255,255,0.7);
-      margin-bottom: 2rem;
+      margin-bottom: 2vh;
     }
 
     .qr-box {
       background: #fff;
       border-radius: 20px;
-      padding: 24px;
+      padding: min(24px, 2vw);
       display: inline-block;
       box-shadow: 0 0 60px rgba(200, 80, 120, 0.25);
     }
     .qr-box img {
-      width: 280px;
-      height: 280px;
+      width: min(40vh, 40vw);
+      height: min(40vh, 40vw);
       display: block;
     }
 
     .scan-hint {
-      margin-top: 1.5rem;
-      font-size: 1rem;
+      margin-top: 2vh;
+      font-size: clamp(1rem, 1.8vw, 2rem);
       color: rgba(255,255,255,0.6);
       font-weight: 400;
     }
 
     .url-hint {
-      margin-top: 0.8rem;
-      font-size: 0.85rem;
+      margin-top: 1vh;
+      font-size: clamp(0.8rem, 1.3vw, 1.5rem);
       color: rgba(232, 160, 184, 0.7);
       font-weight: 500;
       letter-spacing: 1px;
@@ -133,7 +133,7 @@
     /* Navigation dots */
     .nav-dots {
       position: fixed;
-      bottom: 2rem;
+      bottom: 2.5rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -159,7 +159,7 @@
     /* Click anywhere hint */
     .click-hint {
       position: fixed;
-      bottom: 4rem;
+      bottom: 1rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -183,7 +183,7 @@
     <img src="/dateflo-logo-light.svg" alt="DateFlo" class="logo">
     <h1>DateFlo</h1>
     <p class="tagline">
-      We plan your perfect date — so all you have to do is show up.
+      We plan your perfect date so all you have to do is show up.
     </p>
   </div>
 
@@ -205,19 +205,12 @@
     <button onclick="goToSlide(1)"></button>
   </div>
 
-  <!-- QR Code library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-
   <script>
-    // Generate QR code
+    // QR code via Google Charts API
     const signupUrl = 'https://dateflo.com/join/signup';
-    QRCode.toDataURL(signupUrl, {
-      width: 280,
-      margin: 0,
-      color: { dark: '#2d1320', light: '#ffffff' }
-    }).then(url => {
-      document.getElementById('qrImg').src = url;
-    });
+    document.getElementById('qrImg').src =
+      'https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=' +
+      encodeURIComponent(signupUrl) + '&color=2d1320&bgcolor=ffffff';
 
     // Slide navigation
     let current = 0;
