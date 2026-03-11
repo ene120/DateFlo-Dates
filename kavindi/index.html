@@ -254,6 +254,20 @@
     }
     .btn svg,.btn i{width:14px;height:14px}
     .vibe-box{background:#fff8fa;border-left:4px solid var(--rose);padding:clamp(10px,1.8vw,13px) clamp(14px,2.2vw,18px);margin:16px 0;border-radius:0 12px 12px 0;font-style:italic;color:var(--rose-deep);font-size:clamp(.82rem,1.4vw,.88rem);font-weight:500}
+
+    /* ── Happy Hour Box ── */
+    .hh-box{background:linear-gradient(135deg,#fef9ee,#fef3c7);border:2px solid #fde68a;border-radius:16px;padding:clamp(18px,3vw,24px);margin:18px 0;position:relative;overflow:hidden}
+    .hh-box::before{content:'';position:absolute;top:-30px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(245,158,11,.06)}
+    .hh-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .hh-icon{font-size:1.2rem}
+    .hh-label{font-size:clamp(.66rem,1.1vw,.72rem);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#b45309}
+    .hh-window{display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:6px 16px;border-radius:20px;font-size:clamp(.78rem,1.3vw,.84rem);font-weight:700;margin-bottom:14px}
+    .hh-deals{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .hh-deal{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.6);border-radius:10px;padding:8px 12px}
+    .hh-deal-tag{font-size:clamp(.68rem,1.1vw,.74rem);font-weight:700;color:#b45309;white-space:nowrap;min-width:fit-content}
+    .hh-deal-text{font-size:clamp(.76rem,1.2vw,.82rem);color:#92400e;font-weight:500}
+    @media(max-width:480px){.hh-deals{grid-template-columns:1fr}}
+
     .description{margin:20px 0}
     .description p{color:var(--text-muted);font-size:clamp(.86rem,1.5vw,.93rem);line-height:1.85;margin-bottom:12px}
     .description strong{color:var(--text-dark);font-weight:600}
@@ -501,8 +515,20 @@
           <a href="https://obnoodlehouse.com/menu-ob-noodle-house/" target="_blank" class="btn btn-menu"><i data-lucide="utensils"></i> Menu</a>
         </div>
         <div class="vibe-box">local legend &bull; bold flavors &bull; happy hour</div>
+        <div class="hh-box">
+          <div class="hh-header"><span class="hh-icon">&#127866;</span><span class="hh-label">Happy Hour</span></div>
+          <div class="hh-window">Mon to Fri, 3:00 to 6:00 PM</div>
+          <div class="hh-deals">
+            <div class="hh-deal"><span class="hh-deal-tag">50% off</span><span class="hh-deal-text">Most beers</span></div>
+            <div class="hh-deal"><span class="hh-deal-tag">50% off</span><span class="hh-deal-text">Most whiskeys</span></div>
+            <div class="hh-deal"><span class="hh-deal-tag">50% off</span><span class="hh-deal-text">Hot sake</span></div>
+            <div class="hh-deal"><span class="hh-deal-tag">$4</span><span class="hh-deal-text">Well drinks</span></div>
+            <div class="hh-deal"><span class="hh-deal-tag">$8</span><span class="hh-deal-text">House-infused sake carafe</span></div>
+            <div class="hh-deal"><span class="hh-deal-tag">$1</span><span class="hh-deal-text">Beers (2 to 5 PM with food)</span></div>
+          </div>
+        </div>
         <div class="description">
-          <p>A genuine OB institution featured on Diners, Drive-Ins and Dives. The pho, fried rice, and crispy egg noodles are all boldly flavored and shareable. Arrive at 3 PM when happy hour kicks in. Half-off select beers, $4 premium wells until 6 PM. Walk-in friendly.</p>
+          <p>A genuine OB institution featured on Diners, Drive-Ins and Dives. The pho, fried rice, and crispy egg noodles are all boldly flavored and shareable. Walk-in friendly.</p>
           <p><strong>Monday hours:</strong> 12 PM  to  11 PM.</p>
         </div>
         <div class="food-recs">
