@@ -875,15 +875,14 @@
     function sendSC(plan,stopNum,stopName){
       const key=plan+stopNum;
       const who=whoState[key]||COUPLE.partner1;
-      const isP1=who===COUPLE.partner1;
       const ta=document.getElementById('sc-'+key);
       const ok=document.getElementById('sc-'+key+'-ok');
       const btn=ta.parentElement.querySelector('.stop-comment-btn');
       if(!ta.value.trim()){ta.focus();ta.style.borderColor='var(--rose)';setTimeout(()=>ta.style.borderColor='',1500);return}
       btn.disabled=true;btn.textContent='Sending...';
-      fetch('https://script.google.com/macros/s/AKfycbwiGNNYHQn9DmQ5BCThFw_CY_Ur8k9A4-F2nhmJiMHKVIMhnzXmmThFwuW1_VkDL1k9/exec',{
+      fetch('https://script.google.com/macros/s/AKfycbw5GJ2LLzgISeGlgxD25pbxwno6WEdspfl79NGNGlWJahqMPy7FjrntgjlGemdejGOQbw/exec',{
         method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({coupleId:COUPLE.id,couple:COUPLE.partner1+' & '+COUPLE.partner2,dateEvent:COUPLE.dateEvent,type:'stop-comment',plan:plan==='A'?'Golden Hour':'Coastal Charm',stop:stopNum+'. '+stopName,partner1:isP1?ta.value.trim():'',partner2:isP1?'':ta.value.trim(),rating:'',planUrl:location.href})
+        body:JSON.stringify({coupleId:COUPLE.id,couple:COUPLE.partner1+' & '+COUPLE.partner2,dateEvent:COUPLE.dateEvent,type:'stop-comment',plan:plan==='A'?'Golden Hour':'Coastal Charm',stop:stopNum+'. '+stopName,partnerComment:who+': '+ta.value.trim(),rating:'',notes:'',planUrl:location.href})
       });
       ta.style.display='none';btn.style.display='none';ok.style.display='block';
     }
@@ -891,9 +890,9 @@
     // ── Overall Feedback ──
     function sendFB(p){
       if(!R[p]){alert('Please select a rating.');return}
-      fetch('https://script.google.com/macros/s/AKfycbwiGNNYHQn9DmQ5BCThFw_CY_Ur8k9A4-F2nhmJiMHKVIMhnzXmmThFwuW1_VkDL1k9/exec',{
+      fetch('https://script.google.com/macros/s/AKfycbw5GJ2LLzgISeGlgxD25pbxwno6WEdspfl79NGNGlWJahqMPy7FjrntgjlGemdejGOQbw/exec',{
         method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({coupleId:COUPLE.id,couple:COUPLE.partner1+' & '+COUPLE.partner2,dateEvent:COUPLE.dateEvent,type:'overall-feedback',plan:p==='A'?'Golden Hour':'Coastal Charm',stop:'',partner1:'',partner2:'',rating:R[p],notes:document.getElementById('notes'+p).value,planUrl:location.href})
+        body:JSON.stringify({coupleId:COUPLE.id,couple:COUPLE.partner1+' & '+COUPLE.partner2,dateEvent:COUPLE.dateEvent,type:'overall-feedback',plan:p==='A'?'Golden Hour':'Coastal Charm',stop:'',partnerComment:'',rating:R[p],notes:document.getElementById('notes'+p).value,planUrl:location.href})
       });
       document.getElementById('fb'+p).innerHTML='<p style="color:var(--rose);font-size:1.1rem;font-weight:600;font-family:Playfair Display,serif">Thanks for the feedback \u{1F495}</p>';
     }
