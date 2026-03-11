@@ -935,7 +935,19 @@
         fetch(url).then(function(r){return r.json()}).then(function(d){
           var day=d.daily;
           if(!day||!day.temperature_2m_max||!day.temperature_2m_max.length){
-            el.querySelector('p').textContent='Forecast not yet available for this date. Check back closer to the day!';
+            var eventDate=new Date(date+'T00:00:00');
+            var availDate=new Date(eventDate);
+            availDate.setDate(availDate.getDate()-14);
+            var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+            var availStr=months[availDate.getMonth()]+' '+availDate.getDate();
+            var daysUntilAvail=Math.ceil((availDate-new Date())/(1000*60*60*24));
+            var msg='We want to make sure you get the most accurate forecast, not a guess! ';
+            if(daysUntilAvail>0){
+              msg+='A reliable forecast will be ready by '+availStr+' ('+daysUntilAvail+' day'+(daysUntilAvail===1?'':'s')+' from now). Check back then for real-time weather details \u2764\uFE0F';
+            } else {
+              msg+='A forecast should be available very soon \u2014 try refreshing in a bit! \u2764\uFE0F';
+            }
+            el.querySelector('p').textContent=msg;
             return;
           }
           var hi=Math.round(day.temperature_2m_max[0]);
