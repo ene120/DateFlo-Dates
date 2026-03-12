@@ -278,8 +278,10 @@
       line-height:1.5;font-weight:500;
       transition:max-height .35s ease,padding .35s ease;
       position:relative;z-index:3;clear:both;
+      margin-right:160px;
     }
     .event-note.open{max-height:200px;padding:8px 12px}
+    @media(max-width:420px){.event-note{margin-right:0}}
     .event-note::before{content:'\26A0\FE0F ';font-size:.72rem}
     .btn svg,.btn i{width:14px;height:14px}
     .vibe-box{background:#fff8fa;border-left:4px solid var(--rose);padding:clamp(10px,1.8vw,13px) clamp(14px,2.2vw,18px);margin:16px 0;border-radius:0 12px 12px 0;font-style:italic;color:var(--rose-deep);font-size:clamp(.82rem,1.4vw,.88rem);font-weight:500}
