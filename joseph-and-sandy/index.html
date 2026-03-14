@@ -91,6 +91,27 @@
     .hero-sub strong{color:var(--cupid)}
     .hero-note{font-size:clamp(.82rem,1.5vw,.9rem);color:var(--text-muted);max-width:520px;margin-bottom:12px;line-height:1.65;font-style:italic;opacity:.8}
 
+    /* ── Hero CTA Buttons ── */
+    .hero-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:clamp(16px,3vh,28px);position:relative;z-index:2}
+    .hero-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:clamp(14px,2vw,18px) clamp(28px,4vw,40px);border-radius:50px;
+      text-decoration:none;font-size:clamp(.95rem,1.6vw,1.05rem);font-weight:700;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",system-ui,sans-serif;
+      transition:all .3s ease;cursor:pointer;border:3px solid transparent;
+      min-height:52px;letter-spacing:.02em;
+    }
+    .hero-btn-primary{
+      background:var(--cupid);color:white;border-color:var(--cupid);
+      box-shadow:4px 4px 0px var(--deep-rose);
+    }
+    .hero-btn-primary:hover{transform:translateY(-3px);box-shadow:5px 5px 0px var(--deep-rose)}
+    .hero-btn-secondary{
+      background:var(--arrow-gold);color:var(--text-dark);border-color:var(--arrow-gold);
+      box-shadow:4px 4px 0px #c8a020;
+    }
+    .hero-btn-secondary:hover{transform:translateY(-3px);box-shadow:5px 5px 0px #c8a020}
+
     /* ── Countdown ── */
     .cd-wrap{margin:clamp(20px,4vh,36px) 0 clamp(12px,2vh,18px)}
     .cd-label{font-size:clamp(.64rem,1.1vw,.72rem);letter-spacing:.25em;text-transform:uppercase;color:var(--cupid);margin-bottom:12px;font-weight:700}
@@ -590,6 +611,11 @@
     <h1>Joseph &amp; <span>Sandy</span></h1>
     <p class="hero-sub">Two curated plans for <strong>Saturday, March 14, 2026</strong>.</p>
     <p class="hero-note">Two cuisines, two vibes &mdash; pick the one that matches your mood on Saturday.</p>
+
+    <div class="hero-buttons">
+      <a class="hero-btn hero-btn-primary" href="#" onclick="showOption('A');return false;">🌶️ View Spice Road</a>
+      <a class="hero-btn hero-btn-secondary" href="#" onclick="showOption('B');return false;">🌊 View Golden Coast</a>
+    </div>
 
     <div class="cd-wrap">
       <div class="cd-label">Counting down</div>
