@@ -427,20 +427,20 @@
       </div>
       <div class="how-grid">
         <div class="how-card reveal">
-          <div class="how-num">01</div>
+          <div class="how-num">1</div>
           <div class="how-icon">💬</div>
           <h3>Tell Us About You Two</h3>
           <p>Answer a few fun questions about your tastes, your partner's favorites, and what kind of date you're in the mood for. Takes about 5 minutes.</p>
         </div>
         <div class="how-card reveal">
-          <div class="how-num">02</div>
+          <div class="how-num">2</div>
           <div class="how-icon">🔍</div>
           <h3>Our Team Gets to Work</h3>
           <p>Our planning team researches venues, checks reviews, verifies hours, scouts menus, and builds a multi-stop itinerary tailored to your preferences.</p>
           <div class="how-time">&#9201; Delivered within 24 hours</div>
         </div>
         <div class="how-card reveal">
-          <div class="how-num">03</div>
+          <div class="how-num">3</div>
           <div class="how-icon">✨</div>
           <h3>Open & Go</h3>
           <p>You get a beautiful, interactive date plan on your phone with directions, parking, food picks for each of you, and everything you need. Just show up.</p>
@@ -1052,6 +1052,46 @@
     function submitForm(){
       var email=document.getElementById('email').value;
       document.getElementById('confirmEmail').textContent=email;
+
+      // Collect all form data
+      var getVal=function(id){var el=document.getElementById(id);return el?el.value.trim():''};
+      var getChoice=function(id){var el=document.querySelector('#'+id+' .choice.selected');return el?el.getAttribute('data-val'):''};
+      var getMulti=function(id){var els=document.querySelectorAll('#'+id+' .choice.selected');var vals=[];els.forEach(function(e){vals.push(e.getAttribute('data-val'))});return vals.join(', ')};
+
+      var formData={
+        timestamp: new Date().toLocaleString(),
+        name1: getVal('name1'),
+        name2: getVal('name2'),
+        email: email,
+        phone: getVal('phone'),
+        stage: getChoice('stageChoices'),
+        occasion: getVal('occasion'),
+        dateDay: getVal('dateDay'),
+        startTime: getVal('startTime'),
+        endTime: getVal('endTime'),
+        city: getVal('city'),
+        budget: getVal('budget'),
+        activity: getChoice('activityChoices'),
+        transport: getChoice('transportChoices'),
+        food1Likes: getVal('food1Likes'),
+        food1Dislikes: getVal('food1Dislikes'),
+        food1Allergies: getVal('food1Allergies'),
+        food2Likes: getVal('food2Likes'),
+        food2Dislikes: getVal('food2Dislikes'),
+        food2Allergies: getVal('food2Allergies'),
+        vibes: getMulti('vibeChoices'),
+        dealbreakers: getVal('dealbreakers'),
+        loveLangs: getVal('loveLangs'),
+        specificSpots: getVal('specificSpots'),
+        surprise: getChoice('surpriseChoices'),
+        accessibility: getVal('accessibility'),
+        extraNotes: getVal('extraNotes')
+      };
+
+      // Send to Google Sheets
+      var SHEET_URL='https://script.google.com/macros/s/PASTE_YOUR_DEPLOYMENT_ID_HERE/exec';
+      fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(formData)});
+
       goToPage(8);
       document.getElementById('progressFill').style.width='100%';
     }
