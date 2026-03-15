@@ -386,14 +386,13 @@
     .event-note{
       background:linear-gradient(135deg,#ffe0ec,#ffd0e0);
       border:2px solid var(--wing-pink);border-radius:10px;
-      padding:0;margin-top:8px;max-height:0;overflow:hidden;
-      font-size:clamp(.68rem,1.05vw,.74rem);color:var(--deep-rose);
-      line-height:1.5;font-weight:500;
+      padding:0;margin-top:6px;max-height:0;overflow:hidden;
+      font-size:.62rem;color:var(--deep-rose);
+      line-height:1.4;font-weight:500;
       transition:max-height .35s ease,padding .35s ease;
-      position:relative;z-index:3;clear:both;
     }
-    .event-note.open{max-height:200px;padding:8px 12px}
-    .event-note::before{content:'\26A0\FE0F ';font-size:.72rem}
+    .event-note.open{max-height:300px;padding:6px 8px}
+    .event-note::before{content:'\26A0\FE0F ';font-size:.62rem}
     .btn svg,.btn i{width:14px;height:14px}
 
     /* ── Info Buttons Row ── */
@@ -734,9 +733,9 @@
             <div class="tc-park-label">Paid: Organ Pavilion $10</div>
             <div class="tc-park-row"><a href="https://www.google.com/maps/dir/?api=1&destination=32.7284,-117.1512" target="_blank" class="tc-btn tc-paid tc-google"><img src="../assets/google-logo.png" alt="Google Maps" class="tc-logo"></a><a href="https://maps.apple.com/?daddr=32.7284,-117.1512&dirflg=d" target="_blank" class="tc-btn-apple"><img src="../assets/apple-logo-white.png" alt="Apple Maps" class="tc-logo"></a></div>
           </div></div>
-          <div class="tc-headsup" onclick="this.classList.toggle('open');this.closest('.stop').querySelector('.event-note').classList.toggle('open')">&#9888;&#65039; Heads Up <span class="arrow">&#9660;</span></div>
+          <div class="tc-headsup" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">&#9888;&#65039; Heads Up <span class="arrow">&#9660;</span></div>
+          <div class="event-note">St. Patrick&rsquo;s Day Festival is in the park today &mdash; the gardens you&rsquo;re visiting are away from the festival zone, but parking fills faster. Arrive by 3:45 PM or use the Alcazar Lot ($10/4hrs) for a guaranteed spot.</div>
         </div>
-        <div class="event-note">St. Patrick&rsquo;s Day Festival is in the park today &mdash; the gardens you&rsquo;re visiting are away from the festival zone, but parking fills faster. Arrive by 3:45 PM or use the Alcazar Lot ($10/4hrs) for a guaranteed spot.</div>
         <div class="stop-header">
           <h3 class="stop-title">Romantic Stroll at Balboa Park</h3>
         </div>
