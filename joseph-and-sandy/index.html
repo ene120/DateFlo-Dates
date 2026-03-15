@@ -253,6 +253,10 @@
       box-shadow:3px 3px 0px rgba(142,58,89,.15);
     }
     .route-tag p{font-size:clamp(.82rem,1.4vw,.88rem);color:var(--deep-rose);font-weight:500;margin:0}
+    .route-btn{display:inline-block;background:var(--cupid);color:#fff !important;padding:4px 14px;border-radius:50px;text-decoration:none;font-weight:700;font-size:clamp(.72rem,1.2vw,.82rem);box-shadow:2px 2px 0px var(--deep-rose);transition:all .2s ease;cursor:pointer}
+    .route-btn:hover{transform:translateY(-2px);box-shadow:3px 3px 0px var(--deep-rose)}
+    .route-btn-b{background:#5b86e5;box-shadow:2px 2px 0px #3a5ca0}
+    .route-btn-b:hover{box-shadow:3px 3px 0px #3a5ca0}
 
     /* ── Weather ── */
     .weather-note{
@@ -717,10 +721,10 @@
         <p>A relaxed stroll through Balboa Park&rsquo;s most romantic gardens while the afternoon light filters through Spanish colonial architecture, followed by a trendy Chinese fusion dinner at one of Convoy&rsquo;s most popular spots: think rainbow dumplings, bulgogi chow mein, and cute pig-shaped buns. End with boba at the highest-rated tea house in San Diego.</p>
       </div>
 
-      <div class="route-tag"><p>&#128663; Lakeside &rarr; <strong>Balboa Park</strong> &rarr; <strong>Steamy Piggy</strong> &rarr; <strong>Yun Tea House</strong> &rarr; Home</p></div>
+      <div class="route-tag"><p>&#128663; Lakeside &rarr; <a href="#stop-a1" class="route-btn">Balboa Park</a> &rarr; <a href="#stop-a2" class="route-btn">Steamy Piggy</a> &rarr; <a href="#stop-a3" class="route-btn">Yun Tea House</a> &rarr; Home</p></div>
 
       <!-- Stop 1: Balboa Park -->
-      <div class="stop">
+      <div class="stop" id="stop-a1">
         <div class="stop-number">1</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Rides</div><div class="tc-btns">
@@ -795,7 +799,7 @@
       </div>
 
       <!-- Stop 2: Steamy Piggy -->
-      <div class="stop">
+      <div class="stop" id="stop-a2">
         <div class="stop-number">2</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Rides</div><div class="tc-btns">
@@ -900,7 +904,7 @@
       </div>
 
       <!-- Stop 3: Yun Tea House -->
-      <div class="stop">
+      <div class="stop" id="stop-a3">
         <div class="stop-number">3</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Parking</div><div class="tc-park-stack">
@@ -1038,10 +1042,10 @@
         <p>A scenic coastal walk along La Jolla&rsquo;s bluffs with sea caves and seal sightings, then a Michelin-recognized Italian dinner on a third-floor ocean-view terrace as the sun sets over the Pacific. End the night walking through the village with artisan gelato from the #3-rated spot in all of La Jolla. Romantic, elevated, and effortless.</p>
       </div>
 
-      <div class="route-tag" style="background:linear-gradient(135deg,rgba(91,134,229,0.1),rgba(91,134,229,0.05));border-color:rgba(196,208,245,0.2)"><p style="color:#8fa4d4">&#128663; Lakeside &rarr; <strong>La Jolla Coast Walk</strong> &rarr; <strong>Catania</strong> &rarr; <strong>Bobboi Gelato</strong> &rarr; Home</p></div>
+      <div class="route-tag" style="background:linear-gradient(135deg,rgba(91,134,229,0.1),rgba(91,134,229,0.05));border-color:rgba(196,208,245,0.2)"><p style="color:#8fa4d4">&#128663; Lakeside &rarr; <a href="#stop-b1" class="route-btn route-btn-b">La Jolla Coast Walk</a> &rarr; <a href="#stop-b2" class="route-btn route-btn-b">Catania</a> &rarr; <a href="#stop-b3" class="route-btn route-btn-b">Bobboi Gelato</a> &rarr; Home</p></div>
 
       <!-- Stop 1: La Jolla Coast Walk -->
-      <div class="stop">
+      <div class="stop" id="stop-b1">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">1</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Rides</div><div class="tc-btns">
@@ -1106,7 +1110,7 @@
       </div>
 
       <!-- Stop 2: Catania -->
-      <div class="stop">
+      <div class="stop" id="stop-b2">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">2</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Parking</div><div class="tc-park-stack">
@@ -1193,7 +1197,7 @@
       </div>
 
       <!-- Stop 3: Bobboi Gelato -->
-      <div class="stop">
+      <div class="stop" id="stop-b3">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">3</div>
         <div class="stop-header">
           <h3 class="stop-title">Gelato at Bobboi</h3>
@@ -1293,6 +1297,8 @@
   </div>
 
   <script>
+    document.querySelectorAll('.route-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+
     // ── Config ──
     var COUPLE={id:'joseph-2026',partner1:'Joseph',partner2:'Sandy',dateEvent:'Saturday, March 14, 2026'};
     var DATE_START=new Date('2026-03-14T16:00:00-07:00');

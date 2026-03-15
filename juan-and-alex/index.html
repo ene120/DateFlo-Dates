@@ -229,6 +229,10 @@
       box-shadow:3px 3px 0px rgba(142,58,89,.15);
     }
     .route-tag p{font-size:clamp(.82rem,1.4vw,.88rem);color:var(--deep-rose);font-weight:500;margin:0}
+    .route-btn{display:inline-block;background:var(--cupid);color:#fff !important;padding:4px 14px;border-radius:50px;text-decoration:none;font-weight:700;font-size:clamp(.72rem,1.2vw,.82rem);box-shadow:2px 2px 0px var(--deep-rose);transition:all .2s ease;cursor:pointer}
+    .route-btn:hover{transform:translateY(-2px);box-shadow:3px 3px 0px var(--deep-rose)}
+    .route-btn-b{background:#5b86e5;box-shadow:2px 2px 0px #3a5ca0}
+    .route-btn-b:hover{box-shadow:3px 3px 0px #3a5ca0}
 
     /* ── Weather ── */
     .weather-note{
@@ -641,7 +645,7 @@
         <p>This one feels polished without feeling stiff. You start with a cozy browse, slide into a more special dinner, get one genuinely fun activity after, then end with gelato before the short walk back to the car. It fits you both well because it feels intentional, gives you something to do after dinner, and still stays easy.</p>
       </div>
       <div class="route-tag">
-        <p>&#128694; <strong>Route:</strong> Parking &rarr; Bookstore &rarr; Dinner &rarr; Arcade &rarr; Gelato &rarr; Car</p>
+        <p>&#128694; <strong>Route:</strong> Parking &rarr; <a href="#stop-a1" class="route-btn">Bookstore</a> &rarr; <a href="#stop-a2" class="route-btn">Dinner</a> &rarr; <a href="#stop-a3" class="route-btn">Arcade</a> &rarr; <a href="#stop-a4" class="route-btn">Gelato</a> &rarr; Car</p>
       </div>
 
       <!-- Weather (top) -->
@@ -651,7 +655,7 @@
       </div>
 
       <!-- Stop 1: Verbatim Books -->
-      <div class="stop">
+      <div class="stop" id="stop-a1">
         <div class="stop-number">1</div>
         <div class="stop-header">
           <h3 class="stop-title">Browse Verbatim Books</h3>
@@ -672,7 +676,7 @@
       </div>
 
       <!-- Stop 2: One Door North -->
-      <div class="stop">
+      <div class="stop" id="stop-a2">
         <div class="stop-number">2</div>
         <div class="stop-header">
           <h3 class="stop-title">Dinner at One Door North</h3>
@@ -695,7 +699,7 @@
       </div>
 
       <!-- Stop 3: Coin-Op -->
-      <div class="stop">
+      <div class="stop" id="stop-a3">
         <div class="stop-number">3</div>
         <div class="stop-header">
           <h3 class="stop-title">Coin-Op Game Room</h3>
@@ -718,7 +722,7 @@
       </div>
 
       <!-- Stop 4: Gelati & Peccati -->
-      <div class="stop">
+      <div class="stop" id="stop-a4">
         <div class="stop-number">4</div>
         <div class="stop-header">
           <h3 class="stop-title">Gelato at Gelati &amp; Peccati</h3>
@@ -842,7 +846,7 @@
         <p>This one feels more calm, thoughtful, and a little more &ldquo;we planned this on purpose.&rdquo; You start with art, add a bookstore stop, then settle into dinner and finish with a mellow North Park close before heading back to the car. Lower-energy rhythm that still feels like a full date, not just errands plus food.</p>
       </div>
       <div class="route-tag" style="background:linear-gradient(135deg,rgba(91,134,229,0.1),rgba(91,134,229,0.05));border-color:rgba(91,134,229,0.2)">
-        <p style="color:#4a5a99">&#128694; <strong>Route:</strong> Parking &rarr; Gallery &rarr; Bookstore &rarr; Dinner &rarr; Quiet Close &rarr; Car</p>
+        <p style="color:#4a5a99">&#128694; <strong>Route:</strong> Parking &rarr; <a href="#stop-b1" class="route-btn route-btn-b">Gallery</a> &rarr; <a href="#stop-b2" class="route-btn route-btn-b">Bookstore</a> &rarr; <a href="#stop-b3" class="route-btn route-btn-b">Dinner</a> &rarr; <a href="#stop-b4" class="route-btn route-btn-b">Quiet Close</a> &rarr; Car</p>
       </div>
 
       <!-- Weather (top) -->
@@ -852,7 +856,7 @@
       </div>
 
       <!-- Stop 1: ART Produce -->
-      <div class="stop">
+      <div class="stop" id="stop-b1">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">1</div>
         <div class="stop-header">
           <h3 class="stop-title">Start at ART Produce Gallery</h3>
@@ -872,7 +876,7 @@
       </div>
 
       <!-- Stop 2: Verbatim Books -->
-      <div class="stop">
+      <div class="stop" id="stop-b2">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">2</div>
         <div class="stop-header">
           <h3 class="stop-title">Wander Verbatim Books</h3>
@@ -892,7 +896,7 @@
       </div>
 
       <!-- Stop 3: Encontro -->
-      <div class="stop">
+      <div class="stop" id="stop-b3">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">3</div>
         <div class="stop-header">
           <h3 class="stop-title">Dinner at Encontro</h3>
@@ -914,7 +918,7 @@
       </div>
 
       <!-- Stop 4: Quiet Close -->
-      <div class="stop">
+      <div class="stop" id="stop-b4">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">4</div>
         <div class="stop-header">
           <h3 class="stop-title">Slow Close Near North Park Mini Park</h3>
@@ -1017,6 +1021,7 @@
   </div>
 
   <script>
+    document.querySelectorAll('.route-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'})}})});
     // Floating hearts
     (function(){
       var c=document.getElementById('heartsBg');

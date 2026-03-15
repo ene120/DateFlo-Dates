@@ -250,6 +250,10 @@
       box-shadow:3px 3px 0px rgba(142,58,89,.15);
     }
     .route-tag p{font-size:clamp(.82rem,1.4vw,.88rem);color:var(--deep-rose);font-weight:500;margin:0}
+    .route-btn{display:inline-block;background:var(--cupid);color:#fff !important;padding:4px 14px;border-radius:50px;text-decoration:none;font-weight:700;font-size:clamp(.72rem,1.2vw,.82rem);box-shadow:2px 2px 0px var(--deep-rose);transition:all .2s ease;cursor:pointer}
+    .route-btn:hover{transform:translateY(-2px);box-shadow:3px 3px 0px var(--deep-rose)}
+    .route-btn-b{background:#5b86e5;box-shadow:2px 2px 0px #3a5ca0}
+    .route-btn-b:hover{box-shadow:3px 3px 0px #3a5ca0}
 
     /* ── Weather ── */
     .weather-note{
@@ -690,6 +694,8 @@
         <p>We picked a local Vietnamese spot with incredible food to kick things off, then the #1 ranked ice cream in the country because your date deserves the best. After that, a beach walk along OB that takes you right to the cliffs where you&rsquo;ll watch the sun sink into the Pacific together. It&rsquo;s all timed perfectly but never feels rushed. We thought of everything so you can just be present.</p>
       </div>
 
+      <div class="route-tag"><p>&#128663; Home &rarr; <a href="#stop-a1" class="route-btn">OB Noodle House</a> &rarr; <a href="#stop-a2" class="route-btn">An's Dry Cleaning</a> &rarr; <a href="#stop-a3" class="route-btn">OB Beach</a> &rarr; <a href="#stop-a4" class="route-btn">Sunset Cliffs</a> &rarr; Home</p></div>
+
       <!-- Weather (live via Open-Meteo) -->
       <div class="weather-note" data-lat="32.7175" data-lon="-117.2557" data-date="2026-03-30">
         <h4>&#9748;&#65039; Weather: March 30</h4>
@@ -697,7 +703,7 @@
       </div>
 
       <!-- Stop 1: OB Noodle House -->
-      <div class="stop">
+      <div class="stop" id="stop-a1">
         <div class="stop-number">1</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Rides</div><div class="tc-btns"><a href="https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=32.7477&dropoff[longitude]=-117.2494&dropoff[nickname]=OB+Noodle+House" target="_blank" class="tc-btn tc-uber">Uber</a><a href="https://lyft.com/ride?id=lyft&destination[latitude]=32.7477&destination[longitude]=-117.2494" target="_blank" class="tc-btn tc-lyft">Lyft</a></div></div>
@@ -787,7 +793,7 @@
       </div>
 
       <!-- Stop 2: An's Dry Cleaning -->
-      <div class="stop">
+      <div class="stop" id="stop-a2">
         <div class="stop-number">2</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Parking</div><div class="tc-park-stack"><div class="tc-park-label">Free Cape May St</div><div class="tc-park-row"><a href="https://www.google.com/maps/dir/?api=1&destination=32.7478,-117.2494" target="_blank" class="tc-btn tc-free tc-google"><img src="../assets/google-logo.png" alt="Google Maps" class="tc-logo"></a><a href="https://maps.apple.com/?daddr=32.7478,-117.2494&dirflg=d" target="_blank" class="tc-btn-apple"><img src="../assets/apple-logo-white.png" alt="Apple Maps" class="tc-logo"></a></div><div class="tc-park-label">Paid Bacon/SM Lot</div><div class="tc-park-row"><a href="https://www.google.com/maps/dir/?api=1&destination=32.7475,-117.2510" target="_blank" class="tc-btn tc-paid tc-google"><img src="../assets/google-logo.png" alt="Google Maps" class="tc-logo"></a><a href="https://maps.apple.com/?daddr=32.7475,-117.2510&dirflg=d" target="_blank" class="tc-btn-apple"><img src="../assets/apple-logo-white.png" alt="Apple Maps" class="tc-logo"></a></div></div></div>
@@ -862,7 +868,7 @@
       </div>
 
       <!-- Stop 3: OB Beach & Seawall -->
-      <div class="stop">
+      <div class="stop" id="stop-a3">
         <div class="stop-number">3</div>
         <div class="stop-header" style="padding-right:0">
           <h3 class="stop-title">Stroll Along OB Beach</h3>
@@ -889,7 +895,7 @@
       </div>
 
       <!-- Stop 4: Sunset Cliffs -->
-      <div class="stop">
+      <div class="stop" id="stop-a4">
         <div class="stop-number">4</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Parking</div><div class="tc-park-stack"><div class="tc-park-label">Free Ladera Dirt Lot</div><div class="tc-park-row"><a href="https://www.google.com/maps/dir/?api=1&destination=32.7190,-117.2563" target="_blank" class="tc-btn tc-free tc-google"><img src="../assets/google-logo.png" alt="Google Maps" class="tc-logo"></a><a href="https://maps.apple.com/?daddr=32.7190,-117.2563&dirflg=d" target="_blank" class="tc-btn-apple"><img src="../assets/apple-logo-white.png" alt="Apple Maps" class="tc-logo"></a></div><div class="tc-park-label">Free Sunset Cliffs Blvd</div><div class="tc-park-row"><a href="https://www.google.com/maps/dir/?api=1&destination=32.7196,-117.2555" target="_blank" class="tc-btn tc-free tc-google"><img src="../assets/google-logo.png" alt="Google Maps" class="tc-logo"></a><a href="https://maps.apple.com/?daddr=32.7196,-117.2555&dirflg=d" target="_blank" class="tc-btn-apple"><img src="../assets/apple-logo-white.png" alt="Apple Maps" class="tc-logo"></a></div></div></div>
@@ -1004,6 +1010,8 @@
         <p>We put together a cliffside walk with real ocean views and sea lions lounging below, followed by authentic Thai food on La Jolla&rsquo;s main strip and the best gelato in San Diego. You&rsquo;ll end the evening at the cove watching the sunset together. This one feels like a little escape. Everything is walkable once you park so you can just relax and enjoy each other&rsquo;s company.</p>
       </div>
 
+      <div class="route-tag" style="background:linear-gradient(135deg,rgba(91,134,229,0.1),rgba(91,134,229,0.05));border-color:rgba(196,208,245,0.2)"><p style="color:#8fa4d4">&#128663; Home &rarr; <a href="#stop-b1" class="route-btn route-btn-b">Coast Walk</a> &rarr; <a href="#stop-b2" class="route-btn route-btn-b">King of Thai</a> &rarr; <a href="#stop-b3" class="route-btn route-btn-b">Bobboi Gelato</a> &rarr; <a href="#stop-b4" class="route-btn route-btn-b">Scripps Park</a> &rarr; Home</p></div>
+
       <!-- Weather (live via Open-Meteo) -->
       <div class="weather-note" data-lat="32.8328" data-lon="-117.2713" data-date="2026-03-30">
         <h4>&#9748;&#65039; Weather: March 30</h4>
@@ -1011,7 +1019,7 @@
       </div>
 
       <!-- Stop 1: Coast Walk Trail + Seals -->
-      <div class="stop">
+      <div class="stop" id="stop-b1">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">1</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Rides</div><div class="tc-btns"><a href="https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=32.8491&dropoff[longitude]=-117.2715&dropoff[nickname]=Coast+Walk+Trail" target="_blank" class="tc-btn tc-uber">Uber</a><a href="https://lyft.com/ride?id=lyft&destination[latitude]=32.8491&destination[longitude]=-117.2715" target="_blank" class="tc-btn tc-lyft">Lyft</a></div></div>
@@ -1042,7 +1050,7 @@
       </div>
 
       <!-- Stop 2: King of Thai -->
-      <div class="stop">
+      <div class="stop" id="stop-b2">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">2</div>
         <div class="transport-corner">
           <div class="tc-group"><div class="tc-label">Parking</div><div class="tc-park-stack"><div class="tc-park-label">Free Coast Blvd S</div><div class="tc-park-row"><a href="https://www.google.com/maps/dir/?api=1&destination=32.8440,-117.2795" target="_blank" class="tc-btn tc-free tc-google"><img src="../assets/google-logo.png" alt="Google Maps" class="tc-logo"></a><a href="https://maps.apple.com/?daddr=32.8440,-117.2795&dirflg=d" target="_blank" class="tc-btn-apple"><img src="../assets/apple-logo-white.png" alt="Apple Maps" class="tc-logo"></a></div><div class="tc-park-label">Paid Coast Walk Garage</div><div class="tc-park-row"><a href="https://www.google.com/maps/dir/?api=1&destination=32.8503,-117.2727" target="_blank" class="tc-btn tc-paid tc-google"><img src="../assets/google-logo.png" alt="Google Maps" class="tc-logo"></a><a href="https://maps.apple.com/?daddr=32.8503,-117.2727&dirflg=d" target="_blank" class="tc-btn-apple"><img src="../assets/apple-logo-white.png" alt="Apple Maps" class="tc-logo"></a></div></div></div>
@@ -1119,7 +1127,7 @@
       </div>
 
       <!-- Stop 3: Bobboi Gelato -->
-      <div class="stop">
+      <div class="stop" id="stop-b3">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">3</div>
         <div class="stop-header" style="padding-right:0">
           <h3 class="stop-title">Gelato at Bobboi Natural Gelato</h3>
@@ -1190,7 +1198,7 @@
       </div>
 
       <!-- Stop 4: Scripps Park Sunset -->
-      <div class="stop">
+      <div class="stop" id="stop-b4">
         <div class="stop-number" style="background:linear-gradient(135deg,#5b86e5,#36d1dc)">4</div>
         <div class="stop-header" style="padding-right:0">
           <h3 class="stop-title">Sunset at Scripps Park</h3>
@@ -1293,6 +1301,8 @@
   </div>
 
   <script>
+    document.querySelectorAll('.route-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+
     // ── Lightbox ──
     function openLightbox(img){
       var lb=document.getElementById('lightbox');
