@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DateFlo — Personalized Date Plans, Crafted by Experts</title>
+  <title>DateFlo | Personalized Date Plans, Crafted by Experts</title>
   <meta name="description" content="DateFlo creates personalized, multi-stop date plans tailored to you and your partner. Every detail researched, every moment planned.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +54,7 @@
     .container{max-width:1100px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
     .section-pad{padding:clamp(80px,12vh,140px) 0}
     .section-label{
-      font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+      font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;
       color:var(--rose);font-weight:700;margin-bottom:12px;
     }
     .section-title{
@@ -139,7 +139,7 @@
     }
     .proof-grid{display:flex;justify-content:center;gap:clamp(28px,6vw,64px);flex-wrap:wrap;text-align:center}
     .proof-stat .num{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--rose)}
-    .proof-stat .label{font-size:.78rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+    .proof-stat .label{font-size:.85rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
 
     /* ═══════════ HOW IT WORKS ═══════════ */
     .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(20px,3vw,32px);margin-top:clamp(40px,6vh,60px)}
@@ -156,7 +156,7 @@
     .how-icon{font-size:2rem;margin-bottom:16px}
     .how-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;margin-bottom:10px}
     .how-card p{font-size:.9rem;color:var(--text-soft);line-height:1.7}
-    .how-time{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:.78rem;color:var(--gold);font-weight:600;letter-spacing:.04em}
+    .how-time{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:.85rem;color:var(--gold);font-weight:600;letter-spacing:.04em}
 
     /* ═══════════ WHAT'S INCLUDED ═══════════ */
     .includes-section{background:linear-gradient(180deg,var(--bg-dark),#22101a,var(--bg-dark))}
@@ -207,7 +207,31 @@
     .team-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,56px);margin-top:clamp(28px,4vh,44px);flex-wrap:wrap}
     .ts-item{text-align:center}
     .ts-item .ts-num{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--gold)}
-    .ts-item .ts-label{font-size:.75rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+    .ts-item .ts-label{font-size:.82rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+
+    /* ═══════════ TESTIMONIALS ═══════════ */
+    .testimonials-section{background:linear-gradient(180deg,var(--bg-dark),#1e0d15,var(--bg-dark))}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:clamp(32px,5vh,48px)}
+    .testimonial-card{
+      background:var(--glass);border:1px solid var(--glass-border);
+      border-radius:20px;padding:clamp(28px,4vw,40px);backdrop-filter:blur(12px);
+      transition:border-color .3s,transform .3s;
+    }
+    .testimonial-card:hover{border-color:rgba(224,87,128,.3);transform:translateY(-4px)}
+    .testimonial-stars{color:var(--gold);font-size:.9rem;letter-spacing:2px;margin-bottom:16px}
+    .testimonial-text{font-size:clamp(.9rem,1.4vw,1rem);color:var(--text-soft);line-height:1.8;font-style:italic;margin-bottom:24px}
+    .testimonial-author{display:flex;align-items:center;gap:14px}
+    .testimonial-photo{
+      width:50px;height:50px;border-radius:50%;object-fit:cover;
+      border:2px solid rgba(224,87,128,.3);flex-shrink:0;
+    }
+    .testimonial-photo.placeholder{
+      background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.2rem;font-weight:700;color:white;
+    }
+    .testimonial-name{font-size:.9rem;font-weight:600;color:var(--text)}
+    .testimonial-detail{font-size:.82rem;color:var(--text-muted);margin-top:2px}
 
     /* ═══════════ PRICING PLACEHOLDER ═══════════ */
     .pricing-section{background:linear-gradient(180deg,#1e0d15,var(--bg-dark))}
@@ -233,7 +257,7 @@
     .del-card p{font-size:.88rem;color:var(--text-soft);line-height:1.7}
     .del-card .del-tag{
       display:inline-block;margin-top:14px;padding:6px 16px;border-radius:50px;
-      font-size:.75rem;font-weight:600;letter-spacing:.06em;
+      font-size:.82rem;font-weight:600;letter-spacing:.06em;
     }
     .del-tag.standard{background:rgba(224,87,128,.12);color:var(--rose)}
     .del-tag.rush{background:rgba(249,202,36,.12);color:var(--gold)}
@@ -269,7 +293,7 @@
       border-top:1px solid var(--glass-border);text-align:center;
     }
     .footer-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--rose);margin-bottom:8px}
-    footer p{font-size:.78rem;color:var(--text-muted)}
+    footer p{font-size:.85rem;color:var(--text-muted)}
     footer a{color:var(--text-muted);text-decoration:none}
     footer a:hover{color:var(--rose)}
 
@@ -278,6 +302,7 @@
       .nav-links a:not(.nav-cta){display:none}
       .research-grid{grid-template-columns:1fr}
       .delivery-grid{grid-template-columns:1fr}
+      .testimonials-grid{grid-template-columns:1fr}
       .hero-trust{flex-direction:column;align-items:center;gap:16px}
     }
 
@@ -327,7 +352,7 @@
     .choice.selected{border-color:var(--rose);background:rgba(224,87,128,.1);box-shadow:0 0 0 3px rgba(224,87,128,.15)}
     .choice-icon{font-size:1.8rem;margin-bottom:8px}
     .choice-label{font-size:.88rem;font-weight:600;margin-bottom:4px}
-    .choice-desc{font-size:.75rem;color:var(--text-muted);line-height:1.5}
+    .choice-desc{font-size:.82rem;color:var(--text-muted);line-height:1.5}
 
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     @media(max-width:480px){.form-row{grid-template-columns:1fr}}
@@ -348,7 +373,7 @@
     .btn-next:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(224,87,128,.3)}
     .btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 
-    .form-hint{font-size:.78rem;color:var(--text-muted);font-style:italic;margin-top:8px}
+    .form-hint{font-size:.85rem;color:var(--text-muted);font-style:italic;margin-top:8px}
     .partner-tab{
       display:flex;gap:8px;margin-bottom:20px;
     }
@@ -391,7 +416,7 @@
     <div class="hero-inner">
       <div class="hero-badge"><span class="dot"></span> Now taking date plans across the United States</div>
       <h1>We plan the date.<br>You make the <em>memories.</em></h1>
-      <p class="hero-desc">Every restaurant researched. Every detail covered. Every moment crafted around you and your partner — so all you have to do is show up.</p>
+      <p class="hero-desc">Every restaurant researched. Every detail covered. Every moment crafted around you and your partner, so all you have to do is show up.</p>
       <div class="hero-btns">
         <a class="btn-primary" onclick="openForm()">Plan Your Date &rarr;</a>
         <a class="btn-ghost" href="#how">See How It Works</a>
@@ -484,7 +509,7 @@
             <li><span class="rv-check">&#10003;</span> Menu items confirmed available and priced</li>
             <li><span class="rv-check">&#10003;</span> Allergy and dietary restrictions cross-checked</li>
             <li><span class="rv-check">&#10003;</span> Drive times calculated for your time window</li>
-            <li><span class="rv-check">&#10003;</span> Parking scouted — free lots, paid garages, street spots</li>
+            <li><span class="rv-check">&#10003;</span> Parking scouted: free lots, paid garages, street spots</li>
             <li><span class="rv-check">&#10003;</span> Nearby events checked for conflicts or crowds</li>
             <li><span class="rv-check">&#10003;</span> Reviews analyzed across Google, Yelp, and more</li>
             <li><span class="rv-check">&#10003;</span> Weather forecasted for your exact date and time</li>
@@ -494,8 +519,8 @@
         <div class="research-text reveal">
           <div class="section-label">The Research Behind Every Plan</div>
           <div class="big-quote">"We don't just pick a restaurant and call it a date. We build an <span>experience</span> around who you are as a couple."</div>
-          <p class="section-sub">Every plan goes through a multi-step research process. We verify hours, scout parking, read through menus, check reviews, calculate drive times, and factor in everything from the weather to nearby events — so nothing is left to chance.</p>
-          <p class="section-sub" style="margin-top:16px">The result? A date plan that feels like it was designed by someone who knows you — because it was.</p>
+          <p class="section-sub">Every plan goes through a multi-step research process. We verify hours, scout parking, read through menus, check reviews, calculate drive times, and factor in everything from the weather to nearby events so nothing is left to chance.</p>
+          <p class="section-sub" style="margin-top:16px">The result? A date plan that feels like it was designed by someone who knows you. Because it was.</p>
         </div>
       </div>
     </div>
@@ -509,8 +534,8 @@
         <div class="section-title">A dedicated team behind every date.</div>
       </div>
       <div class="team-content reveal">
-        <p>When you submit your date plan request, it doesn't go into a queue — it goes to a real team of planners who specialize in crafting memorable date experiences in your city.</p>
-        <p>We cross-reference multiple data sources, verify every detail in real time, and tailor every recommendation to you and your partner individually — not just as a couple, but as two people with different tastes, different comfort zones, and different ideas of what makes a night special.</p>
+        <p>When you submit your date plan request, it doesn't go into a queue. It goes to a real team of planners who specialize in crafting memorable date experiences in your city.</p>
+        <p>We cross-reference multiple data sources, verify every detail in real time, and tailor every recommendation to you and your partner individually. Not just as a couple, but as two people with different tastes, different comfort zones, and different ideas of what makes a night special.</p>
         <p>This isn't a template. It's not a list of "top 10 restaurants." It's a fully personalized, research-backed plan that you can trust from the first stop to the last.</p>
         <div class="team-stats">
           <div class="ts-item"><div class="ts-num">6+</div><div class="ts-label">Sources researched</div></div>
@@ -518,6 +543,56 @@
           <div class="ts-item"><div class="ts-num">2</div><div class="ts-label">Plan options included</div></div>
           <div class="ts-item"><div class="ts-num">24h</div><div class="ts-label">Or less delivery</div></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ TESTIMONIALS ═══════════ -->
+  <section class="testimonials-section section-pad" id="testimonials">
+    <div class="container">
+      <div class="reveal" style="text-align:center">
+        <div class="section-label">Testimonials</div>
+        <div class="section-title">Real couples. Real dates. Real reactions.</div>
+        <p class="section-sub" style="margin:0 auto">Don't just take our word for it. Here's what our customers have to say after experiencing a DateFlo plan.</p>
+      </div>
+      <div class="testimonials-grid reveal">
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Your testimonial will go here. Share your experience with DateFlo and how it made your date unforgettable."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-photo placeholder">?</div>
+            <div>
+              <div class="testimonial-name">Customer Name</div>
+              <div class="testimonial-detail">Occasion &middot; City</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Your testimonial will go here. Share your experience with DateFlo and how it made your date unforgettable."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-photo placeholder">?</div>
+            <div>
+              <div class="testimonial-name">Customer Name</div>
+              <div class="testimonial-detail">Occasion &middot; City</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Your testimonial will go here. Share your experience with DateFlo and how it made your date unforgettable."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-photo placeholder">?</div>
+            <div>
+              <div class="testimonial-name">Customer Name</div>
+              <div class="testimonial-detail">Occasion &middot; City</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -557,8 +632,9 @@
       </div>
       <div class="pricing-placeholder reveal">
         <div class="pp-icon">💎</div>
-        <h3>Pricing Coming Soon</h3>
-        <p>We're finalizing our tier options to make sure every couple gets the best value. Check back soon — or plan your date now and we'll reach out with details.</p>
+        <h3>Simple, Per-Date Pricing</h3>
+        <p>Plans start at $15. No subscriptions. No hidden fees. Just pick a tier and we handle the rest.</p>
+        <a class="btn-primary" href="/join/pricing.html" style="margin-top:24px;display:inline-flex">View Pricing &rarr;</a>
       </div>
     </div>
   </section>
@@ -573,7 +649,7 @@
       <div class="faq-list reveal">
         <div class="faq-item">
           <button class="faq-q">What exactly do I get?<span class="faq-arrow">&#9660;</span></button>
-          <div class="faq-a"><p>You receive a personalized, interactive date plan page with a multi-stop itinerary, food recommendations for each partner, directions, parking, weather, reviews, a countdown timer, and more — all accessible from your phone.</p></div>
+          <div class="faq-a"><p>You receive a personalized, interactive date plan page with a multi-stop itinerary, food recommendations for each partner, directions, parking, weather, reviews, a countdown timer, and more. All accessible from your phone.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">How long does it take to get my plan?<span class="faq-arrow">&#9660;</span></button>
@@ -581,7 +657,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-q">Is this a subscription?<span class="faq-arrow">&#9660;</span></button>
-          <div class="faq-a"><p>No. DateFlo is pay-per-date. You only pay when you want a plan — no recurring charges, no commitments.</p></div>
+          <div class="faq-a"><p>No. DateFlo is pay-per-date. You only pay when you want a plan. No recurring charges, no commitments.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">What cities do you cover?<span class="faq-arrow">&#9660;</span></button>
@@ -650,7 +726,7 @@
         </div>
         <div class="form-group">
           <label>Phone Number</label>
-          <input type="tel" class="form-input" id="phone" placeholder="Optional — for quick questions">
+          <input type="tel" class="form-input" id="phone" placeholder="Optional, for quick questions">
           <div class="form-hint">We'll only text if we need to clarify something about your plan.</div>
         </div>
         <div class="form-nav">
@@ -663,14 +739,14 @@
       <div class="form-page" id="fp2">
         <div class="fp-icon">💫</div>
         <div class="fp-title">Where are you two at?</div>
-        <p class="fp-sub">This helps us set the right vibe — a first date plan looks very different from a 5-year anniversary.</p>
+        <p class="fp-sub">This helps us set the right vibe. A first date plan looks very different from a 5-year anniversary.</p>
         <div class="form-group">
           <label>Relationship Stage <span class="req">*</span></label>
           <div class="choices" id="stageChoices">
             <div class="choice" data-val="new" onclick="selectChoice(this,'stageChoices')">
               <div class="choice-icon">🌱</div>
               <div class="choice-label">Just Starting Out</div>
-              <div class="choice-desc">First few dates — still getting to know each other</div>
+              <div class="choice-desc">First few dates, still getting to know each other</div>
             </div>
             <div class="choice" data-val="growing" onclick="selectChoice(this,'stageChoices')">
               <div class="choice-icon">🌸</div>
@@ -687,7 +763,7 @@
         <div class="form-group">
           <label>What's the Occasion?</label>
           <select class="form-input" id="occasion">
-            <option value="">Just because — no special reason needed</option>
+            <option value="">Just because, no special reason needed</option>
             <option value="anniversary">Anniversary</option>
             <option value="birthday">Birthday</option>
             <option value="first-date">First Date</option>
@@ -708,7 +784,7 @@
       <div class="form-page" id="fp3">
         <div class="fp-icon">📅</div>
         <div class="fp-title">When's the big date?</div>
-        <p class="fp-sub">We'll research everything specific to your day — weather, hours, events, the whole picture.</p>
+        <p class="fp-sub">We'll research everything specific to your day: weather, hours, events, the whole picture.</p>
         <div class="form-row">
           <div class="form-group">
             <label>Date <span class="req">*</span></label>
@@ -738,7 +814,7 @@
         <div class="form-group">
           <label>City / Area <span class="req">*</span></label>
           <input type="text" class="form-input" id="city" placeholder="e.g. San Diego, Los Angeles, New York..." required>
-          <div class="form-hint">We plan dates anywhere in the US — just tell us where.</div>
+          <div class="form-hint">We plan dates anywhere in the US. Just tell us where.</div>
         </div>
         <div class="form-nav">
           <button class="btn-back" onclick="prevPage(3)">&larr; Back</button>
@@ -750,16 +826,16 @@
       <div class="form-page" id="fp4">
         <div class="fp-icon">💰</div>
         <div class="fp-title">Budget & energy level.</div>
-        <p class="fp-sub">No judgment — we'll make any budget feel special. And some dates are about adventure, others about relaxing. You pick.</p>
+        <p class="fp-sub">No judgment. We'll make any budget feel special. And some dates are about adventure, others about relaxing. You pick.</p>
         <div class="form-group">
           <label>Total Budget for the Date <span class="req">*</span></label>
           <select class="form-input" id="budget" required>
             <option value="">Select your range</option>
-            <option value="under-50">Under $50 — Keep it simple</option>
-            <option value="50-100">$50 - $100 — Sweet spot</option>
-            <option value="100-150">$100 - $150 — Treat yourselves</option>
-            <option value="150-200">$150 - $200 — Go all out</option>
-            <option value="200+">$200+ — No limits</option>
+            <option value="under-50">Under $50 (Keep it simple)</option>
+            <option value="50-100">$50 to $100 (Sweet spot)</option>
+            <option value="100-150">$100 to $150 (Treat yourselves)</option>
+            <option value="150-200">$150 to $200 (Go all out)</option>
+            <option value="200+">$200+ (No limits)</option>
           </select>
           <div class="form-hint">This covers food, drinks, and any activities. Not including parking or rideshare.</div>
         </div>
@@ -810,7 +886,7 @@
       <div class="form-page" id="fp5">
         <div class="fp-icon">🍽️</div>
         <div class="fp-title">Let's talk food.</div>
-        <p class="fp-sub">We pick specific dishes for each of you — so the more we know, the better your recommendations.</p>
+        <p class="fp-sub">We pick specific dishes for each of you, so the more we know, the better your recommendations.</p>
         <div class="partner-tab">
           <div class="ptab active" onclick="switchPartner(0)"><span id="pt1Label">Partner 1</span></div>
           <div class="ptab" onclick="switchPartner(1)"><span id="pt2Label">Partner 2</span></div>
@@ -890,7 +966,7 @@
         <div class="form-group">
           <label>Love languages (if you know them)</label>
           <input type="text" class="form-input" id="loveLangs" placeholder="e.g. Quality Time, Physical Touch, Words of Affirmation...">
-          <div class="form-hint">Not sure? No worries — skip this one.</div>
+          <div class="form-hint">Not sure? No worries, skip this one.</div>
         </div>
         <div class="form-group">
           <label>Any specific restaurants or spots you want included?</label>
@@ -902,7 +978,7 @@
             <div class="choice" data-val="surprise" onclick="selectChoice(this,'surpriseChoices')">
               <div class="choice-icon">🎁</div>
               <div class="choice-label">Full Surprise</div>
-              <div class="choice-desc">Don't tell us anything — just wow us</div>
+              <div class="choice-desc">Don't tell us anything, just wow us</div>
             </div>
             <div class="choice" data-val="some-input" onclick="selectChoice(this,'surpriseChoices')">
               <div class="choice-icon">💬</div>
@@ -922,7 +998,7 @@
         </div>
         <div class="form-group">
           <label>Anything else we should know?</label>
-          <textarea class="form-input" id="extraNotes" placeholder="Surprise plans, inside jokes, things your partner loves — anything that helps us make it special."></textarea>
+          <textarea class="form-input" id="extraNotes" placeholder="Surprise plans, inside jokes, things your partner loves. Anything that helps us make it special."></textarea>
         </div>
         <div class="form-nav">
           <button class="btn-back" onclick="prevPage(7)">&larr; Back</button>
@@ -936,7 +1012,7 @@
           <div class="success-icon">💘</div>
           <h2>You're all set!</h2>
           <p>Our team is already on it. You'll receive your personalized date plan at <strong id="confirmEmail"></strong> within 24 hours.</p>
-          <p style="margin-top:20px;color:var(--text-muted);font-size:.9rem">Keep an eye on your inbox — something special is coming.</p>
+          <p style="margin-top:20px;color:var(--text-muted);font-size:.9rem">Keep an eye on your inbox. Something special is coming.</p>
           <button class="btn-primary" style="margin-top:32px" onclick="closeForm()">Back to Home</button>
         </div>
       </div>

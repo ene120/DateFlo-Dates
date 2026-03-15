@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DateFlo | Pricing</title>
+  <style>
+    /* ── SF Pro Font Faces ── */
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('/fonts/SF-Pro-Display-Light.otf') format('opentype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('/fonts/SF-Pro-Display-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('/fonts/SF-Pro-Display-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('/fonts/SF-Pro-Display-Semibold.otf') format('opentype');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('/fonts/SF-Pro-Display-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('/fonts/SF-Pro-Display-Heavy.otf') format('opentype');
+      font-weight: 800;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('/fonts/SF-Pro-Text-Light.otf') format('opentype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('/fonts/SF-Pro-Text-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('/fonts/SF-Pro-Text-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #1a0a10 0%, #2d1320 30%, #1a0a10 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── Floating Hearts ── */
+    .floating-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .floating-hearts span {
+      position: absolute;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: floatUp 12s ease-in infinite;
+    }
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+      10%  { opacity: 0.3; }
+      90%  { opacity: 0.1; }
+      100% { opacity: 0; transform: translateY(-10vh) rotate(360deg); }
+    }
+
+    /* ── Header ── */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 4rem 2rem 1rem;
+    }
+    .page-header .logo {
+      width: 80px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 30px rgba(200, 80, 120, 0.3));
+    }
+    .page-header h1 {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #e8a0b8, #f0c0d0, #e8a0b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Pricing Cards Container ── */
+    .pricing-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* ── Individual Card ── */
+    .pricing-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(232, 160, 184, 0.15);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(232, 160, 184, 0.35);
+      box-shadow: 0 20px 60px rgba(200, 80, 120, 0.15);
+    }
+
+    /* ── Popular Badge ── */
+    .pricing-card.popular {
+      border-color: rgba(232, 160, 184, 0.4);
+      background: rgba(232, 160, 184, 0.06);
+      box-shadow: 0 0 40px rgba(200, 80, 120, 0.1);
+    }
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #c85078, #e8a0b8);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 20px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    /* ── Tier Name ── */
+    .tier-name {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e8a0b8, #f0c0d0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3rem;
+    }
+
+    .tier-tagline {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Price ── */
+    .price {
+      margin-bottom: 1.8rem;
+    }
+    .price .dollar {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #e8a0b8;
+      vertical-align: super;
+    }
+    .price .amount {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .price .per {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232, 160, 184, 0.4), transparent);
+      margin: 0 auto 1.5rem;
+    }
+
+    /* ── Feature List ── */
+    .features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .features li {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      padding: 0.5rem 0;
+      padding-left: 1.6rem;
+      position: relative;
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .features li:last-child {
+      border-bottom: none;
+    }
+    .features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(232, 160, 184, 0.5);
+    }
+    .pricing-card.popular .features li::before {
+      background: #e8a0b8;
+    }
+
+    .feature-highlight {
+      color: #e8a0b8 !important;
+      font-weight: 500 !important;
+    }
+
+    /* ── Not Included ── */
+    .not-included {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .not-included li {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.3);
+      padding: 0.35rem 0;
+      padding-left: 1.6rem;
+      position: relative;
+      line-height: 1.4;
+    }
+    .not-included li::before {
+      content: '×';
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── CTA Button ── */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 14px 0;
+      border: none;
+      border-radius: 50px;
+      font-family: 'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+    .cta-btn.outline {
+      background: transparent;
+      border: 1.5px solid rgba(232, 160, 184, 0.4);
+      color: #e8a0b8;
+    }
+    .cta-btn.outline:hover {
+      background: rgba(232, 160, 184, 0.1);
+      border-color: #e8a0b8;
+    }
+    .cta-btn.filled {
+      background: linear-gradient(135deg, #c85078, #e8a0b8);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 20px rgba(200, 80, 120, 0.3);
+    }
+    .cta-btn.filled:hover {
+      box-shadow: 0 6px 30px rgba(200, 80, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ── Add-Ons Section ── */
+    .addons-section {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 1rem auto 0;
+      padding: 2rem 1.5rem 4rem;
+    }
+    .addons-title {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 600;
+      text-align: center;
+      background: linear-gradient(135deg, #e8a0b8, #f0c0d0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .addons-subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 2rem;
+    }
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .addon-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(232, 160, 184, 0.12);
+      border-radius: 18px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .addon-card:hover {
+      border-color: rgba(232, 160, 184, 0.3);
+      transform: translateY(-3px);
+    }
+    .addon-card .addon-price {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #e8a0b8;
+      margin-bottom: 0.3rem;
+    }
+    .addon-card .addon-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0.4rem;
+    }
+    .addon-card .addon-desc {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+
+    /* ── Rush Delivery Highlight ── */
+    .rush-section {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+    .rush-card {
+      background: linear-gradient(135deg, rgba(200, 80, 120, 0.08), rgba(232, 160, 184, 0.04));
+      border: 1px solid rgba(232, 160, 184, 0.25);
+      border-radius: 24px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .rush-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+    }
+    .rush-card h3 {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #e8a0b8;
+      margin-bottom: 0.5rem;
+    }
+    .rush-card .rush-price-tag {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .rush-card .rush-price-tag span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+    }
+    .rush-card p {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .rush-card .rush-quote {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: rgba(232, 160, 184, 0.7);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 850px) {
+      .pricing-section {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        gap: 2rem;
+      }
+      .pricing-card.popular {
+        order: -1;
+      }
+      .addons-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .page-header {
+        padding: 3rem 1.5rem 0.5rem;
+      }
+      .pricing-section {
+        padding: 2rem 1rem;
+      }
+      .pricing-card {
+        padding: 2rem 1.5rem;
+      }
+      .addons-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts -->
+  <div class="floating-hearts" id="hearts"></div>
+
+  <!-- Header -->
+  <header class="page-header">
+    <img src="/dateflo-logo-light.svg" alt="DateFlo" class="logo">
+    <h1>Choose Your Date Plan</h1>
+    <p>One perfect date, planned by us. No subscriptions. Just pick a tier, and we'll handle the rest.</p>
+  </header>
+
+  <!-- Pricing Cards -->
+  <section class="pricing-section">
+
+    <!-- SPARK -->
+    <div class="pricing-card">
+      <h2 class="tier-name">Spark</h2>
+      <p class="tier-tagline">A great place to start</p>
+      <div class="price">
+        <span class="dollar">$</span><span class="amount">15</span>
+        <span class="per">/ date</span>
+      </div>
+      <div class="divider"></div>
+      <ul class="features">
+        <li>1 personalized date plan</li>
+        <li>3 curated stops</li>
+        <li>Cuisine & dietary preferences</li>
+        <li>2 food picks per partner</li>
+        <li>Google Maps directions</li>
+        <li>Addresses, hours & phone numbers</li>
+        <li>Weather summary</li>
+        <li>Budget estimate</li>
+        <li>Delivered within 24 hours</li>
+      </ul>
+      <ul class="not-included">
+        <li>No alternate plan options</li>
+        <li>No love language integration</li>
+        <li>No Uber/Lyft or parking research</li>
+        <li>No reservation links</li>
+      </ul>
+      <a href="signup.html" class="cta-btn outline">Get Started</a>
+    </div>
+
+    <!-- BLOOM (Popular) -->
+    <div class="pricing-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <h2 class="tier-name">Bloom</h2>
+      <p class="tier-tagline">The full DateFlo experience</p>
+      <div class="price">
+        <span class="dollar">$</span><span class="amount">29</span>
+        <span class="per">/ date</span>
+      </div>
+      <div class="divider"></div>
+      <ul class="features">
+        <li class="feature-highlight">2 date plan options (Plan A & B)</li>
+        <li>3-4 curated stops per plan</li>
+        <li class="feature-highlight">Love language integration</li>
+        <li>3 food picks per partner + 2 shared desserts</li>
+        <li>Google Maps & Apple Maps</li>
+        <li>Uber/Lyft deep links</li>
+        <li>Parking research with lot details</li>
+        <li>Happy hour deals breakdown</li>
+        <li>Google & Yelp review ratings</li>
+        <li>OpenTable reservation links</li>
+        <li>1 backup venue per plan</li>
+        <li>Countdown timer</li>
+        <li>Add-to-calendar (Google & Apple)</li>
+        <li>Pre-date checklist</li>
+        <li>Feedback forms</li>
+        <li>Transit times between stops</li>
+        <li>Weather narrative & outfit tips</li>
+        <li>Event & conflict alerts</li>
+        <li>Budget breakdown by stop</li>
+        <li>Premium interactive design</li>
+      </ul>
+      <a href="signup.html" class="cta-btn filled">Choose Bloom</a>
+    </div>
+
+    <!-- FOREVER -->
+    <div class="pricing-card">
+      <h2 class="tier-name">Forever</h2>
+      <p class="tier-tagline">For the dates that matter most</p>
+      <div class="price">
+        <span class="dollar">$</span><span class="amount">49</span>
+        <span class="per">/ date</span>
+      </div>
+      <div class="divider"></div>
+      <ul class="features">
+        <li class="feature-highlight">Everything in Bloom, plus:</li>
+        <li class="feature-highlight">3 date plan options (A, B & C)</li>
+        <li>4 guaranteed stops per plan</li>
+        <li>10-minute personal consultation</li>
+        <li>Backup venues for every stop</li>
+        <li>Personalized route map graphic</li>
+        <li>Custom color-themed design</li>
+        <li>Occasion-specific touches</li>
+        <li class="feature-highlight">Post-date "Next Date" card</li>
+        <li class="feature-highlight">Digital keepsake, hosted forever</li>
+      </ul>
+      <a href="signup.html" class="cta-btn outline">Choose Forever</a>
+    </div>
+  </section>
+
+  <!-- Rush Delivery -->
+  <section class="rush-section">
+    <div class="rush-card">
+      <div class="rush-icon">⚡</div>
+      <h3>Rush Delivery</h3>
+      <div class="rush-price-tag">+$7 <span>any tier</span></div>
+      <p>Need your plan tonight? Skip the line and move to the front of the queue. We'll have your personalized date plan ready in 4-6 hours instead of 24.</p>
+      <p class="rush-quote">"Planning a date tonight? Add Rush Delivery and we'll have your plan ready before you leave work."</p>
+    </div>
+  </section>
+
+  <!-- Add-Ons -->
+  <section class="addons-section">
+    <h2 class="addons-title">Customize Your Experience</h2>
+    <p class="addons-subtitle">Available with any tier at checkout</p>
+
+    <div class="addons-grid">
+      <div class="addon-card">
+        <div class="addon-price">+$10</div>
+        <div class="addon-name">Extra Variation</div>
+        <div class="addon-desc">Add another full plan option for the same date. Can't decide? Give yourselves choices.</div>
+      </div>
+
+      <div class="addon-card">
+        <div class="addon-price">+$15</div>
+        <div class="addon-name">Surprise Coordination</div>
+        <div class="addon-desc">We'll arrange a surprise at one of your stops: flowers, a dessert message, a note with the host.</div>
+      </div>
+
+      <div class="addon-card">
+        <div class="addon-price">+$7</div>
+        <div class="addon-name">Backup Venues</div>
+        <div class="addon-desc">Get a backup suggestion for every stop. Plan B for your Plan A. Included free in Forever.</div>
+      </div>
+
+      <div class="addon-card">
+        <div class="addon-price">+$5</div>
+        <div class="addon-name">Next Date Card</div>
+        <div class="addon-desc">After your date, we'll recommend what to do next based on your feedback. Included in Forever.</div>
+      </div>
+
+      <div class="addon-card">
+        <div class="addon-price">+$7</div>
+        <div class="addon-name">Re-Theme / Refresh</div>
+        <div class="addon-desc">Reuse a past plan on a different day with updated weather, hours, and availability.</div>
+      </div>
+
+      <div class="addon-card">
+        <div class="addon-price">+$7</div>
+        <div class="addon-name">Rush Delivery</div>
+        <div class="addon-desc">Skip the line. Get your plan in 4-6 hours instead of 24. Limited slots daily.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating hearts script -->
+  <script>
+    const heartsContainer = document.getElementById('hearts');
+    const heartChars = ['\u2665', '\u2661', '\u2764'];
+    for (let i = 0; i < 15; i++) {
+      const span = document.createElement('span');
+      span.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+      span.style.left = Math.random() * 100 + '%';
+      span.style.animationDelay = Math.random() * 12 + 's';
+      span.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
+      heartsContainer.appendChild(span);
+    }
+  </script>
+
+</body>
+</html>

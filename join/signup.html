@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DateFlo Sign Up</title>
+  <title>DateFlo | Get Your Date Planned</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -282,8 +282,8 @@
 
   <div class="container">
     <img src="/dateflo-logo-light.svg" alt="DateFlo" class="logo">
-    <h1>Early Access</h1>
-    <p class="subtitle">Be the first to experience DateFlo</p>
+    <h1>Get Your Date Planned</h1>
+    <p class="subtitle">Tell us a little about you and we'll be in touch</p>
 
     <form id="signupForm">
       <div class="field">
@@ -297,65 +297,51 @@
       </div>
 
       <div class="field">
-        <label>Year</label>
-        <select id="year" required>
-          <option value="" disabled selected>Select your year</option>
-          <option value="Freshman">Freshman</option>
-          <option value="Sophomore">Sophomore</option>
-          <option value="Junior">Junior</option>
-          <option value="Senior">Senior</option>
-          <option value="Graduate">Graduate</option>
+        <label>How did you hear about us?</label>
+        <select id="source" required>
+          <option value="" disabled selected>Select one</option>
+          <option value="Instagram">Instagram</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Google">Google Search</option>
+          <option value="Reddit">Reddit</option>
+          <option value="Friend">A friend told me</option>
           <option value="Other">Other</option>
         </select>
       </div>
 
       <div class="field">
-        <label>Status</label>
-        <select id="status" required>
-          <option value="" disabled selected>Single or taken?</option>
-          <option value="Single">Single</option>
-          <option value="Taken">Taken</option>
+        <label>What's the occasion?</label>
+        <select id="occasion" required>
+          <option value="" disabled selected>What are you planning for?</option>
+          <option value="Date Night">Regular Date Night</option>
+          <option value="Anniversary">Anniversary</option>
+          <option value="Birthday">Birthday</option>
+          <option value="Just Because">Just Because</option>
+          <option value="Proposal">Proposal</option>
+          <option value="First Date">First Date</option>
+          <option value="Reconnecting">Reconnecting</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 
-      <button type="submit" class="btn" id="submitBtn">Join the Waitlist</button>
+      <button type="submit" class="btn" id="submitBtn">Get Started</button>
       <p class="error-msg" id="errorMsg"></p>
     </form>
 
     <div class="success" id="successMsg">
       <div class="success-icon">&#10084;&#65039;</div>
-      <h2>You're on the Waitlist!</h2>
-      <p>We'll reach out soon when DateFlo is ready for you.</p>
+      <h2>You're In!</h2>
+      <p>We'll reach out shortly to get the details for your perfect date plan.</p>
 
       <div class="event-divider"></div>
 
-      <p class="event-heading">DateFlo's First Event</p>
+      <p class="event-heading">What happens next?</p>
       <p class="event-desc">
-        We're kicking things off with the SDSU Blind Date Show &amp; Mixer. Watch our pre-selected contestants go on a blind date live on stage, then stay for the mixer. Whether you're single or taken, this one's for you.
+        We'll send you a quick questionnaire about you and your partner's preferences: food, vibes, budget, and logistics. Then our team gets to work crafting your personalized, multi-stop date plan.
       </p>
-
-      <img src="event-flyer.png" alt="SDSU Blind Date Show and Mixer hosted by DateFlo" class="event-flyer">
-      <a href="event-flyer.png" download="DateFlo-Blind-Date-Show.png" class="download-flyer">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Save Flyer
-      </a>
-
-      <p class="event-desc" style="margin-bottom: 0.5rem;">
-        <strong style="color: rgba(255,255,255,0.85);">Saturday, March 21</strong><br>
-        Doors 5:30 PM &bull; Show 6:15 PM<br>
-        Right across from P4 at SDSU
+      <p class="event-desc">
+        <strong style="color: rgba(255,255,255,0.85);">Your plan will be delivered within 24 hours.</strong>
       </p>
-
-      <div class="cal-buttons">
-        <a class="cal-btn apple" id="appleCal" href="#" download="dateflo-blind-date.ics">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          Apple Calendar
-        </a>
-        <a class="cal-btn google" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=SDSU+Blind+Date+Show+%26+Mixer+%7C+DateFlo&dates=20260321T173000/20260321T213000&details=SDSU+Blind+Date+Show+%26+Mixer+hosted+by+DateFlo%0A%0A%F0%9F%93%8D+5360+West+Falls+View+Dr%2C+San+Diego%2C+CA%0A%F0%9F%95%90+Doors+open+at+5%3A30+PM+%7C+Show+starts+at+6%3A15+PM%0A%F0%9F%92%B0+%246+entry+%28cash+or+Venmo%29%0A%F0%9F%91%94+Dress+Code%3A+Date+Night+Chic%0A%0AWatch+live+blind+dates+happen+on+stage%2C+then+stay+for+the+mixer.+Bring+your+date+or+find+one.+Singles+and+couples+welcome.%0A%0AMocktail+drinks+included.+Hosted+by+SDSU+students%2C+for+SDSU+students.%0A%0AHosted+by+DateFlo&location=5360+West+Falls+View+Dr%2C+San+Diego%2C+CA" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M18 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2z" stroke="currentColor" stroke-width="1.8"/><path d="M16 2v4M8 2v4M4 10h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          Google Calendar
-        </a>
-      </div>
     </div>
   </div>
 
@@ -373,10 +359,10 @@
 
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      const year = document.getElementById('year').value;
-      const status = document.getElementById('status').value;
+      const source = document.getElementById('source').value;
+      const occasion = document.getElementById('occasion').value;
 
-      if (!name || !phone || !year || !status) {
+      if (!name || !phone || !source || !occasion) {
         errorMsg.textContent = 'Please fill in all fields.';
         errorMsg.style.display = 'block';
         return;
@@ -387,11 +373,11 @@
 
       try {
         const payload = {
-          type: 'early-signup',
+          type: 'date-request',
           name: name,
           phone: phone,
-          year: year,
-          status: status,
+          source: source,
+          occasion: occasion,
           timestamp: new Date().toISOString()
         };
 
@@ -409,42 +395,9 @@
         errorMsg.textContent = 'Something went wrong. Please try again.';
         errorMsg.style.display = 'block';
         btn.disabled = false;
-        btn.textContent = 'Join the Waitlist';
+        btn.textContent = 'Get Started';
       }
     });
-
-    // Apple Calendar ICS
-    const icsLines = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
-      'PRODID:-//DateFlo//Event//EN',
-      'BEGIN:VEVENT',
-      'UID:dateflo-blinddate-20260321@dateflo.com',
-      'DTSTART;TZID=America/Los_Angeles:20260321T173000',
-      'DTEND;TZID=America/Los_Angeles:20260321T213000',
-      'SUMMARY:SDSU Blind Date Show & Mixer | DateFlo',
-      'DESCRIPTION:SDSU Blind Date Show & Mixer hosted by DateFlo\\n\\n' +
-        '5360 West Falls View Dr\\, San Diego\\, CA\\n' +
-        'Doors open at 5:30 PM | Show starts at 6:15 PM\\n' +
-        '$6 entry (cash or Venmo)\\n' +
-        'Dress Code: Date Night Chic\\n\\n' +
-        'Watch live blind dates happen on stage\\, then stay for the mixer. ' +
-        'Bring your date or find one. Singles and couples welcome.\\n\\n' +
-        'Mocktail drinks included.\\n\\nHosted by DateFlo',
-      'LOCATION:5360 West Falls View Dr\\, San Diego\\, CA',
-      'STATUS:CONFIRMED',
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ];
-    const icsContent = icsLines.join('\r\n');
-    const icsUri = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent);
-    const appleBtn = document.getElementById('appleCal');
-    if (appleBtn) {
-      appleBtn.href = icsUri;
-      appleBtn.setAttribute('download', 'dateflo-blind-date.ics');
-    }
 
     // Floating hearts
     const heartsContainer = document.getElementById('hearts');
