@@ -288,8 +288,7 @@
       font-weight:700;font-size:1rem;
       box-shadow:3px 3px 0px var(--deep-rose);
     }
-    .stop-header{margin-bottom:16px;padding-right:135px}
-    @media(max-width:420px){.stop-header{padding-right:0}}
+    .stop-header{margin-bottom:16px}
     .stop-title{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",system-ui,sans-serif;font-size:clamp(1.3rem,2.8vw,1.6rem);font-weight:700;margin-bottom:6px;color:var(--text-dark)}
     .stop-location{color:var(--cupid);font-size:clamp(.82rem,1.4vw,.9rem);font-weight:500;margin-bottom:4px}
     .stop-time{
@@ -320,11 +319,11 @@
 
     /* ── Transport Corner Widget ── */
     .transport-corner{
-      position:absolute;top:14px;right:14px;
+      float:right;margin:0 0 10px 14px;
       display:flex;flex-direction:column;gap:6px;
       background:var(--cream);
       border:2px solid var(--wing-pink);border-radius:14px;
-      padding:10px;min-width:120px;z-index:2;
+      padding:10px;min-width:120px;z-index:2;max-width:55%;
       box-shadow:3px 3px 0px rgba(142,58,89,.08);
     }
     .tc-group{display:flex;flex-direction:column;gap:4px}
@@ -368,7 +367,7 @@
     .venue-btn-apple{background:var(--text-dark);box-shadow:1px 1px 0px #1a0a18}
     .btn-logo{height:14px;display:block}
     @media(max-width:420px){
-      .transport-corner{position:relative;top:auto;right:auto;margin-bottom:14px;flex-direction:row;flex-wrap:wrap;gap:8px;align-items:flex-start}
+      .transport-corner{float:none;max-width:100%;margin:0 0 14px 0;flex-direction:row;flex-wrap:wrap;gap:8px;align-items:flex-start}
       .tc-group+.tc-group{border-top:none;padding-top:0;border-left:2px solid var(--wing-pink);padding-left:8px}
     }
     .tc-headsup{
@@ -392,10 +391,8 @@
       line-height:1.5;font-weight:500;
       transition:max-height .35s ease,padding .35s ease;
       position:relative;z-index:3;clear:both;
-      margin-right:160px;
     }
     .event-note.open{max-height:200px;padding:8px 12px}
-    @media(max-width:420px){.event-note{margin-right:0}}
     .event-note::before{content:'\26A0\FE0F ';font-size:.72rem}
     .btn svg,.btn i{width:14px;height:14px}
 
