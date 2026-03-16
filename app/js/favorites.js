@@ -1,5 +1,5 @@
 import { requireAuth, getUser, signOut } from './auth.js';
-import { getProfile, getFavorites, addFavorite, deleteFavorite } from './api.js';
+import { getProfile, getFavorites, addFavorite, deleteFavorite, getPreferences } from './api.js';
 import { renderSidebar, renderMobileTabs, showToast, showConfirm } from './ui.js';
 
 // ── Init ──
@@ -12,6 +12,44 @@ const profile = await getProfile(user.id);
 renderSidebar('favorites', user);
 renderMobileTabs('favorites');
 document.getElementById('signOutBtn')?.addEventListener('click', signOut);
+
+// Get user's city from preferences
+let userCity = '';
+if (profile?.couple_id) {
+  const prefs = await getPreferences(profile.couple_id);
+  userCity = prefs?.city || '';
+}
+
+// Update the "my city" label
+const myCityLabel = document.getElementById('myCityLabel');
+if (userCity) {
+  myCityLabel.textContent = `We'll save this in ${userCity}.`;
+} else {
+  myCityLabel.textContent = 'Set your city in Preferences so we can use it here.';
+}
+
+// ── Location Toggle ──
+let useMyCity = true;
+const locMyCity = document.getElementById('locMyCity');
+const locOther = document.getElementById('locOther');
+const otherCityFields = document.getElementById('otherCityFields');
+
+locMyCity?.addEventListener('click', () => {
+  useMyCity = true;
+  locMyCity.classList.add('active');
+  locOther.classList.remove('active');
+  otherCityFields.classList.add('hidden');
+  myCityLabel.classList.remove('hidden');
+});
+
+locOther?.addEventListener('click', () => {
+  useMyCity = false;
+  locOther.classList.add('active');
+  locMyCity.classList.remove('active');
+  otherCityFields.classList.remove('hidden');
+  myCityLabel.classList.add('hidden');
+  document.getElementById('favCity')?.focus();
+});
 
 // ── Load Favorites ──
 let favorites = [];
@@ -38,14 +76,15 @@ function render() {
 
   const typeLabels = {
     restaurant: 'Restaurant',
-    bar: 'Bar',
+    bar: 'Bar / Lounge',
+    cafe: 'Cafe',
     activity: 'Activity',
     park: 'Park',
     other: 'Other'
   };
 
   grid.innerHTML = favorites.map(fav => `
-    <div class="fav-card fade-in" data-id="${fav.id}">
+    <div class="fav-card" data-id="${fav.id}">
       <div class="fav-card-header">
         <div class="fav-card-name">${fav.venue_name}</div>
         <span class="fav-card-type">${typeLabels[fav.venue_type] || fav.venue_type}</span>
@@ -81,13 +120,18 @@ const modal = document.getElementById('favModal');
 
 function openModal() {
   document.getElementById('favModalTitle').textContent = 'Add a Venue';
+  // Reset location toggle
+  useMyCity = true;
+  locMyCity.classList.add('active');
+  locOther.classList.remove('active');
+  otherCityFields.classList.add('hidden');
+  myCityLabel.classList.remove('hidden');
   modal.classList.add('open');
 }
 
 function closeModal() {
   modal.classList.remove('open');
-  // Clear form
-  ['favName','favCity','favAddress','favGoogleUrl','favAppleUrl','favNotes'].forEach(id => {
+  ['favName','favCity','favNotes'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -104,15 +148,20 @@ document.getElementById('saveFavBtn')?.addEventListener('click', async () => {
   const name = document.getElementById('favName').value.trim();
   if (!name) { showToast('Please enter a venue name.', 'error'); return; }
 
+  // Determine city
+  let city = '';
+  if (useMyCity) {
+    city = userCity;
+  } else {
+    city = document.getElementById('favCity').value.trim();
+  }
+
   const favorite = {
     profile_id: user.id,
     couple_id: profile?.couple_id,
     venue_name: name,
     venue_type: document.getElementById('favType').value,
-    city: document.getElementById('favCity').value.trim(),
-    address: document.getElementById('favAddress').value.trim(),
-    google_maps_url: document.getElementById('favGoogleUrl').value.trim(),
-    apple_maps_url: document.getElementById('favAppleUrl').value.trim(),
+    city: city,
     notes: document.getElementById('favNotes').value.trim(),
   };
 
