@@ -163,13 +163,6 @@
     @keyframes countGlow{0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:0 0 20px rgba(224,87,128,.3)}}
     .proof-stat .num.counted{animation:countGlow 1s ease-out}
 
-    /* ── Card shimmer sweep ── */
-    .shimmer-card{position:relative;overflow:hidden}
-    .shimmer-card::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.06) 50%,rgba(255,255,255,.03) 60%,transparent 100%);pointer-events:none;z-index:2}
-    .shimmer-card:hover::after{animation:cardSweep .6s ease-out}
-    @keyframes cardSweep{from{left:-100%}to{left:150%}}
-    @media(hover:none){.shimmer-card::after{display:none}}
-
     /* ── Typing cursor ── */
     @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
     .typing-cursor{display:inline-block;width:2px;height:.9em;background:var(--rose);margin-left:4px;vertical-align:text-bottom;animation:blink 1s step-end infinite}
@@ -569,20 +562,20 @@
         <p class="section-sub">No apps to download. No subscriptions. Just a date plan built around the two of you.</p>
       </div>
       <div class="how-grid">
-        <div class="how-card shimmer-card reveal">
+        <div class="how-card reveal">
           <div class="how-num">1</div>
           <div class="how-icon">💬</div>
           <h3>Tell Us About You Two</h3>
           <p>Answer a few fun questions about your tastes, your partner's favorites, and what kind of date you're in the mood for. Takes about 5 minutes.</p>
         </div>
-        <div class="how-card shimmer-card reveal">
+        <div class="how-card reveal">
           <div class="how-num">2</div>
           <div class="how-icon">🔍</div>
           <h3>Our Team Gets to Work</h3>
           <p>Our planning team researches venues, checks reviews, verifies hours, scouts menus, and builds a multi-stop itinerary tailored to your preferences.</p>
           <div class="how-time">&#9201; Delivered within 24 hours</div>
         </div>
-        <div class="how-card shimmer-card reveal">
+        <div class="how-card reveal">
           <div class="how-num">3</div>
           <div class="how-icon">✨</div>
           <h3>Open & Go</h3>

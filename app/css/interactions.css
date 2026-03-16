@@ -349,41 +349,6 @@
 
 
 /* ═══════════════════════════════════════
-   15. CARD SHIMMER SWEEP ON HOVER
-   ═══════════════════════════════════════ */
-.shimmer-card {
-  position: relative;
-  overflow: hidden;
-}
-.shimmer-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,.03) 40%,
-    rgba(255,255,255,.06) 50%,
-    rgba(255,255,255,.03) 60%,
-    transparent 100%
-  );
-  transition: none;
-  pointer-events: none;
-  z-index: 2;
-}
-.shimmer-card:hover::after {
-  animation: cardSweep .6s ease-out;
-}
-@keyframes cardSweep {
-  from { left: -100% }
-  to { left: 150% }
-}
-
-
-/* ═══════════════════════════════════════
    17. HERO TYPING CURSOR
    ═══════════════════════════════════════ */
 @keyframes blink {
@@ -764,7 +729,6 @@ button:focus-visible,
   .celebration-canvas { display: none }
   .form-page.active { animation: none; opacity: 1 }
   .skel-bone { animation: none }
-  .shimmer-card::after { animation: none !important }
   .empty-state .empty-icon { animation: none }
   .loading-heart { animation: none }
   .scroll-indicator { animation: none }
@@ -772,6 +736,5 @@ button:focus-visible,
 
 /* Disable heavy effects on mobile (touch devices) */
 @media (hover: none) {
-  .shimmer-card::after { display: none }
   .tooltip-wrap::after { display: none }
 }

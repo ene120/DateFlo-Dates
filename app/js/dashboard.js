@@ -124,17 +124,17 @@ async function showDashboard() {
   // Restore stat card content from skeleton
   const statsEl = document.getElementById('quickStats');
   const statData = [
-    { iconId: 'statIconPlans', iconName: 'clipboard-list', valueId: 'statPlans', label: 'Date Plans' },
-    { iconId: 'statIconFavs', iconName: 'star', valueId: 'statFavorites', label: 'Saved Venues' },
-    { iconId: 'statIconCity', iconName: 'map-pin', valueId: 'statCity', label: 'Your City' },
-    { iconId: 'statIconPartner', iconName: 'heart', valueId: 'statPartner', label: 'Partner Status' },
+    { iconId: 'statIconPlans', iconName: 'clipboard-list', valueId: 'statPlans', label: 'Date Plans', href: './history.html' },
+    { iconId: 'statIconFavs', iconName: 'star', valueId: 'statFavorites', label: 'Saved Venues', href: './favorites.html' },
+    { iconId: 'statIconCity', iconName: 'map-pin', valueId: 'statCity', label: 'Your City', href: './settings.html' },
+    { iconId: 'statIconPartner', iconName: 'heart', valueId: 'statPartner', label: 'Partner Status', href: './settings.html' },
   ];
   statsEl.innerHTML = statData.map(s => `
-    <div class="stat-card reveal">
+    <a href="${s.href}" class="stat-card reveal" style="text-decoration:none;color:inherit;cursor:pointer">
       <div class="stat-icon" id="${s.iconId}"></div>
       <div class="stat-value" id="${s.valueId}">0</div>
       <div class="stat-label">${s.label}</div>
-    </div>
+    </a>
   `).join('');
 
   // Inject stat icons
@@ -182,7 +182,7 @@ async function showDashboard() {
   }
 
   grid.innerHTML = plans.map(plan => `
-    <a href="./plan.html?id=${plan.id}" class="plan-card tilt-card shimmer-card reveal">
+    <a href="./plan.html?id=${plan.id}" class="plan-card tilt-card reveal">
       <div class="plan-card-thumb" ${plan.thumbnail_url ? `style="background:url('${plan.thumbnail_url}') center/cover"` : ''}>
         <div class="plan-card-status">${statusBadge(plan.status)}</div>
       </div>
