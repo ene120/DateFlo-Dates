@@ -161,9 +161,33 @@
       window.location.href = './dashboard.html';
     }
 
+    // Rate limit tracking
+    let lastSendTime = 0;
+    const SEND_COOLDOWN = 60000; // 60 seconds between sends
+
+    function friendlyError(msg) {
+      if (!msg) return 'Something went wrong. Please try again.';
+      const lower = msg.toLowerCase();
+      if (lower.includes('rate limit') || lower.includes('too many')) {
+        return 'Too many requests. Please wait a minute before trying again.';
+      }
+      if (lower.includes('invalid email') || lower.includes('invalid')) {
+        return 'Please enter a valid email address.';
+      }
+      return 'Something went wrong. Please try again in a moment.';
+    }
+
     window.handleSendLink = async function() {
       const email = document.getElementById('emailInput').value.trim();
       if (!email) { alert('Please enter your email address.'); return; }
+
+      // Client side cooldown
+      const now = Date.now();
+      if (now - lastSendTime < SEND_COOLDOWN) {
+        const wait = Math.ceil((SEND_COOLDOWN - (now - lastSendTime)) / 1000);
+        alert('Please wait ' + wait + ' seconds before requesting another link.');
+        return;
+      }
 
       const btn = document.getElementById('sendLinkBtn');
       btn.disabled = true;
@@ -172,12 +196,13 @@
       const { error } = await sendMagicLink(email);
 
       if (error) {
-        alert('Something went wrong: ' + error.message);
+        alert(friendlyError(error.message));
         btn.disabled = false;
         btn.innerHTML = 'Continue &rarr;';
         return;
       }
 
+      lastSendTime = Date.now();
       document.getElementById('loginForm').style.display = 'none';
       document.getElementById('emailSent').classList.add('show');
       document.getElementById('sentEmailDisplay').textContent = email;
@@ -185,12 +210,29 @@
     };
 
     window.handleResend = async function() {
-      if (window._lastEmail) {
-        await sendMagicLink(window._lastEmail);
+      if (!window._lastEmail) return;
+
+      const now = Date.now();
+      if (now - lastSendTime < SEND_COOLDOWN) {
+        const wait = Math.ceil((SEND_COOLDOWN - (now - lastSendTime)) / 1000);
         const btn = document.querySelector('.email-resend');
-        btn.textContent = 'Sent! Check your inbox.';
+        btn.textContent = 'Please wait ' + wait + 's';
         setTimeout(() => { btn.textContent = "Didn't get it? Resend"; }, 3000);
+        return;
       }
+
+      const { error } = await sendMagicLink(window._lastEmail);
+      const btn = document.querySelector('.email-resend');
+
+      if (error) {
+        btn.textContent = friendlyError(error.message);
+        setTimeout(() => { btn.textContent = "Didn't get it? Resend"; }, 4000);
+        return;
+      }
+
+      lastSendTime = Date.now();
+      btn.textContent = 'Sent! Check your inbox.';
+      setTimeout(() => { btn.textContent = "Didn't get it? Resend"; }, 3000);
     };
 
     window.toggleInvite = function() {

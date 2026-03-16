@@ -455,11 +455,35 @@ function buildReview() {
   }
 }
 
+// ── Rate limit helpers ──
+let lastGuestSendTime = 0;
+const GUEST_COOLDOWN = 60000;
+
+function friendlyError(msg) {
+  if (!msg) return 'Something went wrong. Please try again.';
+  const lower = msg.toLowerCase();
+  if (lower.includes('rate limit') || lower.includes('too many')) {
+    return 'Too many requests. Please wait a minute before trying again.';
+  }
+  if (lower.includes('invalid email') || lower.includes('invalid')) {
+    return 'Please enter a valid email address.';
+  }
+  return 'Something went wrong. Please try again in a moment.';
+}
+
 // ── Guest Signup Handler ──
 window.handleGuestSignup = async function() {
   const email = document.getElementById('guestEmail').value.trim();
   if (!email) {
     showToast('Please enter your email address.', 'error');
+    return;
+  }
+
+  // Client side cooldown
+  const now = Date.now();
+  if (now - lastGuestSendTime < GUEST_COOLDOWN) {
+    const wait = Math.ceil((GUEST_COOLDOWN - (now - lastGuestSendTime)) / 1000);
+    showToast('Please wait ' + wait + ' seconds before requesting another link.', 'error');
     return;
   }
 
@@ -476,7 +500,7 @@ window.handleGuestSignup = async function() {
   const { error } = await sendMagicLink(email, APP_BASE_URL + '/request.html');
 
   if (error) {
-    showToast('Something went wrong. Please try again.', 'error');
+    showToast(friendlyError(error.message), 'error');
     btn.disabled = false;
     btn.innerHTML = 'Send Magic Link &rarr;';
     localStorage.removeItem('dateflo_pending_request');
@@ -484,6 +508,7 @@ window.handleGuestSignup = async function() {
   }
 
   // Show success
+  lastGuestSendTime = Date.now();
   document.getElementById('guestSignupBtn').closest('.editable-section').classList.add('hidden');
   document.getElementById('guestEmailSent').classList.remove('hidden');
   document.getElementById('guestSentEmail').textContent = email;
