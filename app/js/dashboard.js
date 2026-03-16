@@ -1,5 +1,5 @@
 import { requireAuth, getUser, signOut } from './auth.js';
-import { getProfile, getPlans, createCouple, updateProfile, getCouple, acceptInvite, upsertPreferences } from './api.js';
+import { getProfile, getPlans, createCouple, updateProfile, getCouple, acceptInvite, upsertPreferences, getFavorites, getPreferences, getCoupleMembers } from './api.js';
 import { renderSidebar, renderMobileTabs, showToast, statusBadge, formatDate } from './ui.js';
 
 // ── Init ──
@@ -93,15 +93,43 @@ async function showDashboard() {
   document.getElementById('onboardingSection').classList.add('hidden');
   document.getElementById('dashboardContent').classList.remove('hidden');
 
-  // Update greeting
+  // Get couple data
   const couple = await getCouple(profile.couple_id);
+  const firstName = profile?.display_name || user.email?.split('@')[0] || 'there';
+
+  // Welcome banner
+  const heading = document.getElementById('welcomeHeading');
+  const sub = document.getElementById('welcomeSub');
+
+  // Time based greeting
+  const hour = new Date().getHours();
+  let greeting = 'Good evening';
+  if (hour < 12) greeting = 'Good morning';
+  else if (hour < 17) greeting = 'Good afternoon';
+
+  heading.textContent = `${greeting}, ${firstName}`;
+
   if (couple?.name) {
-    document.getElementById('coupleGreeting').textContent =
-      `Welcome back, ${couple.name}. Here are your date plans.`;
+    sub.textContent = `Here's everything for ${couple.name}.`;
   }
 
-  // Load plans
-  const plans = await getPlans(profile.couple_id);
+  // Load data in parallel
+  const [plans, favorites, preferences, members] = await Promise.all([
+    getPlans(profile.couple_id),
+    getFavorites(user.id),
+    getPreferences(profile.couple_id),
+    getCoupleMembers(profile.couple_id)
+  ]);
+
+  // Quick Stats
+  document.getElementById('statPlans').textContent = plans.length;
+  document.getElementById('statFavorites').textContent = favorites.length;
+  document.getElementById('statCity').textContent = preferences?.city || '\u2014';
+
+  const partner = members.find(m => m.id !== user.id);
+  document.getElementById('statPartner').textContent = partner ? 'Connected' : 'Solo';
+
+  // Render plan cards
   const grid = document.getElementById('planGrid');
 
   if (plans.length === 0) {
@@ -117,7 +145,7 @@ async function showDashboard() {
 
   // Render plan cards
   grid.innerHTML = plans.map(plan => `
-    <a href="./plan.html?id=${plan.id}" class="plan-card fade-in">
+    <a href="./plan.html?id=${plan.id}" class="plan-card">
       <div class="plan-card-thumb" ${plan.thumbnail_url ? `style="background:url('${plan.thumbnail_url}') center/cover"` : ''}>
         <div class="plan-card-status">${statusBadge(plan.status)}</div>
       </div>

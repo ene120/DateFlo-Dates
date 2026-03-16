@@ -18,6 +18,7 @@
 
   <main class="main-content">
     <div class="page-header">
+      <p class="section-label">Preferences</p>
       <h1 class="page-title">Our Preferences</h1>
       <p class="page-sub">Keep these up to date so every plan is perfectly tailored to you both.</p>
     </div>
@@ -30,9 +31,9 @@
           <button class="edit-btn" onclick="toggleEdit('About')">Edit</button>
         </div>
         <div class="view-mode">
-          <div class="field-label">Partner 1</div>
+          <div class="field-label" id="viewName1Label">Your Name</div>
           <div class="field-value" id="viewName1">Not set</div>
-          <div class="field-label">Partner 2</div>
+          <div class="field-label" id="viewName2Label">Partner's Name</div>
           <div class="field-value" id="viewName2">Not set</div>
           <div class="field-label">Relationship Stage</div>
           <div class="field-value" id="viewStage">Not set</div>
@@ -40,11 +41,11 @@
         <div class="edit-mode">
           <div class="form-row">
             <div class="form-group">
-              <label>Partner 1 Name</label>
+              <label id="editName1Label">Your Name</label>
               <input type="text" class="form-input" id="editName1">
             </div>
             <div class="form-group">
-              <label>Partner 2 Name</label>
+              <label id="editName2Label">Partner's Name</label>
               <input type="text" class="form-input" id="editName2">
             </div>
           </div>
@@ -126,10 +127,10 @@
         </div>
       </div>
 
-      <!-- Partner 1 Food -->
+      <!-- Food Preferences (dynamically titled) -->
       <div class="editable-section" id="sectionFood1">
         <div class="editable-header">
-          <h3 id="food1Title">Partner 1's Food Preferences</h3>
+          <h3 id="food1Title">Food Preferences</h3>
           <button class="edit-btn" onclick="toggleEdit('Food1')">Edit</button>
         </div>
         <div class="view-mode">
@@ -160,10 +161,9 @@
         </div>
       </div>
 
-      <!-- Partner 2 Food -->
       <div class="editable-section" id="sectionFood2">
         <div class="editable-header">
-          <h3 id="food2Title">Partner 2's Food Preferences</h3>
+          <h3 id="food2Title">Food Preferences</h3>
           <button class="edit-btn" onclick="toggleEdit('Food2')">Edit</button>
         </div>
         <div class="view-mode">

@@ -7,9 +7,9 @@ export function showToast(message, type = 'success') {
   toast.className = 'toast toast-' + type;
 
   const colors = {
-    success: { bg: 'rgba(0,184,148,.15)', border: 'rgba(0,184,148,.3)', color: '#00b894' },
-    error: { bg: 'rgba(214,48,49,.15)', border: 'rgba(214,48,49,.3)', color: '#ff6b6b' },
-    info: { bg: 'rgba(116,185,255,.15)', border: 'rgba(116,185,255,.3)', color: '#74b9ff' },
+    success: { bg: 'rgba(0,184,148,.12)', border: 'rgba(0,184,148,.2)', color: '#00b894' },
+    error: { bg: 'rgba(214,48,49,.12)', border: 'rgba(214,48,49,.2)', color: '#ff6b6b' },
+    info: { bg: 'rgba(116,185,255,.12)', border: 'rgba(116,185,255,.2)', color: '#74b9ff' },
   };
   const c = colors[type] || colors.success;
 
@@ -17,9 +17,10 @@ export function showToast(message, type = 'success') {
     position:fixed;top:24px;right:24px;z-index:200;
     padding:14px 24px;border-radius:14px;
     background:${c.bg};border:1px solid ${c.border};color:${c.color};
-    font-size:.9rem;font-weight:600;
+    font-size:.88rem;font-weight:600;
+    backdrop-filter:blur(12px);
     animation:fadeIn .3s ease;
-    max-width:400px;
+    max-width:400px;box-shadow:0 8px 24px rgba(0,0,0,.3);
   `;
   toast.textContent = message;
   document.body.appendChild(toast);
@@ -37,13 +38,13 @@ export function showLoading(container) {
   overlay.innerHTML = '<div class="loading-spinner"></div>';
   overlay.style.cssText = `
     position:absolute;top:0;left:0;width:100%;height:100%;
-    background:rgba(26,10,16,.8);backdrop-filter:blur(4px);
+    background:rgba(13,7,17,.85);backdrop-filter:blur(6px);
     display:flex;align-items:center;justify-content:center;
     z-index:50;border-radius:inherit;
   `;
   const spinner = overlay.querySelector('.loading-spinner');
   spinner.style.cssText = `
-    width:36px;height:36px;border:3px solid rgba(255,255,255,.1);
+    width:36px;height:36px;border:3px solid rgba(255,255,255,.08);
     border-top-color:var(--rose);border-radius:50%;
     animation:spin .8s linear infinite;
   `;
@@ -119,8 +120,8 @@ export function renderSidebar(activePage, user) {
   if (!sidebar) return;
 
   const pages = [
-    { id: 'dashboard', icon: '📋', label: 'My Date Plans', href: './dashboard.html' },
-    { id: 'request', icon: '➕', label: 'Request a Plan', href: './request.html' },
+    { id: 'dashboard', icon: '📋', label: 'Dashboard', href: './dashboard.html' },
+    { id: 'request', icon: '✨', label: 'Request a Plan', href: './request.html' },
     { id: 'preferences', icon: '💕', label: 'Our Preferences', href: './preferences.html' },
     { id: 'favorites', icon: '⭐', label: 'Favorites', href: './favorites.html' },
     { id: 'history', icon: '🕐', label: 'Date History', href: './history.html' },
@@ -130,8 +131,15 @@ export function renderSidebar(activePage, user) {
   const displayName = user?.user_metadata?.display_name || user?.email?.split('@')[0] || 'User';
   const email = user?.email || '';
 
+  // Time based greeting
+  const hour = new Date().getHours();
+  let greeting = 'Good evening';
+  if (hour < 12) greeting = 'Good morning';
+  else if (hour < 17) greeting = 'Good afternoon';
+
   sidebar.innerHTML = `
     <div class="sidebar-logo">DateFlo</div>
+    <div class="sidebar-greeting">${greeting}</div>
     <nav class="sidebar-nav">
       ${pages.map(p => `
         <a href="${p.href}" class="nav-item ${p.id === activePage ? 'active' : ''}">
@@ -162,8 +170,8 @@ export function renderMobileTabs(activePage) {
   if (!tabs) return;
 
   const items = [
-    { id: 'dashboard', icon: '📋', label: 'Plans', href: './dashboard.html' },
-    { id: 'request', icon: '➕', label: 'New', href: './request.html' },
+    { id: 'dashboard', icon: '📋', label: 'Home', href: './dashboard.html' },
+    { id: 'request', icon: '✨', label: 'New', href: './request.html' },
     { id: 'preferences', icon: '💕', label: 'Prefs', href: './preferences.html' },
     { id: 'favorites', icon: '⭐', label: 'Favs', href: './favorites.html' },
     { id: 'settings', icon: '⚙️', label: 'Settings', href: './settings.html' },

@@ -3,19 +3,26 @@
   .plan-grid{grid-template-columns:1fr}
   .fav-grid{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
+  .quick-stats{grid-template-columns:repeat(2,1fr)}
   .page-header{margin-bottom:20px}
   .page-title{font-size:1.4rem}
   .editable-section{padding:20px}
   .glass-card{padding:20px}
+  .welcome-banner{padding:24px}
+  .welcome-banner .welcome-actions{flex-direction:column}
+  .welcome-banner .welcome-actions .btn-primary,
+  .welcome-banner .welcome-actions .btn-ghost{width:100%;justify-content:center}
 }
 
 @media(max-width:480px){
   .choices{grid-template-columns:1fr}
-  .plan-card-thumb{height:110px}
+  .plan-card-thumb{height:120px}
+  .quick-stats{grid-template-columns:1fr}
 }
 
 /* Desktop wide */
 @media(min-width:1400px){
   .plan-grid{grid-template-columns:repeat(3,1fr)}
   .fav-grid{grid-template-columns:repeat(3,1fr)}
+  .quick-stats{grid-template-columns:repeat(4,1fr)}
 }
