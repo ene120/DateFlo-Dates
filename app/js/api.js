@@ -174,6 +174,64 @@ export async function deleteFavorite(id) {
   return { error };
 }
 
+// ── Events ──
+export async function getEvents(profileId) {
+  const { data, error } = await supabase
+    .from('event_attendees')
+    .select('*, events(*)')
+    .eq('profile_id', profileId)
+    .order('created_at', { ascending: false });
+  if (error) console.error('getEvents error:', error);
+  return data || [];
+}
+
+export async function getAllPublicEvents() {
+  const { data, error } = await supabase
+    .from('events')
+    .select('*')
+    .gte('event_date', new Date().toISOString().split('T')[0])
+    .order('event_date', { ascending: true });
+  if (error) console.error('getAllPublicEvents error:', error);
+  return data || [];
+}
+
+export async function joinEventByCode(profileId, inviteCode) {
+  // Find event by invite code
+  const { data: event, error: findErr } = await supabase
+    .from('events')
+    .select('*')
+    .eq('invite_code', inviteCode.toUpperCase().trim())
+    .single();
+  if (findErr || !event) return { data: null, error: findErr || { message: 'Event not found. Please check your code.' } };
+
+  // Check if already joined
+  const { data: existing } = await supabase
+    .from('event_attendees')
+    .select('id')
+    .eq('profile_id', profileId)
+    .eq('event_id', event.id)
+    .maybeSingle();
+  if (existing) return { data: event, error: { message: 'You have already joined this event.' } };
+
+  // Join event
+  const { error: joinErr } = await supabase
+    .from('event_attendees')
+    .insert({ profile_id: profileId, event_id: event.id });
+  if (joinErr) return { data: null, error: joinErr };
+
+  return { data: event, error: null };
+}
+
+export async function leaveEvent(profileId, eventId) {
+  const { error } = await supabase
+    .from('event_attendees')
+    .delete()
+    .eq('profile_id', profileId)
+    .eq('event_id', eventId);
+  if (error) console.error('leaveEvent error:', error);
+  return { error };
+}
+
 export async function updateFavorite(id, updates) {
   const { data, error } = await supabase
     .from('favorites')

@@ -23,7 +23,9 @@
     <!-- Onboarding (shown if no couple yet) -->
     <div id="onboardingSection" class="hidden">
       <div class="glass-card" style="max-width:520px;margin:60px auto;text-align:center">
-        <div style="font-size:2.8rem;margin-bottom:20px">💕</div>
+        <div class="onboard-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </div>
         <h2 style="margin-bottom:8px">Welcome to DateFlo</h2>
         <p class="text-soft mt-8" style="font-size:.9rem;line-height:1.8;max-width:380px;margin:0 auto">
           Let's set up your couple profile so we can start planning unforgettable dates for you.
@@ -60,29 +62,29 @@
         <p id="welcomeSub">Your personalized date plans, all in one place.</p>
         <div class="welcome-actions">
           <a href="./request.html" class="btn-primary">Plan a New Date &rarr;</a>
-          <a href="./preferences.html" class="btn-ghost">Update Preferences</a>
+          <a href="./settings.html" class="btn-ghost">Update Preferences</a>
         </div>
       </div>
 
       <!-- Quick Stats -->
       <div class="quick-stats stagger" id="quickStats">
         <div class="stat-card">
-          <div class="stat-icon">📋</div>
+          <div class="stat-icon" id="statIconPlans"></div>
           <div class="stat-value" id="statPlans">0</div>
           <div class="stat-label">Date Plans</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">⭐</div>
+          <div class="stat-icon" id="statIconFavs"></div>
           <div class="stat-value" id="statFavorites">0</div>
           <div class="stat-label">Saved Venues</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">📍</div>
+          <div class="stat-icon" id="statIconCity"></div>
           <div class="stat-value" id="statCity">&mdash;</div>
           <div class="stat-label">Your City</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">💕</div>
+          <div class="stat-icon" id="statIconPartner"></div>
           <div class="stat-value" id="statPartner">&mdash;</div>
           <div class="stat-label">Partner Status</div>
         </div>

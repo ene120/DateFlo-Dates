@@ -99,11 +99,11 @@ select.form-input option{background:var(--bg-elevated);color:white}
   transition:all .2s;
 }
 .edit-btn:hover{background:rgba(224,87,128,.12)}
-.view-mode .field-value{
+.field-value{
   font-size:.88rem;color:var(--text-soft);padding:5px 0;
-  border-bottom:1px solid var(--border-subtle);
 }
-.view-mode .field-label{font-size:.7rem;color:var(--text-muted);margin-top:10px;letter-spacing:.04em;text-transform:uppercase}
+.field-label{font-size:.7rem;color:var(--text-muted);margin-top:10px;letter-spacing:.04em;text-transform:uppercase}
+.view-mode .field-value{border-bottom:1px solid var(--border-subtle)}
 .edit-mode{display:none}
 .section-editing .view-mode{display:none}
 .section-editing .edit-mode{display:block}
@@ -122,7 +122,7 @@ select.form-input option{background:var(--bg-elevated);color:white}
 .form-page{display:none}
 .form-page.active{display:block;animation:slideUp .35s cubic-bezier(.25,.1,.25,1)}
 @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.fp-icon{font-size:2.2rem;margin-bottom:12px}
+.fp-icon{margin-bottom:12px;display:flex;align-items:center}
 .fp-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:700;margin-bottom:5px}
 .fp-sub{color:var(--text-muted);font-size:.86rem;margin-bottom:clamp(20px,3vh,32px);line-height:1.7}
 .form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:clamp(20px,3vh,32px);gap:12px}
@@ -139,6 +139,28 @@ select.form-input option{background:var(--bg-elevated);color:white}
   box-shadow:0 4px 16px rgba(224,87,128,.2);
 }
 .btn-next:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(224,87,128,.3)}
+
+/* Date Type Cards */
+.date-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.date-type-card{
+  background:var(--bg-elevated);border:1px solid var(--border-subtle);
+  border-radius:var(--radius-md);padding:16px 14px;cursor:pointer;
+  text-align:center;transition:all .2s;position:relative;
+}
+.date-type-card:hover{border-color:var(--rose);background:rgba(224,87,128,.04)}
+.date-type-card.active{
+  border-color:var(--rose);background:rgba(224,87,128,.08);
+  box-shadow:0 0 0 1px var(--rose);
+}
+.date-type-card .dt-icon{margin-bottom:8px;color:var(--rose)}
+.date-type-card .dt-icon svg{width:28px;height:28px}
+.date-type-card .dt-label{font-size:.88rem;font-weight:600;margin-bottom:2px}
+.date-type-card .dt-desc{font-size:.72rem;color:var(--text-muted);line-height:1.4}
+.conditional-field{display:none;margin-top:16px;animation:fadeIn .3s ease}
+.conditional-field.show{display:block}
+@media(max-width:380px){
+  .date-type-grid{grid-template-columns:1fr}
+}
 
 /* Partner Tabs */
 .partner-tab{display:flex;gap:6px;margin-bottom:18px}

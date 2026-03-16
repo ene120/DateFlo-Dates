@@ -1,6 +1,6 @@
 import { requireAuth, getUser, signOut } from './auth.js';
 import { getProfile, getPlans, createCouple, updateProfile, getCouple, acceptInvite, upsertPreferences, getFavorites, getPreferences, getCoupleMembers } from './api.js';
-import { renderSidebar, renderMobileTabs, showToast, statusBadge, formatDate, animateCounter, initCursorGlow } from './ui.js';
+import { renderSidebar, renderMobileTabs, showToast, statusBadge, formatDate, animateCounter, initCursorGlow, icon } from './ui.js';
 
 // ── Init ──
 const session = await requireAuth();
@@ -13,6 +13,12 @@ renderSidebar('dashboard', user);
 renderMobileTabs('dashboard');
 
 document.getElementById('signOutBtn')?.addEventListener('click', signOut);
+
+// ── Inject stat icons ──
+document.getElementById('statIconPlans').innerHTML = icon('clipboard-list', 18);
+document.getElementById('statIconFavs').innerHTML = icon('star', 18);
+document.getElementById('statIconCity').innerHTML = icon('map-pin', 18);
+document.getElementById('statIconPartner').innerHTML = icon('heart', 18);
 
 // ── Check for stored invite code ──
 const storedCode = localStorage.getItem('dateflo_invite_code');
@@ -74,11 +80,13 @@ function showOnboarding() {
     await updateProfile(user.id, { display_name: name1 });
     await upsertPreferences(couple.id, {
       partner1_name: name1,
-      partner2_name: name2
+      partner2_name: name2,
+      relationship_stage: 'dating'
     });
 
-    showToast('Welcome to DateFlo! Your profile is set up.');
-    window.location.reload();
+    showToast('Welcome to DateFlo! Let\'s plan your first date.');
+    // Redirect to request form instead of reloading dashboard
+    window.location.href = './request.html';
   });
 }
 
@@ -117,15 +125,29 @@ async function showDashboard() {
   cityEl.textContent = preferences?.city || '\u2014';
 
   const partner = members.find(m => m.id !== user.id);
-  document.getElementById('statPartner').textContent = partner ? 'Connected' : 'Solo';
+  const stage = preferences?.relationship_stage;
+  const stageLabels = {
+    dating: 'Dating', exclusive: 'Exclusive', engaged: 'Engaged',
+    married: 'Married', long_term: 'Long Term'
+  };
+  if (partner) {
+    document.getElementById('statPartner').textContent = 'Connected';
+  } else {
+    document.getElementById('statPartner').textContent = stageLabels[stage] || 'Dating';
+  }
 
   // Render plan cards
   const grid = document.getElementById('planGrid');
 
+  // SVG icons for plan card meta
+  const calIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>';
+  const pinIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+  const plusIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>';
+
   if (plans.length === 0) {
     grid.innerHTML = `
       <a href="./request.html" class="plan-card plan-card-new">
-        <div class="new-icon">✨</div>
+        <div class="new-icon">${plusIcon}</div>
         <h4>Request Your First Date Plan</h4>
         <p>Tell us about your perfect date.</p>
       </a>
@@ -141,19 +163,18 @@ async function showDashboard() {
       <div class="plan-card-body">
         <div class="plan-card-title">${plan.title || 'Untitled Plan'}</div>
         <div class="plan-card-meta">
-          ${plan.date_day ? `<span>📅 ${formatDate(plan.date_day)}</span>` : ''}
-          ${plan.city ? `<span>📍 ${plan.city}</span>` : ''}
+          ${plan.date_day ? `<span>${calIcon} ${formatDate(plan.date_day)}</span>` : ''}
+          ${plan.city ? `<span>${pinIcon} ${plan.city}</span>` : ''}
         </div>
       </div>
     </a>
   `).join('') + `
     <a href="./request.html" class="plan-card plan-card-new">
-      <div class="new-icon">✨</div>
+      <div class="new-icon">${plusIcon}</div>
       <h4>Request Another Plan</h4>
       <p>Plan your next unforgettable date.</p>
     </a>
   `;
 
-  // Init cursor glow on plan cards
   initCursorGlow('.plan-card:not(.plan-card-new)');
 }

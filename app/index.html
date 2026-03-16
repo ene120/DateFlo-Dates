@@ -147,7 +147,13 @@
 
     const session = await getSession();
     if (session) {
-      window.location.href = './dashboard.html';
+      // If they have a pending request from guest flow, go to request page
+      const pendingRequest = localStorage.getItem('dateflo_pending_request');
+      if (pendingRequest) {
+        window.location.href = './request.html';
+      } else {
+        window.location.href = './dashboard.html';
+      }
     }
 
     const storedCode = localStorage.getItem('dateflo_invite_code');

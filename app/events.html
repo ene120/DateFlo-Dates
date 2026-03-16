@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DateFlo | Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Events</h1>
+      <p class="page-sub">Join exclusive date night events and group experiences.</p>
+    </div>
+
+    <div style="max-width:680px">
+      <!-- Join with invite code -->
+      <div class="editable-section" id="joinSection">
+        <div class="editable-header">
+          <h3>Join an Event</h3>
+        </div>
+        <p style="font-size:.88rem;color:var(--text-soft);line-height:1.7;margin-bottom:16px">
+          Have an invite code? Enter it below to add the event to your calendar.
+        </p>
+        <div style="display:flex;gap:8px;align-items:flex-start">
+          <div class="form-group" style="flex:1;margin-bottom:0">
+            <input type="text" class="form-input" id="eventCode" placeholder="Enter invite code" style="text-transform:uppercase;letter-spacing:.1em;font-weight:600">
+          </div>
+          <button class="btn-primary btn-small" id="joinEventBtn" style="margin-top:0;padding:12px 24px;white-space:nowrap">
+            Join Event
+          </button>
+        </div>
+        <div id="joinResult" style="margin-top:12px"></div>
+      </div>
+
+      <!-- My Events -->
+      <div style="margin-top:24px">
+        <p class="section-label">Your Events</p>
+        <div id="myEventsList">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="mobile-tabs" id="mobileTabs"></div>
+
+  <script type="module" src="js/events.js"></script>
+</body>
+</html>

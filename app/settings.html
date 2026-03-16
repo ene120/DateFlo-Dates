@@ -19,10 +19,10 @@
   <main class="main-content">
     <div class="page-header">
       <h1 class="page-title">Settings</h1>
-      <p class="page-sub">Manage your account, partner access, and preferences.</p>
+      <p class="page-sub">Manage your account, preferences, and partner access.</p>
     </div>
 
-    <div style="max-width:600px">
+    <div style="max-width:640px">
       <!-- Profile Section -->
       <div class="editable-section">
         <div class="editable-header">
@@ -55,6 +55,252 @@
         </div>
         <div id="partnerStatus">
           <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- DATE PREFERENCES (moved from preferences.html) -->
+      <!-- ═══════════════════════════════════════ -->
+
+      <div id="prefsContainer">
+        <!-- About Us -->
+        <div class="editable-section" id="sectionAbout">
+          <div class="editable-header">
+            <h3>About Us</h3>
+            <button class="edit-btn" onclick="toggleEdit('About')">Edit</button>
+          </div>
+          <div class="view-mode">
+            <div class="field-label" id="viewName1Label">Your Name</div>
+            <div class="field-value" id="viewName1">Not set</div>
+            <div class="field-label" id="viewName2Label">Partner's Name</div>
+            <div class="field-value" id="viewName2">Not set</div>
+            <div class="field-label">Relationship Stage</div>
+            <div class="field-value" id="viewStage">Not set</div>
+          </div>
+          <div class="edit-mode">
+            <div class="form-row">
+              <div class="form-group">
+                <label id="editName1Label">Your Name</label>
+                <input type="text" class="form-input" id="editName1">
+              </div>
+              <div class="form-group">
+                <label id="editName2Label">Partner's Name</label>
+                <input type="text" class="form-input" id="editName2">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Relationship Stage</label>
+              <select class="form-input" id="editStage">
+                <option value="">Select...</option>
+                <option value="dating">Dating</option>
+                <option value="exclusive">Exclusive</option>
+                <option value="engaged">Engaged</option>
+                <option value="married">Married</option>
+                <option value="long_term">Long Term</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn-ghost btn-small" onclick="cancelEdit('About')">Cancel</button>
+              <button class="btn-primary btn-small" onclick="saveSection('About')">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logistics -->
+        <div class="editable-section" id="sectionLogistics">
+          <div class="editable-header">
+            <h3>Logistics</h3>
+            <button class="edit-btn" onclick="toggleEdit('Logistics')">Edit</button>
+          </div>
+          <div class="view-mode">
+            <div class="field-label">City</div>
+            <div class="field-value" id="viewCity">Not set</div>
+            <div class="field-label">Activity Level</div>
+            <div class="field-value" id="viewActivity">Not set</div>
+            <div class="field-label">Transport</div>
+            <div class="field-value" id="viewTransport">Not set</div>
+          </div>
+          <div class="edit-mode">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" class="form-input" id="editCity" placeholder="e.g. Los Angeles, CA">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Activity Level</label>
+                <select class="form-input" id="editActivity">
+                  <option value="">Select...</option>
+                  <option value="chill">Chill &amp; Relaxed</option>
+                  <option value="moderate">Moderate</option>
+                  <option value="active">Active &amp; Adventurous</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Transport</label>
+                <select class="form-input" id="editTransport">
+                  <option value="">Select...</option>
+                  <option value="car">Driving</option>
+                  <option value="rideshare">Rideshare (Uber/Lyft)</option>
+                  <option value="public">Public Transit</option>
+                  <option value="walking">Walking / Biking</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn-ghost btn-small" onclick="cancelEdit('Logistics')">Cancel</button>
+              <button class="btn-primary btn-small" onclick="saveSection('Logistics')">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Food Preferences (dynamically titled) -->
+        <div class="editable-section" id="sectionFood1">
+          <div class="editable-header">
+            <h3 id="food1Title">Food Preferences</h3>
+            <button class="edit-btn" onclick="toggleEdit('Food1')">Edit</button>
+          </div>
+          <div class="view-mode">
+            <div class="field-label">Likes</div>
+            <div class="field-value" id="viewFood1Likes">Not set</div>
+            <div class="field-label">Dislikes</div>
+            <div class="field-value" id="viewFood1Dislikes">Not set</div>
+            <div class="field-label">Allergies</div>
+            <div class="field-value" id="viewFood1Allergies">None</div>
+          </div>
+          <div class="edit-mode">
+            <div class="form-group">
+              <label>Foods They Love</label>
+              <input type="text" class="form-input" id="editFood1Likes" placeholder="Italian, sushi, tacos...">
+            </div>
+            <div class="form-group">
+              <label>Foods They Avoid</label>
+              <input type="text" class="form-input" id="editFood1Dislikes" placeholder="Seafood, spicy food...">
+            </div>
+            <div class="form-group">
+              <label>Allergies</label>
+              <input type="text" class="form-input" id="editFood1Allergies" placeholder="None, gluten, nuts...">
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn-ghost btn-small" onclick="cancelEdit('Food1')">Cancel</button>
+              <button class="btn-primary btn-small" onclick="saveSection('Food1')">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="editable-section" id="sectionFood2">
+          <div class="editable-header">
+            <h3 id="food2Title">Food Preferences</h3>
+            <button class="edit-btn" onclick="toggleEdit('Food2')">Edit</button>
+          </div>
+          <div class="view-mode">
+            <div class="field-label">Likes</div>
+            <div class="field-value" id="viewFood2Likes">Not set</div>
+            <div class="field-label">Dislikes</div>
+            <div class="field-value" id="viewFood2Dislikes">Not set</div>
+            <div class="field-label">Allergies</div>
+            <div class="field-value" id="viewFood2Allergies">None</div>
+          </div>
+          <div class="edit-mode">
+            <div class="form-group">
+              <label>Foods They Love</label>
+              <input type="text" class="form-input" id="editFood2Likes" placeholder="Italian, sushi, tacos...">
+            </div>
+            <div class="form-group">
+              <label>Foods They Avoid</label>
+              <input type="text" class="form-input" id="editFood2Dislikes" placeholder="Seafood, spicy food...">
+            </div>
+            <div class="form-group">
+              <label>Allergies</label>
+              <input type="text" class="form-input" id="editFood2Allergies" placeholder="None, gluten, nuts...">
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn-ghost btn-small" onclick="cancelEdit('Food2')">Cancel</button>
+              <button class="btn-primary btn-small" onclick="saveSection('Food2')">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vibes & Dealbreakers -->
+        <div class="editable-section" id="sectionVibes">
+          <div class="editable-header">
+            <h3>Vibes &amp; Dealbreakers</h3>
+            <button class="edit-btn" onclick="toggleEdit('Vibes')">Edit</button>
+          </div>
+          <div class="view-mode">
+            <div class="field-label">Preferred Vibes</div>
+            <div class="field-value" id="viewVibes">Not set</div>
+            <div class="field-label">Dealbreakers</div>
+            <div class="field-value" id="viewDealbreakers">None</div>
+          </div>
+          <div class="edit-mode">
+            <div class="form-group">
+              <label>Select your preferred vibes</label>
+              <div class="chip-group" id="vibeChips">
+                <span class="chip" data-vibe="romantic">Romantic</span>
+                <span class="chip" data-vibe="adventurous">Adventurous</span>
+                <span class="chip" data-vibe="chill">Chill</span>
+                <span class="chip" data-vibe="foodie">Foodie</span>
+                <span class="chip" data-vibe="cultural">Cultural</span>
+                <span class="chip" data-vibe="outdoors">Outdoors</span>
+                <span class="chip" data-vibe="nightlife">Nightlife</span>
+                <span class="chip" data-vibe="artsy">Artsy</span>
+                <span class="chip" data-vibe="sporty">Sporty</span>
+                <span class="chip" data-vibe="luxurious">Luxurious</span>
+                <span class="chip" data-vibe="spontaneous">Spontaneous</span>
+                <span class="chip" data-vibe="cozy">Cozy</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Dealbreakers</label>
+              <textarea class="form-input" id="editDealbreakers" placeholder="Anything you absolutely don't want on a date..."></textarea>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn-ghost btn-small" onclick="cancelEdit('Vibes')">Cancel</button>
+              <button class="btn-primary btn-small" onclick="saveSection('Vibes')">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Details -->
+        <div class="editable-section" id="sectionAdditional">
+          <div class="editable-header">
+            <h3>Additional Details</h3>
+            <button class="edit-btn" onclick="toggleEdit('Additional')">Edit</button>
+          </div>
+          <div class="view-mode">
+            <div class="field-label" id="viewLoveLangs1Label">Love Languages</div>
+            <div class="field-value" id="viewLoveLangs1">Not set</div>
+            <div class="field-label" id="viewLoveLangs2Label">Love Languages</div>
+            <div class="field-value" id="viewLoveLangs2">Not set</div>
+            <div class="field-label">Accessibility Needs</div>
+            <div class="field-value" id="viewAccessibility">None</div>
+            <div class="field-label">Extra Notes</div>
+            <div class="field-value" id="viewNotes">None</div>
+          </div>
+          <div class="edit-mode">
+            <div class="form-row">
+              <div class="form-group">
+                <label id="editLoveLangs1Label">Love Languages</label>
+                <input type="text" class="form-input" id="editLoveLangs1" placeholder="e.g. Quality time, Acts of service">
+              </div>
+              <div class="form-group">
+                <label id="editLoveLangs2Label">Love Languages</label>
+                <input type="text" class="form-input" id="editLoveLangs2" placeholder="e.g. Words of affirmation, Gifts">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Accessibility Needs</label>
+              <input type="text" class="form-input" id="editAccessibility" placeholder="Wheelchair accessible, limited walking...">
+            </div>
+            <div class="form-group">
+              <label>Extra Notes</label>
+              <textarea class="form-input" id="editNotes" placeholder="Anything else we should know..."></textarea>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn-ghost btn-small" onclick="cancelEdit('Additional')">Cancel</button>
+              <button class="btn-primary btn-small" onclick="saveSection('Additional')">Save</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -104,7 +350,7 @@
           <h3>Account Actions</h3>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button class="btn-ghost btn-small" id="signOutBtn">Sign Out</button>
+          <button class="btn-ghost btn-small" id="signOutBtn2">Sign Out</button>
           <button class="btn-danger btn-small" id="deleteAccountBtn">Delete Account</button>
         </div>
       </div>

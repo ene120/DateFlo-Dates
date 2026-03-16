@@ -4,11 +4,11 @@ import { SUPABASE_URL, SUPABASE_ANON_KEY, APP_BASE_URL } from './config.js';
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Send magic link to email
-export async function sendMagicLink(email) {
+export async function sendMagicLink(email, redirectTo) {
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: APP_BASE_URL + '/dashboard.html'
+      emailRedirectTo: redirectTo || APP_BASE_URL + '/dashboard.html'
     }
   });
   return { error };

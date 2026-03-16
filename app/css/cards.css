@@ -67,11 +67,11 @@
   transform:none;
 }
 .plan-card-new .new-icon{
-  font-size:1.6rem;margin-bottom:12px;
+  margin-bottom:12px;
   width:48px;height:48px;border-radius:50%;
   background:rgba(224,87,128,.06);border:1px solid rgba(224,87,128,.1);
   display:flex;align-items:center;justify-content:center;
-  transition:transform .2s;
+  transition:transform .2s;color:var(--rose);
 }
 .plan-card-new:hover .new-icon{transform:scale(1.05)}
 .plan-card-new h4{font-family:'Playfair Display',serif;font-size:.95rem;margin-bottom:4px}
@@ -94,11 +94,14 @@
   background:var(--grad-warm);opacity:.35;
 }
 .stat-icon{
-  font-size:1.2rem;margin-bottom:8px;
+  margin-bottom:8px;
   width:34px;height:34px;border-radius:10px;
   background:rgba(224,87,128,.05);
   display:flex;align-items:center;justify-content:center;
+  color:var(--rose);
 }
+.stat-icon svg{width:18px;height:18px}
+.stat-icon .icon{color:var(--rose)}
 .stat-value{
   font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
   margin-bottom:2px;font-variant-numeric:tabular-nums;
@@ -175,6 +178,14 @@
 .timeline-date{font-size:.78rem;color:var(--text-muted);margin-bottom:4px}
 .timeline-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:600;margin-bottom:3px}
 .timeline-city{font-size:.82rem;color:var(--text-soft)}
+
+/* Onboard Icon */
+.onboard-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(224,87,128,.06);border:1px solid rgba(224,87,128,.1);
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+}
 
 /* Welcome Hero Banner */
 .welcome-banner{

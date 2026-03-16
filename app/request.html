@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DateFlo | Request a Plan</title>
+  <title>DateFlo | Plan a Date</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,14 +19,152 @@
   <main class="main-content">
     <div style="max-width:600px;margin:0 auto">
       <div class="form-progress-bar">
-        <div class="form-progress-fill" id="progressFill" style="width:25%"></div>
+        <div class="form-progress-fill" id="progressFill" style="width:16.6%"></div>
       </div>
 
-      <!-- Page 1: Occasion & Date -->
+      <!-- Page 1: What Are You Planning? -->
       <div class="form-page active" id="page1">
-        <div class="fp-icon">🎉</div>
-        <div class="fp-title">What's the Occasion?</div>
-        <p class="fp-sub">Tell us what you're celebrating (or not celebrating, every date matters).</p>
+        <div class="fp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
+        </div>
+        <div class="fp-title">What Are You Planning?</div>
+        <p class="fp-sub">Pick the type of date and we'll tailor everything around it.</p>
+
+        <div class="date-type-grid" id="dateTypeGrid">
+          <div class="date-type-card" data-type="dinner_drinks">
+            <div class="dt-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+            <div class="dt-label">Dinner &amp; Drinks</div>
+            <div class="dt-desc">Classic date night. Walk between spots in one area.</div>
+          </div>
+          <div class="date-type-card" data-type="event_night">
+            <div class="dt-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10s3-3 3-8"/><path d="M22 10s-3-3-3-8"/><path d="M10 2c0 4.4-3.6 8-8 8"/><path d="M14 2c0 4.4 3.6 8 8 8"/><path d="M2 10s2 2 2 5"/><path d="M22 10s-2 2-2 5"/><path d="M8 15h8"/><path d="M2 22v-1a6 6 0 0 1 12 0v1H2z"/><path d="M19 22v-1a6 6 0 0 0-3.5-5.5"/></svg></div>
+            <div class="dt-label">Event Night</div>
+            <div class="dt-desc">Concert, show, game, or festival plus food around it.</div>
+          </div>
+          <div class="date-type-card" data-type="all_day">
+            <div class="dt-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></div>
+            <div class="dt-label">All Day Adventure</div>
+            <div class="dt-desc">Morning to night. Multiple areas and activities.</div>
+          </div>
+          <div class="date-type-card" data-type="activity_food">
+            <div class="dt-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+            <div class="dt-label">Activity &amp; Food</div>
+            <div class="dt-desc">Hike, beach, sports, museum, or outing plus a meal.</div>
+          </div>
+          <div class="date-type-card" data-type="surprise">
+            <div class="dt-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2-2c-1.1 0-2 .9-2 2v4h4v-4z"/></svg></div>
+            <div class="dt-label">Surprise Me</div>
+            <div class="dt-desc">Our team picks everything. Just tell us the basics.</div>
+          </div>
+          <div class="date-type-card" data-type="custom">
+            <div class="dt-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg></div>
+            <div class="dt-label">Custom</div>
+            <div class="dt-desc">You describe it, we plan it. Full creative freedom.</div>
+          </div>
+        </div>
+
+        <!-- Conditional: Event details -->
+        <div class="conditional-field" id="eventDetails">
+          <div class="form-group">
+            <label>Tell us about the event <span class="req">*</span></label>
+            <input type="text" class="form-input" id="reqEventName" placeholder="e.g. Taylor Swift at SoFi, Lakers vs Celtics, Hamilton">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Event Time</label>
+              <input type="text" class="form-input" id="reqEventTime" placeholder="e.g. 7:30 PM">
+            </div>
+            <div class="form-group">
+              <label>Venue / Location</label>
+              <input type="text" class="form-input" id="reqEventVenue" placeholder="e.g. SoFi Stadium">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Do you already have tickets?</label>
+            <div class="chip-group" id="ticketChips">
+              <span class="chip" data-val="yes">Yes, we have tickets</span>
+              <span class="chip" data-val="no">No, need recommendations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conditional: Custom description -->
+        <div class="conditional-field" id="customDetails">
+          <div class="form-group">
+            <label>Describe your ideal date <span class="req">*</span></label>
+            <textarea class="form-input" id="reqCustomDesc" rows="4" placeholder="Tell us what you have in mind. The more detail, the better our team can plan it."></textarea>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <span></span>
+          <button class="btn-next" onclick="nextPage(2)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Page 2: Vibe & Activities -->
+      <div class="form-page" id="page2">
+        <div class="fp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
+        </div>
+        <div class="fp-title">Vibe &amp; Activities</div>
+        <p class="fp-sub">Set the mood and pick what you want included.</p>
+
+        <div class="form-group">
+          <label>What's the vibe? <span class="req">*</span></label>
+          <div class="form-hint" style="margin-bottom:8px">Select all that apply.</div>
+          <div class="chip-group" id="vibeChips">
+            <span class="chip" data-vibe="romantic">Romantic</span>
+            <span class="chip" data-vibe="adventurous">Adventurous</span>
+            <span class="chip" data-vibe="chill">Chill</span>
+            <span class="chip" data-vibe="foodie">Foodie</span>
+            <span class="chip" data-vibe="cultural">Cultural</span>
+            <span class="chip" data-vibe="outdoors">Outdoors</span>
+            <span class="chip" data-vibe="nightlife">Nightlife</span>
+            <span class="chip" data-vibe="artsy">Artsy</span>
+            <span class="chip" data-vibe="sporty">Sporty</span>
+            <span class="chip" data-vibe="luxurious">Luxurious</span>
+            <span class="chip" data-vibe="spontaneous">Spontaneous</span>
+            <span class="chip" data-vibe="cozy">Cozy</span>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:20px">
+          <label>What do you want to include?</label>
+          <div class="form-hint" style="margin-bottom:8px">Select any that sound good. Our team will build the plan around these.</div>
+          <div class="chip-group" id="activityChips">
+            <span class="chip" data-activity="dinner">Dinner</span>
+            <span class="chip" data-activity="brunch">Brunch</span>
+            <span class="chip" data-activity="cocktails">Cocktails / Drinks</span>
+            <span class="chip" data-activity="coffee_dessert">Coffee / Dessert</span>
+            <span class="chip" data-activity="live_music">Live Music</span>
+            <span class="chip" data-activity="show">Show / Performance</span>
+            <span class="chip" data-activity="outdoor">Outdoor Activity</span>
+            <span class="chip" data-activity="museum">Museum / Gallery</span>
+            <span class="chip" data-activity="spa">Spa / Wellness</span>
+            <span class="chip" data-activity="scenic">Scenic Views</span>
+            <span class="chip" data-activity="dancing">Dancing / Nightlife</span>
+            <span class="chip" data-activity="shopping">Shopping</span>
+            <span class="chip" data-activity="sports">Sports / Games</span>
+            <span class="chip" data-activity="cooking_class">Cooking Class</span>
+            <span class="chip" data-activity="wine_tasting">Wine / Beer Tasting</span>
+            <span class="chip" data-activity="photo_worthy">Photo Worthy Spots</span>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="prevPage(1)">&larr; Back</button>
+          <button class="btn-next" onclick="nextPage(3)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Page 3: When & Where -->
+      <div class="form-page" id="page3">
+        <div class="fp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        </div>
+        <div class="fp-title">When &amp; Where</div>
+        <p class="fp-sub">Lock in the date, time, and location.</p>
 
         <div class="form-group">
           <label>Occasion</label>
@@ -39,143 +177,214 @@
             <option value="just_because">Just Because</option>
             <option value="first_date">First Date</option>
             <option value="proposal">Proposal</option>
+            <option value="holiday">Holiday</option>
             <option value="other">Other</option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" class="form-input" id="reqDate">
+        </div>
+
         <div class="form-row">
           <div class="form-group">
-            <label>Date <span class="req">*</span></label>
-            <input type="date" class="form-input" id="reqDate">
+            <label>Start Time <span class="req">*</span></label>
+            <select class="form-input" id="reqStartTime">
+              <option value="">Select...</option>
+              <option value="9:00 AM">9:00 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:00 AM">11:00 AM (Brunch vibes)</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="3:00 PM">3:00 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+              <option value="5:00 PM">5:00 PM</option>
+              <option value="6:00 PM">6:00 PM</option>
+              <option value="7:00 PM">7:00 PM</option>
+              <option value="8:00 PM">8:00 PM</option>
+              <option value="9:00 PM">9:00 PM</option>
+            </select>
           </div>
           <div class="form-group">
-            <label>Start Time <span class="req">*</span></label>
-            <input type="time" class="form-input" id="reqTime">
+            <label>Need to be done by?</label>
+            <input type="text" class="form-input" id="reqEndTime" placeholder="e.g. 11 PM, no limit">
+            <div class="form-hint">Leave blank if flexible.</div>
           </div>
         </div>
+
         <div class="form-group">
           <label>City <span class="req">*</span></label>
           <input type="text" class="form-input" id="reqCity" placeholder="e.g. Los Angeles, CA">
-          <div class="form-hint">Pre filled from your preferences. Change if this date is elsewhere.</div>
-        </div>
-
-        <div class="form-nav">
-          <span></span>
-          <button class="btn-next" onclick="nextPage(2)">Continue &rarr;</button>
-        </div>
-      </div>
-
-      <!-- Page 2: Budget & Activity -->
-      <div class="form-page" id="page2">
-        <div class="fp-icon">💰</div>
-        <div class="fp-title">Budget &amp; Energy</div>
-        <p class="fp-sub">How much do you want to spend (on your own), and how active should the date be?</p>
-
-        <div class="form-group">
-          <label>Budget</label>
-          <div class="choices" id="budgetChoices">
-            <div class="choice" data-value="free" onclick="selectChoice(this,'budget')">
-              <div class="choice-icon">🆓</div>
-              <div class="choice-label">Free</div>
-            </div>
-            <div class="choice" data-value="low" onclick="selectChoice(this,'budget')">
-              <div class="choice-icon">💵</div>
-              <div class="choice-label">$1 to $50</div>
-            </div>
-            <div class="choice" data-value="mid" onclick="selectChoice(this,'budget')">
-              <div class="choice-icon">💰</div>
-              <div class="choice-label">$50 to $150</div>
-            </div>
-            <div class="choice" data-value="high" onclick="selectChoice(this,'budget')">
-              <div class="choice-icon">💎</div>
-              <div class="choice-label">$150 to $300</div>
-            </div>
-            <div class="choice" data-value="luxury" onclick="selectChoice(this,'budget')">
-              <div class="choice-icon">👑</div>
-              <div class="choice-label">$300+</div>
-            </div>
-          </div>
+          <div class="form-hint" id="cityHint">Pre filled from your profile. Change if this date is elsewhere.</div>
         </div>
 
         <div class="form-group">
-          <label>Activity Level</label>
-          <div class="choices" id="activityChoices">
-            <div class="choice" data-value="chill" onclick="selectChoice(this,'activity')">
-              <div class="choice-icon">😌</div>
-              <div class="choice-label">Chill</div>
-              <div class="choice-desc">Low key, relaxed</div>
-            </div>
-            <div class="choice" data-value="moderate" onclick="selectChoice(this,'activity')">
-              <div class="choice-icon">🚶</div>
-              <div class="choice-label">Moderate</div>
-              <div class="choice-desc">Mix of both</div>
-            </div>
-            <div class="choice" data-value="active" onclick="selectChoice(this,'activity')">
-              <div class="choice-icon">🏃</div>
-              <div class="choice-label">Active</div>
-              <div class="choice-desc">Adventurous, on the go</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-nav">
-          <button class="btn-back" onclick="prevPage(1)">&larr; Back</button>
-          <button class="btn-next" onclick="nextPage(3)">Continue &rarr;</button>
-        </div>
-      </div>
-
-      <!-- Page 3: Special Requests -->
-      <div class="form-page" id="page3">
-        <div class="fp-icon">✨</div>
-        <div class="fp-title">Special Requests</div>
-        <p class="fp-sub">Any specific spots you want included, or anything our team should know?</p>
-
-        <div class="form-group">
-          <label>Specific Venues or Spots (optional)</label>
-          <textarea class="form-input" id="reqSpots" placeholder="e.g. We love rooftop bars, or include the Getty Center..."></textarea>
-        </div>
-        <div class="form-group">
-          <label>Anything Else?</label>
-          <textarea class="form-input" id="reqNotes" placeholder="Surprise elements, dietary needs for this specific date, etc."></textarea>
+          <label>Preferred Neighborhood or Area</label>
+          <input type="text" class="form-input" id="reqNeighborhood" placeholder="e.g. Downtown, West Hollywood, Old Town">
+          <div class="form-hint">Optional. If you have a part of the city in mind, let us know.</div>
         </div>
 
         <div class="form-nav">
           <button class="btn-back" onclick="prevPage(2)">&larr; Back</button>
-          <button class="btn-next" onclick="nextPage(4)">Review &rarr;</button>
+          <button class="btn-next" onclick="nextPage(4)">Continue &rarr;</button>
         </div>
       </div>
 
-      <!-- Page 4: Review & Submit -->
+      <!-- Page 4: Logistics -->
       <div class="form-page" id="page4">
-        <div class="fp-icon">📋</div>
-        <div class="fp-title">Review Your Request</div>
-        <p class="fp-sub">Make sure everything looks good before submitting.</p>
+        <div class="fp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+        </div>
+        <div class="fp-title">Logistics</div>
+        <p class="fp-sub">How are you getting around, and what's the budget?</p>
 
-        <div class="glass-card" id="reviewSummary" style="margin-bottom:24px">
-          <!-- Filled by JS -->
+        <div class="form-group">
+          <label>Getting Around <span class="req">*</span></label>
+          <div class="form-hint" style="margin-bottom:8px">This helps our team plan the route between stops.</div>
+          <div class="chip-group" id="transportChips">
+            <span class="chip" data-transport="walkable">Keep everything walkable (park once)</span>
+            <span class="chip" data-transport="drive_between">Happy to drive between stops</span>
+            <span class="chip" data-transport="rideshare">Rideshare / Uber &amp; Lyft</span>
+            <span class="chip" data-transport="public_transit">Public Transit</span>
+            <span class="chip" data-transport="mix">Mix (walk some, drive some)</span>
+          </div>
         </div>
 
-        <p style="font-size:.82rem;color:var(--text-muted);line-height:1.7;margin-bottom:16px">
-          Your saved preferences (food, vibes, transport) will automatically be included with this request. Our team will start working on your plan right away.
-        </p>
+        <div class="form-group" style="margin-top:20px">
+          <label>Budget <span class="req">*</span></label>
+          <select class="form-input" id="reqBudget">
+            <option value="">Select...</option>
+            <option value="under_50">Under $50 (Keep it simple)</option>
+            <option value="50_100">$50 to $100 (Sweet spot)</option>
+            <option value="100_200">$100 to $200</option>
+            <option value="200_350">$200 to $350</option>
+            <option value="350_plus">$350+ (Go all out)</option>
+            <option value="no_limit">No limit</option>
+          </select>
+          <div class="form-hint">Total for the date (not including the plan fee).</div>
+        </div>
 
         <div class="form-nav">
           <button class="btn-back" onclick="prevPage(3)">&larr; Back</button>
-          <button class="btn-primary" style="margin-left:auto;padding:16px 40px" id="submitRequestBtn" onclick="submitRequest()">
+          <button class="btn-next" onclick="nextPage(5)">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Page 5: Special Requests -->
+      <div class="form-page" id="page5">
+        <div class="fp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        </div>
+        <div class="fp-title">Special Requests</div>
+        <p class="fp-sub">The more detail you share, the better our team can plan it.</p>
+
+        <div class="form-group">
+          <label>Must Include Spots or Venues</label>
+          <textarea class="form-input" id="reqSpots" placeholder="e.g. We love rooftop bars, include the Getty Center, start at Grand Central Market..."></textarea>
+          <div class="form-hint">Specific restaurants, bars, or places you want in the plan.</div>
+        </div>
+        <div class="form-group">
+          <label>Things to Avoid</label>
+          <textarea class="form-input" id="reqAvoid" placeholder="e.g. No sushi, no crowded clubs, nothing too loud..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Anything Else Our Team Should Know?</label>
+          <textarea class="form-input" id="reqNotes" placeholder="Surprise elements, inside jokes, things your partner loves, dietary needs for this specific date, accessibility needs..."></textarea>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn-back" onclick="prevPage(4)">&larr; Back</button>
+          <button class="btn-next" onclick="nextPage(6)">Review &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Page 6: Review & Submit -->
+      <div class="form-page" id="page6">
+        <div class="fp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+        </div>
+        <div class="fp-title">Review Your Request</div>
+        <p class="fp-sub">Make sure everything looks good. You can go back to change anything.</p>
+
+        <div class="editable-section" id="reviewPerDate" style="margin-bottom:16px">
+          <div class="editable-header">
+            <h3>This Date</h3>
+            <button class="edit-btn" onclick="prevPage(1)">Edit</button>
+          </div>
+          <div id="reviewDateDetails"></div>
+        </div>
+
+        <div class="editable-section" id="reviewPrefs">
+          <div class="editable-header">
+            <h3>Your Saved Preferences</h3>
+            <button class="edit-btn" onclick="window.location.href='./settings.html'">Edit in Settings</button>
+          </div>
+          <div id="reviewPrefsDetails"></div>
+        </div>
+
+        <p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;margin:16px 0" id="reviewNote">
+          Our team will use your saved preferences along with this request to craft a personalized plan. You'll receive an email when it's ready.
+        </p>
+
+        <!-- Authenticated: show submit button -->
+        <div class="form-nav" id="authSubmitArea">
+          <button class="btn-back" onclick="prevPage(5)">&larr; Back</button>
+          <button class="btn-primary" style="margin-left:auto;padding:14px 36px" id="submitRequestBtn" onclick="submitRequest()">
             Submit Request &rarr;
           </button>
+        </div>
+
+        <!-- Guest: show sign up prompt -->
+        <div id="guestSignupArea" class="hidden">
+          <div class="editable-section" style="margin-top:16px;border-color:rgba(224,87,128,.15)">
+            <div style="text-align:center;margin-bottom:16px">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <h3 style="margin-top:10px;margin-bottom:4px">Create your account to submit</h3>
+              <p style="font-size:.84rem;color:var(--text-muted);line-height:1.6">
+                Enter your email and we'll send a magic link. No password needed. Your date request will be submitted automatically.
+              </p>
+            </div>
+            <div class="form-group" style="margin-bottom:12px">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" class="form-input" id="guestEmail" placeholder="you@example.com">
+            </div>
+            <button class="btn-primary" style="width:100%;justify-content:center;padding:14px" id="guestSignupBtn" onclick="handleGuestSignup()">
+              Send Magic Link &rarr;
+            </button>
+            <p style="font-size:.72rem;color:var(--text-faint);text-align:center;margin-top:10px;line-height:1.5">
+              Already have an account? This works for sign in too.
+            </p>
+          </div>
+
+          <div id="guestEmailSent" class="hidden" style="text-align:center;padding:24px 0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--status-delivered)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            <h3 style="margin-top:12px;margin-bottom:6px">Check Your Email</h3>
+            <p style="font-size:.88rem;color:var(--text-soft);line-height:1.6">
+              We sent a magic link to <span style="color:var(--rose);font-weight:600" id="guestSentEmail"></span>
+            </p>
+            <p style="font-size:.82rem;color:var(--text-muted);margin-top:8px">Click the link to sign in. Your date request will be submitted automatically.</p>
+          </div>
+
+          <div class="form-nav" style="margin-top:12px">
+            <button class="btn-back" onclick="prevPage(5)">&larr; Back</button>
+          </div>
         </div>
       </div>
 
       <!-- Success Page -->
       <div class="form-page" id="pageSuccess">
         <div style="text-align:center;padding:40px 0">
-          <div style="font-size:4rem;margin-bottom:16px">🎉</div>
+          <div style="margin-bottom:14px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--status-delivered)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          </div>
           <h2>Request Submitted!</h2>
-          <p class="text-soft mt-8" style="font-size:.92rem;line-height:1.7">
+          <p class="text-soft mt-8" style="font-size:.9rem;line-height:1.7">
             Our team has received your request and will get to work right away.
             You'll receive an email when your date plan is ready.
           </p>
-          <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <div style="margin-top:28px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
             <a href="./dashboard.html" class="btn-primary">View My Plans</a>
             <a href="./request.html" class="btn-ghost">Request Another</a>
           </div>
