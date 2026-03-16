@@ -18,15 +18,18 @@ document.getElementById('signOutBtn')?.addEventListener('click', signOut);
 document.getElementById('settingsName').value = profile?.display_name || '';
 document.getElementById('settingsEmail').value = user.email || '';
 document.getElementById('settingsPhone').value = profile?.phone || '';
+document.getElementById('settingsAddress').value = profile?.address || '';
 
 // ── Save Profile ──
 document.getElementById('saveProfileBtn').addEventListener('click', async () => {
   const name = document.getElementById('settingsName').value.trim();
   const phone = document.getElementById('settingsPhone').value.trim();
+  const address = document.getElementById('settingsAddress').value.trim();
 
   const { error } = await updateProfile(user.id, {
     display_name: name,
-    phone: phone
+    phone: phone,
+    address: address
   });
 
   if (error) {
