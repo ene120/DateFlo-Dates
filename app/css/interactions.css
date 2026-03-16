@@ -277,6 +277,168 @@
 
 
 /* ═══════════════════════════════════════
+   13. SKELETON LOADING SHIMMER
+   ═══════════════════════════════════════ */
+@keyframes shimmer {
+  0% { background-position: -400px 0 }
+  100% { background-position: 400px 0 }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+.skel-bone {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 0%,
+    rgba(255,255,255,.04) 40%,
+    rgba(255,255,255,.04) 60%,
+    var(--bg-elevated) 100%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: 6px;
+}
+.skel-thumb { height: 140px }
+.skel-title { height: 18px; width: 70%; margin-bottom: 10px }
+.skel-meta { height: 12px; width: 50% }
+.skel-body { padding: 18px }
+.skel-stat-icon { width: 34px; height: 34px; border-radius: 10px; margin-bottom: 8px }
+.skel-stat-value { height: 24px; width: 50%; margin-bottom: 4px }
+.skel-stat-label { height: 10px; width: 70% }
+
+
+/* ═══════════════════════════════════════
+   14. FORM PAGE SLIDE TRANSITIONS
+   ═══════════════════════════════════════ */
+.form-page {
+  display: none;
+  opacity: 0;
+}
+.form-page.active {
+  display: block;
+  animation: formPageIn .35s cubic-bezier(.22,1,.36,1) both;
+}
+.form-page.slide-out-left {
+  display: block;
+  animation: formPageOutLeft .25s ease-in both;
+}
+.form-page.slide-out-right {
+  display: block;
+  animation: formPageOutRight .25s ease-in both;
+}
+@keyframes formPageIn {
+  from { opacity: 0; transform: translateX(30px) }
+  to { opacity: 1; transform: translateX(0) }
+}
+@keyframes formPageInReverse {
+  from { opacity: 0; transform: translateX(-30px) }
+  to { opacity: 1; transform: translateX(0) }
+}
+@keyframes formPageOutLeft {
+  from { opacity: 1; transform: translateX(0) }
+  to { opacity: 0; transform: translateX(-30px) }
+}
+@keyframes formPageOutRight {
+  from { opacity: 1; transform: translateX(0) }
+  to { opacity: 0; transform: translateX(30px) }
+}
+.form-page.active.from-left {
+  animation-name: formPageInReverse;
+}
+
+
+/* ═══════════════════════════════════════
+   15. CARD SHIMMER SWEEP ON HOVER
+   ═══════════════════════════════════════ */
+.shimmer-card {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,.03) 40%,
+    rgba(255,255,255,.06) 50%,
+    rgba(255,255,255,.03) 60%,
+    transparent 100%
+  );
+  transition: none;
+  pointer-events: none;
+  z-index: 2;
+}
+.shimmer-card:hover::after {
+  animation: cardSweep .6s ease-out;
+}
+@keyframes cardSweep {
+  from { left: -100% }
+  to { left: 150% }
+}
+
+
+/* ═══════════════════════════════════════
+   16. CURSOR TRAIL (landing page)
+   ═══════════════════════════════════════ */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--rose);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity .15s;
+  mix-blend-mode: screen;
+}
+.cursor-dot.visible { opacity: .5 }
+.cursor-trail {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background: rgba(224,87,128,.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  mix-blend-mode: screen;
+}
+
+
+/* ═══════════════════════════════════════
+   17. HERO TYPING CURSOR
+   ═══════════════════════════════════════ */
+@keyframes blink {
+  0%, 50% { opacity: 1 }
+  51%, 100% { opacity: 0 }
+}
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--rose);
+  margin-left: 4px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+
+/* ═══════════════════════════════════════
+   18. PARALLAX HERO LAYERS
+   ═══════════════════════════════════════ */
+.parallax-layer {
+  transition: transform .1s linear;
+  will-change: transform;
+}
+
+
+/* ═══════════════════════════════════════
    MOBILE: reduce motion for performance
    ═══════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
@@ -288,4 +450,14 @@
   .tilt-card { transform: none !important }
   .page-content, .main-content { animation: none }
   .celebration-canvas { display: none }
+  .form-page.active { animation: none; opacity: 1 }
+  .skel-bone { animation: none }
+  .cursor-dot, .cursor-trail { display: none }
+  .shimmer-card::after { animation: none !important }
+}
+
+/* Disable heavy effects on mobile (touch devices) */
+@media (hover: none) {
+  .cursor-dot, .cursor-trail { display: none }
+  .shimmer-card::after { display: none }
 }

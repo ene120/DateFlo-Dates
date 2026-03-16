@@ -2,7 +2,7 @@ import { getSession, getUser, signOut, sendMagicLink } from './auth.js';
 import { getProfile, getPreferences, createPlanRequest, createCouple, updateProfile, upsertPreferences } from './api.js';
 import { renderSidebar, renderMobileTabs, showToast, formatDate } from './ui.js';
 import { SHEET_URL, APP_BASE_URL } from './config.js';
-import { celebrate, initInteractions } from './interactions.js';
+import { celebrate, initInteractions, slideFormPage } from './interactions.js';
 
 // ── Init: check auth but don't require it ──
 const session = await getSession();
@@ -188,8 +188,7 @@ window.nextPage = function(page) {
 
   if (page === 6) buildReview();
 
-  document.getElementById('page' + currentPage).classList.remove('active');
-  document.getElementById('page' + page).classList.add('active');
+  slideFormPage('page' + currentPage, 'page' + page, 'forward');
   currentPage = page;
 
   const progress = (page / totalPages) * 100;
@@ -199,8 +198,7 @@ window.nextPage = function(page) {
 };
 
 window.prevPage = function(page) {
-  document.getElementById('page' + currentPage).classList.remove('active');
-  document.getElementById('page' + page).classList.add('active');
+  slideFormPage('page' + currentPage, 'page' + page, 'back');
   currentPage = page;
 
   const progress = (page / totalPages) * 100;

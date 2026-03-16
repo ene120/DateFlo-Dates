@@ -1,7 +1,7 @@
 import { requireAuth, getUser, signOut } from './auth.js';
 import { getProfile, getPlans, createCouple, updateProfile, getCouple, acceptInvite, upsertPreferences, getFavorites, getPreferences, getCoupleMembers } from './api.js';
 import { renderSidebar, renderMobileTabs, showToast, statusBadge, formatDate, animateCounter, initCursorGlow, icon } from './ui.js';
-import { initInteractions } from './interactions.js';
+import { initInteractions, showSkeletonCards, showSkeletonStats } from './interactions.js';
 
 // ── Init ──
 const session = await requireAuth();
@@ -14,12 +14,6 @@ renderSidebar('dashboard', user);
 renderMobileTabs('dashboard');
 
 document.getElementById('signOutBtn')?.addEventListener('click', signOut);
-
-// ── Inject stat icons ──
-document.getElementById('statIconPlans').innerHTML = icon('clipboard-list', 18);
-document.getElementById('statIconFavs').innerHTML = icon('star', 18);
-document.getElementById('statIconCity').innerHTML = icon('map-pin', 18);
-document.getElementById('statIconPartner').innerHTML = icon('heart', 18);
 
 // ── Check for stored invite code ──
 const storedCode = localStorage.getItem('dateflo_invite_code');
@@ -95,6 +89,10 @@ async function showDashboard() {
   document.getElementById('onboardingSection').classList.add('hidden');
   document.getElementById('dashboardContent').classList.remove('hidden');
 
+  // Show skeleton loading immediately
+  showSkeletonCards(document.getElementById('planGrid'), 3);
+  showSkeletonStats(document.getElementById('quickStats'));
+
   const couple = await getCouple(profile.couple_id);
   const firstName = profile?.display_name || user.email?.split('@')[0] || 'there';
 
@@ -122,6 +120,27 @@ async function showDashboard() {
     getPreferences(profile.couple_id),
     getCoupleMembers(profile.couple_id)
   ]);
+
+  // Restore stat card content from skeleton
+  const statsEl = document.getElementById('quickStats');
+  const statData = [
+    { iconId: 'statIconPlans', iconName: 'clipboard-list', valueId: 'statPlans', label: 'Date Plans' },
+    { iconId: 'statIconFavs', iconName: 'star', valueId: 'statFavorites', label: 'Saved Venues' },
+    { iconId: 'statIconCity', iconName: 'map-pin', valueId: 'statCity', label: 'Your City' },
+    { iconId: 'statIconPartner', iconName: 'heart', valueId: 'statPartner', label: 'Partner Status' },
+  ];
+  statsEl.innerHTML = statData.map(s => `
+    <div class="stat-card reveal">
+      <div class="stat-icon" id="${s.iconId}"></div>
+      <div class="stat-value" id="${s.valueId}">0</div>
+      <div class="stat-label">${s.label}</div>
+    </div>
+  `).join('');
+
+  // Inject stat icons
+  statData.forEach(s => {
+    document.getElementById(s.iconId).innerHTML = icon(s.iconName, 18);
+  });
 
   // Animated stat counters
   animateCounter(document.getElementById('statPlans'), plans.length);
@@ -163,7 +182,7 @@ async function showDashboard() {
   }
 
   grid.innerHTML = plans.map(plan => `
-    <a href="./plan.html?id=${plan.id}" class="plan-card tilt-card reveal">
+    <a href="./plan.html?id=${plan.id}" class="plan-card tilt-card shimmer-card reveal">
       <div class="plan-card-thumb" ${plan.thumbnail_url ? `style="background:url('${plan.thumbnail_url}') center/cover"` : ''}>
         <div class="plan-card-status">${statusBadge(plan.status)}</div>
       </div>

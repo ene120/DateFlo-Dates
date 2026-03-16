@@ -174,11 +174,175 @@ export function initPageTransitions() {
 }
 
 // ═══════════════════════════════════════
-// 6. AUTO-INIT (call on any page)
+// 6. SKELETON LOADING
+// ═══════════════════════════════════════
+export function showSkeletonCards(container, count = 3) {
+  container.innerHTML = Array.from({ length: count }, () => `
+    <div class="plan-card-skeleton skeleton">
+      <div class="skel-thumb skel-bone"></div>
+      <div class="skel-body">
+        <div class="skel-title skel-bone"></div>
+        <div class="skel-meta skel-bone"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+export function showSkeletonStats(container) {
+  const cards = container.querySelectorAll('.stat-card');
+  cards.forEach(card => {
+    card.innerHTML = `
+      <div class="skel-stat-icon skel-bone"></div>
+      <div class="skel-stat-value skel-bone"></div>
+      <div class="skel-stat-label skel-bone"></div>
+    `;
+  });
+}
+
+// ═══════════════════════════════════════
+// 7. FORM PAGE SLIDE TRANSITIONS
+// ═══════════════════════════════════════
+export function slideFormPage(fromId, toId, direction = 'forward') {
+  const from = document.getElementById(fromId);
+  const to = document.getElementById(toId);
+  if (!from || !to) return;
+
+  // Animate out
+  from.classList.remove('active', 'from-left');
+  from.classList.add(direction === 'forward' ? 'slide-out-left' : 'slide-out-right');
+
+  // After out animation, show new page
+  setTimeout(() => {
+    from.classList.remove('slide-out-left', 'slide-out-right');
+    to.classList.add('active');
+    if (direction === 'back') {
+      to.classList.add('from-left');
+    } else {
+      to.classList.remove('from-left');
+    }
+  }, 200);
+}
+
+// ═══════════════════════════════════════
+// 8. CURSOR TRAIL (landing page only)
+// ═══════════════════════════════════════
+export function initCursorTrail() {
+  if (window.matchMedia('(hover: none)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  document.body.appendChild(dot);
+
+  const trailCount = 5;
+  const trails = [];
+  for (let i = 0; i < trailCount; i++) {
+    const t = document.createElement('div');
+    t.className = 'cursor-trail';
+    t.style.opacity = (0.3 - i * 0.05).toString();
+    t.style.width = t.style.height = (5 - i * 0.5) + 'px';
+    document.body.appendChild(t);
+    trails.push({ el: t, x: 0, y: 0 });
+  }
+
+  let mouseX = 0, mouseY = 0;
+  let dotVisible = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = (mouseX - 4) + 'px';
+    dot.style.top = (mouseY - 4) + 'px';
+    if (!dotVisible) {
+      dot.classList.add('visible');
+      dotVisible = true;
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    dot.classList.remove('visible');
+    dotVisible = false;
+  });
+
+  function animateTrails() {
+    let prevX = mouseX, prevY = mouseY;
+    trails.forEach(t => {
+      const dx = prevX - t.x;
+      const dy = prevY - t.y;
+      t.x += dx * 0.3;
+      t.y += dy * 0.3;
+      t.el.style.left = (t.x - 2.5) + 'px';
+      t.el.style.top = (t.y - 2.5) + 'px';
+      prevX = t.x;
+      prevY = t.y;
+    });
+    requestAnimationFrame(animateTrails);
+  }
+  requestAnimationFrame(animateTrails);
+}
+
+// ═══════════════════════════════════════
+// 9. TYPING EFFECT
+// ═══════════════════════════════════════
+export function typeWriter(element, phrases, speed = 60, pause = 2000) {
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const cursor = document.createElement('span');
+  cursor.className = 'typing-cursor';
+  element.after(cursor);
+
+  function tick() {
+    const current = phrases[phraseIndex];
+
+    if (!isDeleting) {
+      element.textContent = current.slice(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === current.length) {
+        isDeleting = true;
+        setTimeout(tick, pause);
+        return;
+      }
+      setTimeout(tick, speed);
+    } else {
+      element.textContent = current.slice(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(tick, speed * 3);
+        return;
+      }
+      setTimeout(tick, speed * 0.5);
+    }
+  }
+  tick();
+}
+
+// ═══════════════════════════════════════
+// 10. PARALLAX ON SCROLL
+// ═══════════════════════════════════════
+export function initParallax() {
+  const layers = document.querySelectorAll('.parallax-layer');
+  if (!layers.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    layers.forEach(layer => {
+      const speed = parseFloat(layer.dataset.speed || '0.3');
+      layer.style.transform = `translateY(${scrollY * speed}px)`;
+    });
+  }, { passive: true });
+}
+
+// ═══════════════════════════════════════
+// 11. AUTO-INIT (call on any page)
 // ═══════════════════════════════════════
 export function initInteractions() {
   initScrollReveal();
   initMagneticButtons();
   initTiltCards();
   initPageTransitions();
+  initParallax();
 }

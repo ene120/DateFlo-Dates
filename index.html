@@ -132,6 +132,24 @@
     .reveal-scale.visible{opacity:1;transform:scale(1)}
     @media(prefers-reduced-motion:reduce){.reveal,.reveal-scale{opacity:1;transform:none;transition:none}}
 
+    /* ── Cursor Trail ── */
+    .cursor-dot{position:fixed;width:8px;height:8px;background:var(--rose);border-radius:50%;pointer-events:none;z-index:9998;opacity:0;transition:opacity .15s;mix-blend-mode:screen}
+    .cursor-dot.visible{opacity:.5}
+    .cursor-trail{position:fixed;width:5px;height:5px;background:rgba(224,87,128,.3);border-radius:50%;pointer-events:none;z-index:9997;mix-blend-mode:screen}
+    @media(hover:none){.cursor-dot,.cursor-trail{display:none}}
+    @media(prefers-reduced-motion:reduce){.cursor-dot,.cursor-trail{display:none}}
+
+    /* ── Card shimmer sweep ── */
+    .shimmer-card{position:relative;overflow:hidden}
+    .shimmer-card::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.06) 50%,rgba(255,255,255,.03) 60%,transparent 100%);pointer-events:none;z-index:2}
+    .shimmer-card:hover::after{animation:cardSweep .6s ease-out}
+    @keyframes cardSweep{from{left:-100%}to{left:150%}}
+    @media(hover:none){.shimmer-card::after{display:none}}
+
+    /* ── Typing cursor ── */
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+    .typing-cursor{display:inline-block;width:2px;height:.9em;background:var(--rose);margin-left:4px;vertical-align:text-bottom;animation:blink 1s step-end infinite}
+
     /* ═══════════ HERO ═══════════ */
     .hero{
       min-height:100svh;display:flex;align-items:center;justify-content:center;
@@ -143,11 +161,13 @@
       content:'';position:absolute;top:-50%;right:-30%;width:700px;height:700px;
       background:radial-gradient(circle,rgba(224,87,128,.12) 0%,transparent 70%);
       pointer-events:none;animation:heroPulse 8s ease-in-out infinite;
+      transform:translateY(var(--para-y,0));transition:transform .05s linear;
     }
     .hero::after{
       content:'';position:absolute;bottom:-40%;left:-20%;width:600px;height:600px;
       background:radial-gradient(circle,rgba(249,202,36,.06) 0%,transparent 70%);
       pointer-events:none;animation:heroPulse 10s ease-in-out infinite reverse;
+      transform:translateY(calc(var(--para-y,0) * -0.5));transition:transform .05s linear;
     }
     @keyframes heroPulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.15);opacity:1}}
     .hero-inner{max-width:720px;position:relative;z-index:2}
@@ -486,7 +506,7 @@
   <!-- ═══════════ HERO ═══════════ -->
   <section class="hero">
     <div class="hero-inner">
-      <h1>We plan the date.<br>You make the <em>memories.</em></h1>
+      <h1>We plan the date.<br>You make the <em><span id="heroTyping">memories.</span></em></h1>
       <p class="hero-desc">Every restaurant researched. Every detail covered. Every moment crafted around you and your partner so all you have to do is show up.</p>
       <div class="hero-btns">
         <a class="btn-primary" onclick="openForm()">Plan Your Date &rarr;</a>
@@ -522,20 +542,20 @@
         <p class="section-sub">No apps to download. No subscriptions. Just a date plan built around the two of you.</p>
       </div>
       <div class="how-grid">
-        <div class="how-card reveal">
+        <div class="how-card shimmer-card reveal">
           <div class="how-num">1</div>
           <div class="how-icon">💬</div>
           <h3>Tell Us About You Two</h3>
           <p>Answer a few fun questions about your tastes, your partner's favorites, and what kind of date you're in the mood for. Takes about 5 minutes.</p>
         </div>
-        <div class="how-card reveal">
+        <div class="how-card shimmer-card reveal">
           <div class="how-num">2</div>
           <div class="how-icon">🔍</div>
           <h3>Our Team Gets to Work</h3>
           <p>Our planning team researches venues, checks reviews, verifies hours, scouts menus, and builds a multi-stop itinerary tailored to your preferences.</p>
           <div class="how-time">&#9201; Delivered within 24 hours</div>
         </div>
-        <div class="how-card reveal">
+        <div class="how-card shimmer-card reveal">
           <div class="how-num">3</div>
           <div class="how-icon">✨</div>
           <h3>Open & Go</h3>
@@ -1223,6 +1243,66 @@
         navCta.style.transform='translate('+x*0.12+'px,'+y*0.12+'px)';
       });
       navCta.addEventListener('mouseleave',function(){navCta.style.transform=''});
+    }
+
+    // Cursor trail
+    if(!window.matchMedia('(hover:none)').matches && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var dot=document.createElement('div');dot.className='cursor-dot';document.body.appendChild(dot);
+      var trails=[];var trailCount=5;
+      for(var i=0;i<trailCount;i++){
+        var t=document.createElement('div');t.className='cursor-trail';
+        t.style.opacity=(0.3-i*0.05);t.style.width=t.style.height=(5-i*0.5)+'px';
+        document.body.appendChild(t);trails.push({el:t,x:0,y:0});
+      }
+      var mx=0,my=0,dotVis=false;
+      document.addEventListener('mousemove',function(e){
+        mx=e.clientX;my=e.clientY;
+        dot.style.left=(mx-4)+'px';dot.style.top=(my-4)+'px';
+        if(!dotVis){dot.classList.add('visible');dotVis=true}
+      });
+      document.addEventListener('mouseleave',function(){dot.classList.remove('visible');dotVis=false});
+      (function animTrails(){
+        var px=mx,py=my;
+        trails.forEach(function(t){
+          var dx=px-t.x,dy=py-t.y;
+          t.x+=dx*0.3;t.y+=dy*0.3;
+          t.el.style.left=(t.x-2.5)+'px';t.el.style.top=(t.y-2.5)+'px';
+          px=t.x;py=t.y;
+        });
+        requestAnimationFrame(animTrails);
+      })();
+    }
+
+    // Typing effect on hero
+    (function(){
+      var el=document.getElementById('heroTyping');
+      if(!el)return;
+      var phrases=['memories.','moments.','magic.','stories.'];
+      var pi=0,ci=phrases[0].length,del=false;
+      var cursor=document.createElement('span');cursor.className='typing-cursor';el.after(cursor);
+      setTimeout(function tick(){
+        var cur=phrases[pi];
+        if(!del){
+          el.textContent=cur.slice(0,ci+1);ci++;
+          if(ci===cur.length){del=true;setTimeout(tick,2200);return}
+          setTimeout(tick,70);
+        }else{
+          el.textContent=cur.slice(0,ci-1);ci--;
+          if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,200);return}
+          setTimeout(tick,35);
+        }
+      },2500);
+    })();
+
+    // Parallax hero orbs on scroll
+    if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      window.addEventListener('scroll',function(){
+        var s=window.scrollY;
+        var hero=document.querySelector('.hero');
+        if(hero && s<hero.offsetHeight){
+          hero.style.setProperty('--para-y',s*0.3+'px');
+        }
+      },{passive:true});
     }
   </script>
 </body>
