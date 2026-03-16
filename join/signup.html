@@ -158,9 +158,15 @@
       display: none;
       text-align: center;
       padding: 1.5rem 0;
+      width: 100%;
     }
     .success.show {
       display: block;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .success-icon {
       font-size: 3rem;
@@ -181,89 +187,6 @@
       font-weight: 300;
       color: rgba(255,255,255,0.7);
       line-height: 1.6;
-    }
-
-    /* Event section */
-    .event-divider {
-      width: 60px;
-      height: 1px;
-      background: rgba(232, 160, 184, 0.3);
-      margin: 1.5rem auto;
-    }
-    .event-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #e8a0b8;
-      margin-bottom: 0.5rem;
-    }
-    .event-desc {
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-    .event-flyer {
-      width: 100%;
-      max-width: 320px;
-      border-radius: 12px;
-      margin: 0 auto 1.2rem;
-      display: block;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .download-flyer {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      margin-bottom: 1.2rem;
-      transition: background 0.2s;
-    }
-    .download-flyer:hover {
-      background: rgba(255,255,255,0.14);
-    }
-    .cal-buttons {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-    .cal-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .cal-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    .cal-btn svg {
-      width: 16px;
-      height: 16px;
-    }
-    .cal-btn.apple {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-    .cal-btn.google {
-      background: rgba(232, 160, 184, 0.15);
-      color: #e8a0b8;
-      border: 1px solid rgba(232, 160, 184, 0.25);
     }
 
     .error-msg {
@@ -329,16 +252,6 @@
       <div class="success-icon">&#10084;&#65039;</div>
       <h2>You're In!</h2>
       <p>We'll reach out shortly to get the details for your perfect date plan.</p>
-
-      <div class="event-divider"></div>
-
-      <p class="event-heading">What happens next?</p>
-      <p class="event-desc">
-        We'll send you a quick questionnaire about you and your partner's preferences: food, vibes, budget, and logistics. Then our team gets to work crafting your personalized, multi-stop date plan.
-      </p>
-      <p class="event-desc">
-        <strong style="color: rgba(255,255,255,0.85);">Your plan will be delivered within 24 hours.</strong>
-      </p>
     </div>
   </div>
 
