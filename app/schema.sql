@@ -153,10 +153,19 @@ alter table public.payments enable row level security;
 -- Row Level Security Policies
 -- ============================================================
 
--- Profiles: users can read and update only their own
+-- Profiles: users can read and update their own, couple members can see each other
 create policy "Users can view own profile"
   on public.profiles for select
   using (auth.uid() = id);
+
+create policy "Couple members can view each other"
+  on public.profiles for select
+  using (
+    couple_id is not null
+    and couple_id in (
+      select p.couple_id from public.profiles p where p.id = auth.uid()
+    )
+  );
 
 create policy "Users can update own profile"
   on public.profiles for update
@@ -220,10 +229,26 @@ create policy "Users can delete own favorites"
   on public.favorites for delete
   using (profile_id = auth.uid());
 
--- Plan Requests: users manage their own
+create policy "Couple members can view favorites"
+  on public.favorites for select
+  using (
+    couple_id in (
+      select p.couple_id from public.profiles p where p.id = auth.uid()
+    )
+  );
+
+-- Plan Requests: users manage their own, couple members can view
 create policy "Users can view own requests"
   on public.plan_requests for select
   using (profile_id = auth.uid());
+
+create policy "Couple members can view plan requests"
+  on public.plan_requests for select
+  using (
+    couple_id in (
+      select p.couple_id from public.profiles p where p.id = auth.uid()
+    )
+  );
 
 create policy "Users can create requests"
   on public.plan_requests for insert
