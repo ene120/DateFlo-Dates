@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run of Show | DateFlo Blind Date Show</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0b0b0f;
+      --card: #141418;
+      --border: #1f1f28;
+      --text: #e2e0dd;
+      --muted: #8a8793;
+      --rose: #e63946;
+      --gold: #d4a853;
+      --green: #2ecc71;
+      --blue: #5b9bd5;
+      --purple: #9b59b6;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-header {
+      padding: 40px 24px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .page-header .meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .page-header .meta strong {
+      color: var(--gold);
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 88px;
+      z-index: 99;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+    }
+
+    /* PHASE BLOCKS */
+    .phase {
+      margin-bottom: 32px;
+    }
+
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0 12px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .phase-time {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .phase-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .phase-tag {
+      margin-left: auto;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* STEP ITEMS */
+    .step {
+      display: flex;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      transition: background 0.2s;
+      align-items: flex-start;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .step:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .step.done {
+      opacity: 0.35;
+    }
+
+    .step.done .step-text {
+      text-decoration: line-through;
+    }
+
+    .step-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      transition: all 0.2s;
+    }
+
+    .step.done .step-check {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-text {
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .step-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* STEP TYPE INDICATORS */
+    .step-type {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+
+    .type-message { background: rgba(230,57,70,0.15); color: var(--rose); }
+    .type-stage { background: rgba(212,168,83,0.15); color: var(--gold); }
+    .type-host { background: rgba(91,155,213,0.15); color: var(--blue); }
+    .type-tech { background: rgba(155,89,182,0.15); color: var(--purple); }
+
+    /* DIVIDER INSIDE PHASE */
+    .step-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0;
+    }
+
+    /* PAIRING LABEL */
+    .pairing-label {
+      text-align: center;
+      padding: 20px 0 8px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--rose);
+    }
+
+    .pairing-sub {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    /* IMPORTANT NOTE */
+    .important-note {
+      background: rgba(230,57,70,0.08);
+      border: 1px solid rgba(230,57,70,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(240,232,224,0.8);
+    }
+
+    .important-note strong {
+      color: var(--rose);
+    }
+
+    /* RESET BUTTON */
+    .reset-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      border-color: var(--rose);
+      color: var(--rose);
+    }
+
+    @media (max-width: 600px) {
+      .page-header { padding: 24px 16px 16px; }
+      .page-header h1 { font-size: 1.3rem; }
+      .legend { top: 76px; gap: 10px; padding: 10px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Run of Show</h1>
+    <p class="meta">DateFlo Blind Date Show &bull; <strong>Saturday, March 21, 2026</strong> &bull; Co-host Playbook</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--rose)"></div> Message Groupchat</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> Stage Action</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Host Cue</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> Tech / Logistics</div>
+  </div>
+
+  <div class="container">
+
+    <div class="important-note">
+      <strong>Groupchat:</strong> Qudsi, George, and Amer. When a contestant needs to come downstairs, <strong>May messages the groupchat</strong> with who to bring down. George and Amer handle escorting contestants from their rooms to the stage area.
+    </div>
+
+    <!-- ============ PRE-SHOW ============ -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">5:00 PM</span>
+        <span class="phase-name">Setup & Prep</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-tech">Tech</span>
+          <div class="step-text">Stage area is set: two high chairs, blindfolds ready, headphones charged</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-tech">Tech</span>
+          <div class="step-text">Bartender station is ready with non-alcoholic drinks</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-tech">Tech</span>
+          <div class="step-text">Snacks, popcorn, and drinks stocked in both green rooms</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-tech">Tech</span>
+          <div class="step-text">Music / speakers tested and working</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DOORS & ARRIVAL ============ -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">5:30 PM</span>
+        <span class="phase-name">Doors Open</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Audience starts arriving and filling seats</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-tech">Tech</span>
+          <div class="step-text">Background music playing as people settle in</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">5:45 PM</span>
+        <span class="phase-name">Contestants Arrive</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">Confirm all 3 guys are in the guys' room</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">Confirm all 3 girls are in the girls' room</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-tech">Tech</span>
+          <div class="step-text">Ask each contestant what drink they want, relay to bartender</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SHOW START ============ -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">6:15 PM</span>
+        <span class="phase-name">Show Begins</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Qudsi and May welcome the audience, explain the format</div>
+          <div class="step-note">Quick intro: what the show is, how it works, hype the crowd</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PAIRING 1 ============ -->
+    <div class="pairing-label">Pairing 1</div>
+    <div class="pairing-sub">Guy #1 &amp; Girl #1</div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~6:20 PM</span>
+        <span class="phase-name">Round 1: His Spotlight</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May messages groupchat: "Send Guy #1 down"</div>
+          <div class="step-note">George or Amer escorts him. Blindfold goes on right before the stage area.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Guy #1 walks to stage blindfolded, sits on high chair</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Qudsi and May ask him questions (~10 minutes)</div>
+          <div class="step-note">Get the audience to know who he is. Keep it fun and lively.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~6:30 PM</span>
+        <span class="phase-name">Round 2: Her Spotlight</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Put headphones on Guy #1 so he can't hear anything</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May messages groupchat: "Send Girl #1 down"</div>
+          <div class="step-note">George or Amer escorts her. Blindfold on before stage area.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Girl #1 walks to stage blindfolded, sits on high chair</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Qudsi and May ask her questions (~10 minutes)</div>
+          <div class="step-note">Same energy. Let the audience get to know her.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~6:40 PM</span>
+        <span class="phase-name">Round 3: The Blind Date</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Remove headphones from Guy #1</div>
+          <div class="step-note">Both are now on stage together, both still blindfolded.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Qudsi and May guide the date with questions</div>
+          <div class="step-note">Let them talk, keep the energy up. If a question makes them uncomfortable, the host moves on.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~6:55 PM</span>
+        <span class="phase-name">Round 4: Audience Wildcard</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Announce: audience members can text May if they're interested in either contestant</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May checks incoming texts, selects wildcard(s) if any</div>
+          <div class="step-note">Selected audience members walk up on stage and pitch themselves.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~7:05 PM</span>
+        <span class="phase-name">Round 5: The Reveal</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Blindfolds come off. They see each other for the first time.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Qudsi and May ask a few more questions to feel out the chemistry</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">If they're feeling each other, they walk off stage together into the audience to keep talking</div>
+          <div class="step-note">This clears the stage for the next pairing.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PAIRING 2 ============ -->
+    <div class="pairing-label">Pairing 2</div>
+    <div class="pairing-sub">Guy #2 &amp; Girl #2</div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~7:10 PM</span>
+        <span class="phase-name">Round 1: His Spotlight</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May messages groupchat: "Send Guy #2 down"</div>
+          <div class="step-note">Blindfold on before stage area.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Guy #2 walks to stage blindfolded, sits on high chair</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">~10 minutes of questions for Guy #2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~7:20 PM</span>
+        <span class="phase-name">Round 2: Her Spotlight</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Put headphones on Guy #2</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May messages groupchat: "Send Girl #2 down"</div>
+          <div class="step-note">Blindfold on before stage area.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Girl #2 walks to stage blindfolded, sits on high chair</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">~10 minutes of questions for Girl #2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~7:30 PM</span>
+        <span class="phase-name">Round 3: The Blind Date</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Remove headphones from Guy #2. Both on stage, blindfolded.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Guide the date with questions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~7:45 PM</span>
+        <span class="phase-name">Round 4: Audience Wildcard</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Announce: text May if interested in either contestant</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May checks texts, selects wildcard(s) if any</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~7:55 PM</span>
+        <span class="phase-name">Round 5: The Reveal</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Blindfolds come off</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">A few more questions to feel out the chemistry</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">If they vibe, they walk off stage together into the audience</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PAIRING 3 ============ -->
+    <div class="pairing-label">Pairing 3</div>
+    <div class="pairing-sub">Guy #3 &amp; Girl #3</div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~8:00 PM</span>
+        <span class="phase-name">Round 1: His Spotlight</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May messages groupchat: "Send Guy #3 down"</div>
+          <div class="step-note">Blindfold on before stage area.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Guy #3 walks to stage blindfolded, sits on high chair</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">~10 minutes of questions for Guy #3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~8:10 PM</span>
+        <span class="phase-name">Round 2: Her Spotlight</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Put headphones on Guy #3</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May messages groupchat: "Send Girl #3 down"</div>
+          <div class="step-note">Blindfold on before stage area.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Girl #3 walks to stage blindfolded, sits on high chair</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">~10 minutes of questions for Girl #3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~8:20 PM</span>
+        <span class="phase-name">Round 3: The Blind Date</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Remove headphones from Guy #3. Both on stage, blindfolded.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Guide the date with questions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~8:35 PM</span>
+        <span class="phase-name">Round 4: Audience Wildcard</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Announce: text May if interested in either contestant</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">May checks texts, selects wildcard(s) if any</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~8:45 PM</span>
+        <span class="phase-name">Round 5: The Reveal</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">Blindfolds come off</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">A few more questions to feel out the chemistry</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-stage">Stage</span>
+          <div class="step-text">If they vibe, they walk off stage together</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ MIXER ============ -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">~9:00 PM</span>
+        <span class="phase-name">The Mixer</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Qudsi and May announce the mixer: everyone mingles</div>
+          <div class="step-note">Music up. This is the casual hangout portion. Everyone is free to talk to anyone.</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-message">Message</span>
+          <div class="step-text">Message groupchat: "All remaining contestants can come down"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ WRAP UP ============ -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-time">9:30 PM</span>
+        <span class="phase-name">Event Ends</span>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-host">Host</span>
+          <div class="step-text">Thank the audience, wrap up the night</div>
+        </div>
+      </div>
+
+      <div class="step" onclick="toggleStep(this)">
+        <div class="step-check"></div>
+        <div class="step-content">
+          <span class="step-type type-tech">Tech</span>
+          <div class="step-text">Cleanup begins</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">Reset All</button>
+
+  <script>
+    function toggleStep(el) {
+      el.classList.toggle('done');
+      var check = el.querySelector('.step-check');
+      check.innerHTML = el.classList.contains('done') ? '&#10003;' : '';
+      saveState();
+    }
+
+    function resetAll() {
+      var steps = document.querySelectorAll('.step');
+      steps.forEach(function(s) {
+        s.classList.remove('done');
+        s.querySelector('.step-check').innerHTML = '';
+      });
+      localStorage.removeItem('ros-state');
+    }
+
+    function saveState() {
+      var steps = document.querySelectorAll('.step');
+      var state = [];
+      steps.forEach(function(s) { state.push(s.classList.contains('done')); });
+      localStorage.setItem('ros-state', JSON.stringify(state));
+    }
+
+    function loadState() {
+      var saved = localStorage.getItem('ros-state');
+      if (!saved) return;
+      var state = JSON.parse(saved);
+      var steps = document.querySelectorAll('.step');
+      steps.forEach(function(s, i) {
+        if (state[i]) {
+          s.classList.add('done');
+          s.querySelector('.step-check').innerHTML = '&#10003;';
+        }
+      });
+    }
+
+    loadState();
+  </script>
+</body>
+</html>
