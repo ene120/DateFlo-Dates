@@ -315,32 +315,140 @@
       }
     }
 
-    /* ── Phone Back Button ── */
-    .phone-back-btn {
+    /* ── Phone Browser Overlay ── */
+    .phone-browser {
       position: absolute;
-      top: 48px;
-      left: 16px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(255, 255, 255, .92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1.5px solid rgba(224, 87, 128, .3);
-      color: var(--rose);
-      font-size: .72rem;
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
-      transition: transform .2s, box-shadow .2s;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 15;
+      display: none;
+      flex-direction: column;
+      background: #f5f5f7;
+      border-radius: 34px;
+      overflow: hidden;
     }
 
-    .phone-back-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(224, 87, 128, .2);
+    .phone-browser.active {
+      display: flex;
+    }
+
+    .phone-browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 42px 12px 8px;
+      background: #fff;
+      border-bottom: 1px solid #e5e5ea;
+      flex-shrink: 0;
+    }
+
+    .phone-browser-back {
+      background: none;
+      border: none;
+      color: var(--rose);
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      transition: background .2s;
+    }
+
+    .phone-browser-back:hover {
+      background: rgba(224, 87, 128, .08);
+    }
+
+    .phone-browser-url {
+      flex: 1;
+      background: #f2f2f7;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: .65rem;
+      color: #86868b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .phone-browser-url .url-lock {
+      margin-right: 4px;
+    }
+
+    .phone-browser-content {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-browser-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Fallback card when site blocks embedding */
+    .phone-browser-fallback {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      height: 100%;
+      gap: 16px;
+    }
+
+    .phone-browser-fallback.active {
+      display: flex;
+    }
+
+    .fallback-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, #fff0f5, #ffe0ec);
+      box-shadow: 0 4px 12px rgba(224, 87, 128, .15);
+    }
+
+    .fallback-title {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #1c1c1e;
+    }
+
+    .fallback-desc {
+      font-size: .75rem;
+      color: #86868b;
+      line-height: 1.5;
+      max-width: 200px;
+    }
+
+    .fallback-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--rose);
+      color: white;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .2s;
+    }
+
+    .fallback-action:hover {
+      transform: scale(1.03);
     }
 
     /* ── Entrance Animations ── */
@@ -431,10 +539,27 @@
             title="Joseph & Sandy Date Plan Preview"
             loading="lazy"
           ></iframe>
-          <!-- Back button overlay -->
-          <button id="phoneBack" class="phone-back-btn" style="display:none">
-            ← Back
-          </button>
+          <!-- Browser overlay for external links -->
+          <div id="phoneBrowser" class="phone-browser">
+            <div class="phone-browser-bar">
+              <button id="browserBack" class="phone-browser-back">← Back</button>
+              <div id="browserUrl" class="phone-browser-url">
+                <span class="url-lock">🔒</span>
+                <span id="browserUrlText"></span>
+              </div>
+            </div>
+            <div class="phone-browser-content">
+              <iframe id="browserIframe"></iframe>
+              <div id="browserFallback" class="phone-browser-fallback">
+                <div class="fallback-icon" id="fallbackIcon">🗺️</div>
+                <div class="fallback-title" id="fallbackTitle">Opening Google Maps</div>
+                <div class="fallback-desc" id="fallbackDesc">This app is loading outside the preview.</div>
+                <a id="fallbackLink" class="fallback-action" href="#" target="_blank">
+                  Open App ↗
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="scroll-hint">
@@ -446,9 +571,45 @@
 
   <script>
     const iframe = document.getElementById('phoneIframe');
-    const backBtn = document.getElementById('phoneBack');
-    const homeUrl = 'https://dateflo.com/joseph-and-sandy/';
-    let historyStack = [homeUrl];
+    const phoneBrowser = document.getElementById('phoneBrowser');
+    const browserBack = document.getElementById('browserBack');
+    const browserUrlText = document.getElementById('browserUrlText');
+    const browserIframe = document.getElementById('browserIframe');
+    const browserFallback = document.getElementById('browserFallback');
+    const fallbackIcon = document.getElementById('fallbackIcon');
+    const fallbackTitle = document.getElementById('fallbackTitle');
+    const fallbackDesc = document.getElementById('fallbackDesc');
+    const fallbackLink = document.getElementById('fallbackLink');
+
+    // Site info for nice fallback cards
+    const siteInfo = {
+      'google.com/maps':  { icon: '🗺️', name: 'Google Maps', desc: 'Getting directions to this venue' },
+      'maps.google.com':  { icon: '🗺️', name: 'Google Maps', desc: 'Getting directions to this venue' },
+      'maps.apple.com':   { icon: '🗺️', name: 'Apple Maps', desc: 'Getting directions to this venue' },
+      'yelp.com':         { icon: '⭐', name: 'Yelp', desc: 'Viewing reviews and ratings' },
+      'uber.com':         { icon: '🚗', name: 'Uber', desc: 'Booking a ride to this stop' },
+      'm.uber.com':       { icon: '🚗', name: 'Uber', desc: 'Booking a ride to this stop' },
+      'lyft.com':         { icon: '🚗', name: 'Lyft', desc: 'Booking a ride to this stop' },
+      'opentable.com':    { icon: '🍽️', name: 'OpenTable', desc: 'Making a dinner reservation' },
+      'steamypiggy.com':  { icon: '🍜', name: 'Steamy Piggy', desc: 'Viewing the restaurant menu' },
+      'shanximagickitchen': { icon: '🍜', name: 'Shan Xi Magic Kitchen', desc: 'Viewing the restaurant' },
+      'calendar.google':  { icon: '📅', name: 'Google Calendar', desc: 'Adding this date to your calendar' },
+    };
+
+    function getSiteInfo(url) {
+      try {
+        const hostname = new URL(url).hostname.replace('www.', '');
+        const pathname = new URL(url).pathname;
+        const full = hostname + pathname;
+        for (const [key, info] of Object.entries(siteInfo)) {
+          if (full.includes(key) || hostname.includes(key)) return info;
+        }
+        // Default
+        return { icon: '🌐', name: hostname, desc: 'Loading external page' };
+      } catch {
+        return { icon: '🌐', name: 'External site', desc: 'Loading external page' };
+      }
+    }
 
     function isExternalLink(href) {
       try {
@@ -457,23 +618,71 @@
       } catch { return true; }
     }
 
-    function showBackBtn(show) {
-      backBtn.style.display = show ? 'flex' : 'none';
+    function getShortUrl(url) {
+      try {
+        const u = new URL(url);
+        return u.hostname.replace('www.', '') + u.pathname.substring(0, 30);
+      } catch { return url.substring(0, 40); }
     }
 
-    // Back button returns to previous page in stack
-    backBtn.addEventListener('click', () => {
-      if (historyStack.length > 1) {
-        historyStack.pop();
-        iframe.src = historyStack[historyStack.length - 1];
-      } else {
-        iframe.src = homeUrl;
-        historyStack = [homeUrl];
-      }
-      // Show/hide based on stack depth
-      showBackBtn(historyStack.length > 1);
-    });
+    // Open external link inside phone browser overlay
+    function openInPhoneBrowser(url) {
+      const info = getSiteInfo(url);
+      browserUrlText.textContent = getShortUrl(url);
 
+      // Show browser overlay
+      phoneBrowser.classList.add('active');
+
+      // Set up fallback info
+      fallbackIcon.textContent = info.icon;
+      fallbackTitle.textContent = info.name;
+      fallbackDesc.textContent = info.desc;
+      fallbackLink.href = url;
+      fallbackLink.textContent = 'Open App ↗';
+
+      // Known sites that block iframe embedding — go straight to fallback
+      const blockedDomains = [
+        'google.com', 'maps.apple.com', 'yelp.com', 'uber.com', 'm.uber.com',
+        'lyft.com', 'opentable.com', 'calendar.google.com', 'wikipedia.org'
+      ];
+      const hostname = new URL(url).hostname.replace('www.', '');
+      const isBlocked = blockedDomains.some(d => hostname.includes(d));
+
+      if (isBlocked) {
+        browserIframe.style.display = 'none';
+        browserFallback.classList.add('active');
+      } else {
+        // Try to load in iframe
+        browserIframe.style.display = 'block';
+        browserFallback.classList.remove('active');
+        browserIframe.src = url;
+
+        // Fallback after timeout if iframe fails
+        setTimeout(() => {
+          try {
+            const test = browserIframe.contentWindow.location.href;
+          } catch (e) {
+            browserIframe.style.display = 'none';
+            browserFallback.classList.add('active');
+          }
+        }, 2000);
+
+        browserIframe.onerror = () => {
+          browserIframe.style.display = 'none';
+          browserFallback.classList.add('active');
+        };
+      }
+    }
+
+    // Close browser overlay
+    function closePhoneBrowser() {
+      phoneBrowser.classList.remove('active');
+      browserIframe.src = 'about:blank';
+    }
+
+    browserBack.addEventListener('click', closePhoneBrowser);
+
+    // Set up link interception on the date plan iframe
     function setupIframeLinks() {
       try {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
@@ -488,22 +697,32 @@
           // Allow # anchors and onclick handlers to work normally
           if (href === '#' || href.startsWith('#') || href.startsWith('javascript')) return;
 
-          const fullHref = link.href;
-
-          // External links open in new tab (Google Maps, Yelp, Uber, etc.)
-          if (isExternalLink(fullHref)) {
+          // Phone call links — show as a call card
+          if (href.startsWith('tel:')) {
             e.preventDefault();
             e.stopPropagation();
-            window.open(fullHref, '_blank');
+            const number = href.replace('tel:', '');
+            browserUrlText.textContent = 'Phone';
+            phoneBrowser.classList.add('active');
+            browserIframe.style.display = 'none';
+            fallbackIcon.textContent = '📞';
+            fallbackTitle.textContent = 'Calling ' + number;
+            fallbackDesc.textContent = 'Tap below to call this venue';
+            fallbackLink.href = href;
+            fallbackLink.textContent = 'Call ' + number;
+            browserFallback.classList.add('active');
             return;
           }
 
-          // Internal dateflo.com links navigate inside the phone
-          e.preventDefault();
-          e.stopPropagation();
-          historyStack.push(fullHref);
-          iframe.src = fullHref;
-          showBackBtn(true);
+          const fullHref = link.href;
+
+          // ALL external links open in phone browser overlay
+          if (isExternalLink(fullHref)) {
+            e.preventDefault();
+            e.stopPropagation();
+            openInPhoneBrowser(fullHref);
+            return;
+          }
         });
       } catch (err) {
         console.log('Could not access iframe:', err);
@@ -512,16 +731,10 @@
 
     iframe.addEventListener('load', () => {
       setupIframeLinks();
-      // Show back button if not on home page
-      try {
-        const currentUrl = iframe.contentWindow.location.href;
-        const isHome = currentUrl.includes('/joseph-and-sandy/') &&
-                       !currentUrl.includes('/joseph-and-sandy/plan-');
-        showBackBtn(historyStack.length > 1);
-      } catch {
-        showBackBtn(historyStack.length > 1);
-      }
     });
+
+    // Handle tel: links in phone browser
+    const origOpen = window.open;
   </script>
 </body>
 </html>
