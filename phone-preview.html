@@ -42,7 +42,6 @@
       position: relative;
     }
 
-    /* Ambient glow */
     .preview-section::before {
       content: '';
       position: absolute;
@@ -171,7 +170,6 @@
       overflow: hidden;
     }
 
-    /* Inner screen area */
     .iphone-screen {
       width: 100%;
       height: 100%;
@@ -181,30 +179,6 @@
       background: #fff;
     }
 
-    /* Dynamic Island — removed per user request */
-
-    /* Status bar */
-    .status-bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 54px;
-      background: linear-gradient(180deg, rgba(255,240,245,.98) 0%, rgba(255,240,245,.9) 100%);
-      z-index: 5;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding: 0 24px 8px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #2d132c;
-    }
-
-    .status-time { font-size: 13px; font-weight: 700; }
-    .status-icons { display: flex; gap: 4px; align-items: center; font-size: 10px; }
-
-    /* iframe embed */
     .iphone-screen iframe {
       width: 100%;
       height: 100%;
@@ -212,7 +186,6 @@
       border-radius: 34px;
     }
 
-    /* Scroll hint */
     .scroll-hint {
       position: absolute;
       bottom: -40px;
@@ -262,240 +235,17 @@
         padding-bottom: 80px;
       }
 
-      .feature-list {
-        align-items: center;
-      }
+      .feature-list { align-items: center; }
 
-      .iphone-frame {
-        width: 260px;
-        height: 540px;
-        border-radius: 38px;
-      }
-
-      .iphone-screen {
-        border-radius: 28px;
-      }
-
-      .iphone-screen iframe {
-        border-radius: 28px;
-      }
-
-      .dynamic-island {
-        width: 86px;
-        height: 24px;
-        top: 8px;
-      }
+      .iphone-frame { width: 260px; height: 540px; border-radius: 38px; }
+      .iphone-screen { border-radius: 28px; }
+      .iphone-screen iframe { border-radius: 28px; }
     }
 
     @media (max-width: 480px) {
-      .iphone-frame {
-        width: 240px;
-        height: 500px;
-        border-radius: 34px;
-        padding: 10px;
-      }
-
-      .iphone-screen {
-        border-radius: 26px;
-      }
-
-      .iphone-screen iframe {
-        border-radius: 26px;
-      }
-    }
-
-    /* ── Phone Browser Overlay ── */
-    .phone-browser {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 25;
-      display: none;
-      flex-direction: column;
-      background: #f5f5f7;
-      border-radius: 34px;
-      overflow: hidden;
-    }
-
-    .phone-browser.active {
-      display: flex;
-    }
-
-    .phone-browser-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 48px 12px 10px;
-      background: #fff;
-      border-bottom: 1px solid #e5e5ea;
-      flex-shrink: 0;
-      z-index: 20;
-      position: relative;
-    }
-
-    .phone-browser-back {
-      background: none;
-      border: none;
-      color: var(--rose);
-      font-size: .82rem;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 8px;
-      flex-shrink: 0;
-      transition: background .2s;
-    }
-
-    .phone-browser-back:hover {
-      background: rgba(224, 87, 128, .08);
-    }
-
-    .phone-browser-url {
-      flex: 1;
-      background: #f2f2f7;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: .65rem;
-      color: #86868b;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-
-    .phone-browser-url .url-lock {
-      margin-right: 4px;
-    }
-
-    .phone-browser-content {
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .phone-browser-content iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Loading spinner */
-    .phone-browser-loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      color: #86868b;
-      font-size: .78rem;
-      z-index: 2;
-    }
-
-    .phone-browser-loading .spinner {
-      width: 28px;
-      height: 28px;
-      border: 3px solid #e5e5ea;
-      border-top-color: var(--rose);
-      border-radius: 50%;
-      animation: spin .8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Venue info screen (for sites that block embedding) */
-    .phone-venue-card {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 20px;
-      height: 100%;
-      overflow-y: auto;
-      background: linear-gradient(180deg, #fff 0%, #f9f0f3 100%);
-    }
-
-    .phone-venue-card.active {
-      display: flex;
-    }
-
-    .venue-card-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--rose), #c44569);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-      box-shadow: 0 6px 20px rgba(224, 87, 128, .25);
-    }
-
-    .venue-card-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1c1c1e;
-      margin-bottom: 4px;
-      text-align: center;
-    }
-
-    .venue-card-type {
-      font-size: .72rem;
-      color: #86868b;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      font-weight: 600;
-    }
-
-    .venue-card-map {
-      width: 100%;
-      height: 160px;
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      background: #e5e5ea;
-    }
-
-    .venue-card-map img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .venue-card-detail {
-      width: 100%;
-      background: #fff;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: .8rem;
-      color: #3a3a3c;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06);
-    }
-
-    .venue-card-detail .detail-icon {
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .venue-card-detail .detail-label {
-      font-size: .65rem;
-      color: #86868b;
-      font-weight: 500;
-    }
-
-    .venue-card-detail .detail-value {
-      font-weight: 600;
+      .iphone-frame { width: 240px; height: 500px; border-radius: 34px; padding: 10px; }
+      .iphone-screen { border-radius: 26px; }
+      .iphone-screen iframe { border-radius: 26px; }
     }
 
     /* ── Entrance Animations ── */
@@ -527,7 +277,6 @@
 </head>
 <body>
 
-  <!-- Floating background emojis -->
   <div class="float-emoji">💕</div>
   <div class="float-emoji">✨</div>
   <div class="float-emoji">🌹</div>
@@ -536,7 +285,6 @@
 
   <section class="preview-section">
 
-    <!-- Text Side -->
     <div class="preview-text">
       <div class="preview-badge fade-in-up">
         ✨ Real Date Plan Preview
@@ -575,53 +323,15 @@
       </a>
     </div>
 
-    <!-- iPhone Frame -->
     <div class="phone-wrapper phone-enter">
       <div class="iphone-frame">
         <div class="iphone-screen">
-          <!-- notch removed -->
           <iframe
             id="phoneIframe"
             src="https://dateflo.com/joseph-and-sandy/"
             title="Joseph & Sandy Date Plan Preview"
             loading="lazy"
           ></iframe>
-          <!-- Browser overlay for external links -->
-          <div id="phoneBrowser" class="phone-browser">
-            <div class="phone-browser-bar">
-              <button id="browserBack" class="phone-browser-back">← Back</button>
-              <div id="browserUrl" class="phone-browser-url">
-                <span class="url-lock">🔒</span>
-                <span id="browserUrlText"></span>
-              </div>
-            </div>
-            <div class="phone-browser-content">
-              <iframe id="browserIframe"></iframe>
-              <div id="browserLoading" class="phone-browser-loading">
-                <div class="spinner"></div>
-                <span>Loading...</span>
-              </div>
-              <div id="venueCard" class="phone-venue-card">
-                <div class="venue-card-icon" id="vcIcon">🗺️</div>
-                <div class="venue-card-name" id="vcName">Venue</div>
-                <div class="venue-card-type" id="vcType">Directions</div>
-                <div class="venue-card-map" id="vcMapWrap">
-                  <img id="vcMap" src="" alt="Map preview">
-                </div>
-                <div class="venue-card-detail">
-                  <span class="detail-icon">📍</span>
-                  <div>
-                    <div class="detail-label">Location</div>
-                    <div class="detail-value" id="vcAddress">San Diego, CA</div>
-                  </div>
-                </div>
-                <div class="venue-card-detail" id="vcAction" style="cursor:pointer;justify-content:center;color:var(--rose);font-weight:600;">
-                  <span id="vcActionIcon">🧭</span>
-                  <span id="vcActionText">Get Directions</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="scroll-hint">
@@ -632,190 +342,18 @@
   </section>
 
   <script>
+    // Simple: just let all external links open in new tabs naturally
     const iframe = document.getElementById('phoneIframe');
-    const phoneBrowser = document.getElementById('phoneBrowser');
-    const browserBack = document.getElementById('browserBack');
-    const browserUrlText = document.getElementById('browserUrlText');
-    const browserIframe = document.getElementById('browserIframe');
-    const browserLoading = document.getElementById('browserLoading');
-    const venueCard = document.getElementById('venueCard');
-
-    // Sites that block iframe embedding
-    const blockedDomains = [
-      'google.com', 'maps.apple.com', 'yelp.com', 'uber.com', 'm.uber.com',
-      'lyft.com', 'opentable.com', 'calendar.google.com', 'wikipedia.org'
-    ];
-
-    // Map link patterns to venue card info
-    const linkPatterns = {
-      'google.com/maps': { icon: '🗺️', type: 'Directions', action: '🧭', actionText: 'Get Directions' },
-      'maps.apple.com': { icon: '🗺️', type: 'Directions', action: '🧭', actionText: 'Get Directions' },
-      'yelp.com': { icon: '⭐', type: 'Reviews & Ratings', action: '⭐', actionText: 'View Reviews' },
-      'uber.com': { icon: '🚗', type: 'Ride Service', action: '🚗', actionText: 'Request Ride' },
-      'm.uber.com': { icon: '🚗', type: 'Ride Service', action: '🚗', actionText: 'Request Ride' },
-      'lyft.com': { icon: '🚗', type: 'Ride Service', action: '🚗', actionText: 'Request Ride' },
-      'opentable.com': { icon: '🍽️', type: 'Reservations', action: '📅', actionText: 'Make Reservation' },
-      'calendar.google': { icon: '📅', type: 'Calendar', action: '📅', actionText: 'Add to Calendar' },
-    };
-
-    function getPatternInfo(url) {
-      for (const [key, info] of Object.entries(linkPatterns)) {
-        if (url.includes(key)) return info;
-      }
-      return { icon: '🌐', type: 'Website', action: '🔗', actionText: 'Visit Site' };
-    }
-
-    function isBlocked(url) {
-      try {
-        const hostname = new URL(url).hostname.replace('www.', '');
-        return blockedDomains.some(d => hostname.includes(d));
-      } catch { return false; }
-    }
-
-    function getShortUrl(url) {
-      try {
-        const u = new URL(url);
-        return u.hostname.replace('www.', '') + u.pathname.substring(0, 30);
-      } catch { return url.substring(0, 40); }
-    }
-
-    // Extract a venue name from the URL or nearby link text
-    function getVenueName(url, linkEl) {
-      // Try link text
-      const text = linkEl?.textContent?.trim();
-      if (text && text.length > 2 && text.length < 40) return text;
-      // Try URL decoding
-      try {
-        const u = new URL(url);
-        const place = u.searchParams.get('destination') || u.searchParams.get('dropoff[nickname]') || u.pathname.split('/').pop();
-        if (place && place.length > 2) return decodeURIComponent(place).replace(/[+-]/g, ' ');
-      } catch {}
-      return getShortUrl(url);
-    }
-
-    // Extract lat/lng from URL for map preview
-    function getCoords(url) {
-      const latMatch = url.match(/latitude[=:]?([\d.-]+)/i) || url.match(/destination=([\d.-]+),([\d.-]+)/);
-      const lngMatch = url.match(/longitude[=:]?([\d.-]+)/i);
-      if (latMatch && lngMatch) return { lat: latMatch[1], lng: lngMatch[1] };
-      if (latMatch && latMatch[2]) return { lat: latMatch[1], lng: latMatch[2] };
-      // Try daddr= format
-      const daddr = url.match(/daddr=([\d.-]+),([\d.-]+)/);
-      if (daddr) return { lat: daddr[1], lng: daddr[2] };
-      return null;
-    }
-
-    function showVenueCard(url, linkEl) {
-      const info = getPatternInfo(url);
-      const name = getVenueName(url, linkEl);
-      const coords = getCoords(url);
-
-      document.getElementById('vcIcon').textContent = info.icon;
-      document.getElementById('vcName').textContent = name;
-      document.getElementById('vcType').textContent = info.type;
-      document.getElementById('vcActionIcon').textContent = info.action;
-      document.getElementById('vcActionText').textContent = info.actionText;
-
-      // Show map preview if we have coordinates
-      const mapWrap = document.getElementById('vcMapWrap');
-      if (coords) {
-        document.getElementById('vcMap').src =
-          `https://maps.googleapis.com/maps/api/staticmap?center=${coords.lat},${coords.lng}&zoom=15&size=400x200&markers=color:red|${coords.lat},${coords.lng}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`;
-        document.getElementById('vcAddress').textContent = `${coords.lat}, ${coords.lng}`;
-        mapWrap.style.display = 'block';
-      } else {
-        mapWrap.style.display = 'none';
-        document.getElementById('vcAddress').textContent = 'San Diego, CA';
-      }
-
-      // Action button opens in new tab (hidden from user perception)
-      document.getElementById('vcAction').onclick = () => window.open(url, '_blank');
-
-      browserIframe.style.display = 'none';
-      browserLoading.style.display = 'none';
-      venueCard.classList.add('active');
-    }
-
-    // Open link inside phone browser overlay
-    function openInPhoneBrowser(url, linkEl) {
-      browserUrlText.textContent = getShortUrl(url);
-      phoneBrowser.classList.add('active');
-      venueCard.classList.remove('active');
-
-      if (url.startsWith('tel:')) {
-        // Phone call — show as venue card
-        const number = url.replace('tel:', '');
-        document.getElementById('vcIcon').textContent = '📞';
-        document.getElementById('vcName').textContent = number;
-        document.getElementById('vcType').textContent = 'Phone Call';
-        document.getElementById('vcMapWrap').style.display = 'none';
-        document.getElementById('vcAddress').textContent = 'Tap to call';
-        document.getElementById('vcActionIcon').textContent = '📞';
-        document.getElementById('vcActionText').textContent = 'Call Now';
-        document.getElementById('vcAction').onclick = () => window.open(url, '_self');
-        browserIframe.style.display = 'none';
-        browserLoading.style.display = 'none';
-        venueCard.classList.add('active');
-        return;
-      }
-
-      if (isBlocked(url)) {
-        showVenueCard(url, linkEl);
-        return;
-      }
-
-      // Embeddable site — load in iframe
-      browserIframe.style.display = 'block';
-      browserLoading.style.display = 'flex';
-      browserIframe.style.opacity = '0';
-      browserIframe.src = url;
-
-      browserIframe.onload = () => {
-        browserLoading.style.display = 'none';
-        browserIframe.style.opacity = '1';
-      };
-
-      setTimeout(() => {
-        browserLoading.style.display = 'none';
-        browserIframe.style.opacity = '1';
-      }, 3000);
-    }
-
-    // Close browser overlay
-    function closePhoneBrowser() {
-      phoneBrowser.classList.remove('active');
-      venueCard.classList.remove('active');
-      browserIframe.src = 'about:blank';
-    }
-
-    browserBack.addEventListener('click', closePhoneBrowser);
-
-    // Set up link interception on the date plan iframe
-    function setupIframeLinks() {
+    iframe.addEventListener('load', () => {
       try {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
-
-        doc.addEventListener('click', (e) => {
-          const link = e.target.closest('a');
-          if (!link) return;
-
-          const href = link.getAttribute('href');
-          if (!href) return;
-
-          // Allow # anchors and onclick handlers to work normally
-          if (href === '#' || href.startsWith('#') || href.startsWith('javascript')) return;
-
-          e.preventDefault();
-          e.stopPropagation();
-          openInPhoneBrowser(href.startsWith('tel:') ? href : link.href, link);
+        // Make sure all target="_blank" links open in new tab (parent window)
+        doc.querySelectorAll('a[target="_blank"]').forEach(a => {
+          a.setAttribute('target', '_blank');
         });
-      } catch (err) {
-        console.log('Could not access iframe:', err);
+      } catch (e) {
+        // Cross-origin, ignore
       }
-    }
-
-    iframe.addEventListener('load', () => {
-      setupIframeLinks();
     });
   </script>
 </body>
