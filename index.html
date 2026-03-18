@@ -502,7 +502,7 @@
 
   <!-- Swap auth links instantly before anything else renders -->
   <script>
-    (function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=(u.user_metadata&&u.user_metadata.display_name)||u.email.split('@')[0]||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var a=document.getElementById('navAuthLink');if(a){a.textContent='Hello, '+n;a.href='/app/dashboard.html'}}catch(e){}})();
+    (function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=localStorage.getItem('dateflo_user_name')||(u.user_metadata&&u.user_metadata.display_name)||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var a=document.getElementById('navAuthLink');if(a){a.textContent='Hello, '+n;a.href='/app/dashboard.html'}}catch(e){}})();
   </script>
 
   <!-- Mobile Drawer -->
@@ -514,7 +514,7 @@
         <span id="drawerAuthText">Sign Up / Sign In</span>
       </a>
     </div>
-    <script>(function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=(u.user_metadata&&u.user_metadata.display_name)||u.email.split('@')[0]||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var t=document.getElementById('drawerAuthText');if(t)t.textContent='Hello, '+n;var a=document.getElementById('drawerAuthLink');if(a)a.href='/app/dashboard.html'}catch(e){}})();</script>
+    <script>(function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=localStorage.getItem('dateflo_user_name')||(u.user_metadata&&u.user_metadata.display_name)||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var t=document.getElementById('drawerAuthText');if(t)t.textContent='Hello, '+n;var a=document.getElementById('drawerAuthLink');if(a)a.href='/app/dashboard.html'}catch(e){}})();</script>
     <div class="drawer-links">
       <a href="#how" onclick="toggleDrawer()">How It Works</a>
       <a href="#included" onclick="toggleDrawer()">What's Included</a>
