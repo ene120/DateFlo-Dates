@@ -315,6 +315,34 @@
       }
     }
 
+    /* ── Phone Back Button ── */
+    .phone-back-btn {
+      position: absolute;
+      top: 48px;
+      left: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(224, 87, 128, .3);
+      color: var(--rose);
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .phone-back-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(224, 87, 128, .2);
+    }
+
     /* ── Entrance Animations ── */
     .fade-in-up {
       opacity: 0;
@@ -403,6 +431,10 @@
             title="Joseph & Sandy Date Plan Preview"
             loading="lazy"
           ></iframe>
+          <!-- Back button overlay -->
+          <button id="phoneBack" class="phone-back-btn" style="display:none">
+            ← Back
+          </button>
         </div>
       </div>
       <div class="scroll-hint">
@@ -413,28 +445,81 @@
   </section>
 
   <script>
-    // Keep all link clicks inside the phone iframe (same-origin)
     const iframe = document.getElementById('phoneIframe');
-    iframe.addEventListener('load', () => {
+    const backBtn = document.getElementById('phoneBack');
+    const homeUrl = 'https://dateflo.com/joseph-and-sandy/';
+    let historyStack = [homeUrl];
+
+    function isExternalLink(href) {
+      try {
+        const url = new URL(href, window.location.origin);
+        return url.hostname !== 'dateflo.com';
+      } catch { return true; }
+    }
+
+    function showBackBtn(show) {
+      backBtn.style.display = show ? 'flex' : 'none';
+    }
+
+    // Back button returns to previous page in stack
+    backBtn.addEventListener('click', () => {
+      if (historyStack.length > 1) {
+        historyStack.pop();
+        iframe.src = historyStack[historyStack.length - 1];
+      } else {
+        iframe.src = homeUrl;
+        historyStack = [homeUrl];
+      }
+      // Show/hide based on stack depth
+      showBackBtn(historyStack.length > 1);
+    });
+
+    function setupIframeLinks() {
       try {
         const doc = iframe.contentDocument || iframe.contentWindow.document;
-        // Rewrite all target="_blank" links to stay in iframe
-        doc.querySelectorAll('a[target="_blank"]').forEach(a => {
-          a.removeAttribute('target');
-        });
-        // Intercept all link clicks
+
         doc.addEventListener('click', (e) => {
           const link = e.target.closest('a');
           if (!link) return;
+
           const href = link.getAttribute('href');
-          if (!href || href.startsWith('#') || href.startsWith('javascript')) return;
-          // Keep navigation inside the iframe
+          if (!href) return;
+
+          // Allow # anchors and onclick handlers to work normally
+          if (href === '#' || href.startsWith('#') || href.startsWith('javascript')) return;
+
+          const fullHref = link.href;
+
+          // External links open in new tab (Google Maps, Yelp, Uber, etc.)
+          if (isExternalLink(fullHref)) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.open(fullHref, '_blank');
+            return;
+          }
+
+          // Internal dateflo.com links navigate inside the phone
           e.preventDefault();
-          iframe.contentWindow.location.href = link.href;
+          e.stopPropagation();
+          historyStack.push(fullHref);
+          iframe.src = fullHref;
+          showBackBtn(true);
         });
       } catch (err) {
-        // Cross-origin — can't modify, but same-domain should work
         console.log('Could not access iframe:', err);
+      }
+    }
+
+    iframe.addEventListener('load', () => {
+      setupIframeLinks();
+      // Show back button if not on home page
+      try {
+        const currentUrl = iframe.contentWindow.location.href;
+        const isHome = currentUrl.includes('/joseph-and-sandy/') &&
+                       !currentUrl.includes('/joseph-and-sandy/plan-');
+        showBackBtn(historyStack.length > 1);
+      } catch {
+        showBackBtn(historyStack.length > 1);
       }
     });
   </script>
