@@ -181,18 +181,7 @@
       background: #fff;
     }
 
-    /* Dynamic Island */
-    .dynamic-island {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 28px;
-      background: #000;
-      border-radius: 20px;
-      z-index: 10;
-    }
+    /* Dynamic Island — removed per user request */
 
     /* Status bar */
     .status-bar {
@@ -392,65 +381,31 @@
       border: none;
     }
 
-    /* Fallback card when site blocks embedding */
-    .phone-browser-fallback {
-      display: none;
+    /* Loading spinner for browser content */
+    .phone-browser-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
-      height: 100%;
-      gap: 16px;
-    }
-
-    .phone-browser-fallback.active {
-      display: flex;
-    }
-
-    .fallback-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      background: linear-gradient(135deg, #fff0f5, #ffe0ec);
-      box-shadow: 0 4px 12px rgba(224, 87, 128, .15);
-    }
-
-    .fallback-title {
-      font-size: .9rem;
-      font-weight: 700;
-      color: #1c1c1e;
-    }
-
-    .fallback-desc {
-      font-size: .75rem;
+      gap: 12px;
       color: #86868b;
-      line-height: 1.5;
-      max-width: 200px;
+      font-size: .78rem;
     }
 
-    .fallback-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--rose);
-      color: white;
-      font-size: .75rem;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform .2s;
+    .phone-browser-loading .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid #e5e5ea;
+      border-top-color: var(--rose);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
     }
 
-    .fallback-action:hover {
-      transform: scale(1.03);
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     /* ── Entrance Animations ── */
@@ -534,7 +489,7 @@
     <div class="phone-wrapper phone-enter">
       <div class="iphone-frame">
         <div class="iphone-screen">
-          <div class="dynamic-island"></div>
+          <!-- notch removed -->
           <iframe
             id="phoneIframe"
             src="https://dateflo.com/joseph-and-sandy/"
@@ -551,14 +506,10 @@
               </div>
             </div>
             <div class="phone-browser-content">
-              <iframe id="browserIframe"></iframe>
-              <div id="browserFallback" class="phone-browser-fallback">
-                <div class="fallback-icon" id="fallbackIcon">🗺️</div>
-                <div class="fallback-title" id="fallbackTitle">Opening Google Maps</div>
-                <div class="fallback-desc" id="fallbackDesc">This app is loading outside the preview.</div>
-                <a id="fallbackLink" class="fallback-action" href="#" target="_blank">
-                  Open App ↗
-                </a>
+              <iframe id="browserIframe" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+              <div id="browserLoading" class="phone-browser-loading">
+                <div class="spinner"></div>
+                <span>Loading...</span>
               </div>
             </div>
           </div>
@@ -577,41 +528,7 @@
     const browserBack = document.getElementById('browserBack');
     const browserUrlText = document.getElementById('browserUrlText');
     const browserIframe = document.getElementById('browserIframe');
-    const browserFallback = document.getElementById('browserFallback');
-    const fallbackIcon = document.getElementById('fallbackIcon');
-    const fallbackTitle = document.getElementById('fallbackTitle');
-    const fallbackDesc = document.getElementById('fallbackDesc');
-    const fallbackLink = document.getElementById('fallbackLink');
-
-    // Site info for nice fallback cards
-    const siteInfo = {
-      'google.com/maps':  { icon: '🗺️', name: 'Google Maps', desc: 'Getting directions to this venue' },
-      'maps.google.com':  { icon: '🗺️', name: 'Google Maps', desc: 'Getting directions to this venue' },
-      'maps.apple.com':   { icon: '🗺️', name: 'Apple Maps', desc: 'Getting directions to this venue' },
-      'yelp.com':         { icon: '⭐', name: 'Yelp', desc: 'Viewing reviews and ratings' },
-      'uber.com':         { icon: '🚗', name: 'Uber', desc: 'Booking a ride to this stop' },
-      'm.uber.com':       { icon: '🚗', name: 'Uber', desc: 'Booking a ride to this stop' },
-      'lyft.com':         { icon: '🚗', name: 'Lyft', desc: 'Booking a ride to this stop' },
-      'opentable.com':    { icon: '🍽️', name: 'OpenTable', desc: 'Making a dinner reservation' },
-      'steamypiggy.com':  { icon: '🍜', name: 'Steamy Piggy', desc: 'Viewing the restaurant menu' },
-      'shanximagickitchen': { icon: '🍜', name: 'Shan Xi Magic Kitchen', desc: 'Viewing the restaurant' },
-      'calendar.google':  { icon: '📅', name: 'Google Calendar', desc: 'Adding this date to your calendar' },
-    };
-
-    function getSiteInfo(url) {
-      try {
-        const hostname = new URL(url).hostname.replace('www.', '');
-        const pathname = new URL(url).pathname;
-        const full = hostname + pathname;
-        for (const [key, info] of Object.entries(siteInfo)) {
-          if (full.includes(key) || hostname.includes(key)) return info;
-        }
-        // Default
-        return { icon: '🌐', name: hostname, desc: 'Loading external page' };
-      } catch {
-        return { icon: '🌐', name: 'External site', desc: 'Loading external page' };
-      }
-    }
+    const browserLoading = document.getElementById('browserLoading');
 
     function isExternalLink(href) {
       try {
@@ -627,53 +544,25 @@
       } catch { return url.substring(0, 40); }
     }
 
-    // Open external link inside phone browser overlay
+    // Open any link inside phone browser overlay
     function openInPhoneBrowser(url) {
-      const info = getSiteInfo(url);
       browserUrlText.textContent = getShortUrl(url);
-
-      // Show browser overlay
       phoneBrowser.classList.add('active');
+      browserLoading.style.display = 'flex';
+      browserIframe.style.opacity = '0';
+      browserIframe.src = url;
 
-      // Set up fallback info
-      fallbackIcon.textContent = info.icon;
-      fallbackTitle.textContent = info.name;
-      fallbackDesc.textContent = info.desc;
-      fallbackLink.href = url;
-      fallbackLink.textContent = 'Open App ↗';
+      // Hide loading when iframe loads
+      browserIframe.onload = () => {
+        browserLoading.style.display = 'none';
+        browserIframe.style.opacity = '1';
+      };
 
-      // Known sites that block iframe embedding — go straight to fallback
-      const blockedDomains = [
-        'google.com', 'maps.apple.com', 'yelp.com', 'uber.com', 'm.uber.com',
-        'lyft.com', 'opentable.com', 'calendar.google.com', 'wikipedia.org'
-      ];
-      const hostname = new URL(url).hostname.replace('www.', '');
-      const isBlocked = blockedDomains.some(d => hostname.includes(d));
-
-      if (isBlocked) {
-        browserIframe.style.display = 'none';
-        browserFallback.classList.add('active');
-      } else {
-        // Try to load in iframe
-        browserIframe.style.display = 'block';
-        browserFallback.classList.remove('active');
-        browserIframe.src = url;
-
-        // Fallback after timeout if iframe fails
-        setTimeout(() => {
-          try {
-            const test = browserIframe.contentWindow.location.href;
-          } catch (e) {
-            browserIframe.style.display = 'none';
-            browserFallback.classList.add('active');
-          }
-        }, 2000);
-
-        browserIframe.onerror = () => {
-          browserIframe.style.display = 'none';
-          browserFallback.classList.add('active');
-        };
-      }
+      // Hide loading after timeout regardless
+      setTimeout(() => {
+        browserLoading.style.display = 'none';
+        browserIframe.style.opacity = '1';
+      }, 3000);
     }
 
     // Close browser overlay
@@ -699,31 +588,15 @@
           // Allow # anchors and onclick handlers to work normally
           if (href === '#' || href.startsWith('#') || href.startsWith('javascript')) return;
 
-          // Phone call links — show as a call card
+          // All links open in phone browser overlay
+          e.preventDefault();
+          e.stopPropagation();
+
           if (href.startsWith('tel:')) {
-            e.preventDefault();
-            e.stopPropagation();
-            const number = href.replace('tel:', '');
-            browserUrlText.textContent = 'Phone';
-            phoneBrowser.classList.add('active');
-            browserIframe.style.display = 'none';
-            fallbackIcon.textContent = '📞';
-            fallbackTitle.textContent = 'Calling ' + number;
-            fallbackDesc.textContent = 'Tap below to call this venue';
-            fallbackLink.href = href;
-            fallbackLink.textContent = 'Call ' + number;
-            browserFallback.classList.add('active');
-            return;
-          }
-
-          const fullHref = link.href;
-
-          // ALL external links open in phone browser overlay
-          if (isExternalLink(fullHref)) {
-            e.preventDefault();
-            e.stopPropagation();
-            openInPhoneBrowser(fullHref);
-            return;
+            // Phone links just show the number in URL bar
+            openInPhoneBrowser(href);
+          } else {
+            openInPhoneBrowser(link.href);
           }
         });
       } catch (err) {
@@ -734,9 +607,6 @@
     iframe.addEventListener('load', () => {
       setupIframeLinks();
     });
-
-    // Handle tel: links in phone browser
-    const origOpen = window.open;
   </script>
 </body>
 </html>
