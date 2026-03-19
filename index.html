@@ -502,7 +502,7 @@
 
   <!-- Swap auth links instantly before anything else renders -->
   <script>
-    (function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=localStorage.getItem('dateflo_user_name')||(u.user_metadata&&u.user_metadata.display_name)||(u.email?u.email.split('@')[0]:'')||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var a=document.getElementById('navAuthLink');if(a){a.textContent='Hello, '+n;a.href='/app/dashboard.html'}}catch(e){}})();
+    (function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=localStorage.getItem('dateflo_user_name')||(u.user_metadata&&u.user_metadata.display_name)||(u.email?u.email.split('@')[0]:'')||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var a=document.getElementById('navAuthLink');if(a){a.textContent='Hey, '+n;a.href='/app/dashboard.html'}}catch(e){}})();
   </script>
 
   <!-- Mobile Drawer -->
@@ -514,7 +514,7 @@
         <span id="drawerAuthText">Sign Up / Sign In</span>
       </a>
     </div>
-    <script>(function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=localStorage.getItem('dateflo_user_name')||(u.user_metadata&&u.user_metadata.display_name)||(u.email?u.email.split('@')[0]:'')||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var t=document.getElementById('drawerAuthText');if(t)t.textContent='Hello, '+n;var a=document.getElementById('drawerAuthLink');if(a)a.href='/app/dashboard.html'}catch(e){}})();</script>
+    <script>(function(){try{var r=localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');if(!r)return;var u=JSON.parse(r).user;if(!u)return;var n=localStorage.getItem('dateflo_user_name')||(u.user_metadata&&u.user_metadata.display_name)||(u.email?u.email.split('@')[0]:'')||'there';n=n.charAt(0).toUpperCase()+n.slice(1);var t=document.getElementById('drawerAuthText');if(t)t.textContent='Hey, '+n;var a=document.getElementById('drawerAuthLink');if(a)a.href='/app/dashboard.html'}catch(e){}})();</script>
     <script>
     // Async: fetch display_name from Supabase profiles if not cached
     (function(){try{
@@ -531,8 +531,8 @@
         if(!name)return;
         localStorage.setItem('dateflo_user_name',name);
         name=name.charAt(0).toUpperCase()+name.slice(1);
-        var nav=document.getElementById('navAuthLink');if(nav)nav.textContent='Hello, '+name;
-        var drawer=document.getElementById('drawerAuthText');if(drawer)drawer.textContent='Hello, '+name;
+        var nav=document.getElementById('navAuthLink');if(nav)nav.textContent='Hey, '+name;
+        var drawer=document.getElementById('drawerAuthText');if(drawer)drawer.textContent='Hey, '+name;
       }).catch(function(){});
     }catch(e){}})();
     </script>
