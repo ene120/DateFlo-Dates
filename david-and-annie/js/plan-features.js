@@ -520,34 +520,25 @@
       flow.innerHTML = html;
     },
     confirmSwap(order, altIndex, reason) {
-      const stop = P.stops.find(s => s.order === order);
-      if (!stop) return;
+      const stopIdx = P.stops.findIndex(s => s.order === order);
+      if (stopIdx === -1) return;
+      const stop = P.stops[stopIdx];
       const alt = stop.swapOptions[altIndex];
       // Store swap data for personalization
       const s = getStore();
-      s[`swap-${order}`] = { original: stop.name, chosen: alt.name, reason, date: new Date().toISOString() };
+      s[`swap-${order}`] = { original: stop.name, chosen: alt.name, reason, altIndex, date: new Date().toISOString() };
       setStore(s);
       console.log(`Swap [stop ${order}]:`, { original: stop.name, chosen: alt.name, reason });
+      // Replace stop data in PLAN.stops — preserve order/time/endTime from original
+      const newStop = Object.assign({}, alt, { order: stop.order, time: stop.time, endTime: stop.endTime });
+      P.stops[stopIdx] = newStop;
       // Apple "Hide Distracting Items" dissolve animation on the stop card
       const card = document.getElementById('stop' + order);
       if (card) {
         card.classList.add('pf-dissolve-out');
         setTimeout(() => {
-          // Update the stop name in the card header
-          const nameEl = card.querySelector('.s-name');
-          if (nameEl) nameEl.textContent = alt.name;
-          // Update tagline
-          const tagEl = card.querySelector('.s-meta');
-          if (tagEl) tagEl.textContent = alt.desc;
-          // Hide the change button (already swapped)
-          const changeBtn = card.querySelector('.s-change-btn');
-          if (changeBtn) changeBtn.style.display = 'none';
-          // Clear the swap flow and show confirmation below
-          const flowEl = document.getElementById('pfSwapFlow-' + order);
-          if (flowEl) flowEl.innerHTML = `<div class="pf-swap" style="padding:0 0 10px"><div class="pf-swap-confirmed"><div class="pf-swap-confirmed-name">\u2713 Changed to ${alt.name}</div><div class="pf-swap-confirmed-sub">We'll remember this for your next plan</div></div></div>`;
-          // Also update the expanded section swap container
-          const swapEl = document.getElementById('swap-' + order);
-          if (swapEl) swapEl.innerHTML = '';
+          // Fully re-render card with new stop data
+          if (window.rerenderStop) window.rerenderStop(order);
           // Dissolve back in
           card.classList.remove('pf-dissolve-out');
           card.classList.add('pf-dissolve-in');

@@ -558,7 +558,7 @@
 </head>
 <body>
 
-<script src="js/plan-data-david-annie.js?v=6"></script>
+<script src="js/plan-data-david-annie.js?v=7"></script>
 
 <div class="app" id="app"></div>
 
@@ -682,27 +682,15 @@
     h += '<div class="route-pill"><strong>Route:</strong> ' + P.route + '</div>';
 
 
-    // Stops
-    P.stops.forEach(function(stop, idx){
-      if(idx > 0){
-        var tt = P.travelTimes.find(function(t){ return t.from === P.stops[idx-1].order && t.to === stop.order; });
-        if(tt){
-          var icon = tt.mode === 'car' ? 'Drive' : 'Walk';
-          h += '<div class="travel-label"><span class="travel-dash"></span>' + icon + ' ' + tt.duration + '<span class="travel-dash"></span></div>';
-        }
-      }
-
+    // ── Build a single stop card (reusable for swaps) ──
+    window.buildStopCardInner = function(stop, P, store){
+      var h = '';
       var checked = store['stop-' + stop.order] ? ' is-checked' : '';
-      var preview = foodPreview(stop);
-
-      // Contextual menu button label
-      var menuLabel = 'Menu', menuIcon = '\uD83C\uDF7D\uFE0F';
-      if(stop.type === 'Walk'){ menuLabel = 'Explore'; menuIcon = '\uD83E\uDDED'; }
-      else if(stop.type === 'Boba'){ menuLabel = 'Drinks'; menuIcon = '\uD83E\uDDCB'; }
-      else if(stop.type === 'Dessert'){ menuLabel = 'Treats'; menuIcon = '\uD83C\uDF68'; }
-      else if(stop.type === 'Cocktails'){ menuLabel = 'Drinks'; menuIcon = '\uD83C\uDF78'; }
-
-      h += '<div class="stop-card' + checked + '" data-order="' + stop.order + '" id="stop' + stop.order + '">';
+      var menuIcon = '\uD83C\uDF7D\uFE0F';
+      if(stop.type === 'Walk') menuIcon = '\uD83E\uDDED';
+      else if(stop.type === 'Boba') menuIcon = '\uD83E\uDDCB';
+      else if(stop.type === 'Dessert') menuIcon = '\uD83C\uDF68';
+      else if(stop.type === 'Cocktails') menuIcon = '\uD83C\uDF78';
 
       // Collapsed row
       h += '<div class="stop-collapsed">';
@@ -723,7 +711,6 @@
       h += '<div class="card-gal-track">';
       imgs.forEach(function(img, i){ h += '<img class="card-gal-img" src="' + img + '" alt="Photo ' + (i+1) + '" onclick="event.stopPropagation();openLightbox(' + stop.order + ',' + i + ')" style="cursor:zoom-in">'; });
       h += '</div>';
-      // Review badges over image (bottom left)
       if(stop.reviews){
         h += '<div class="card-gal-reviews">';
         Object.entries(stop.reviews).forEach(function(e){
@@ -738,7 +725,7 @@
       }
       h += '</div>';
 
-      // Action buttons (Go / Menu / Park) with hover tooltips
+      // Action buttons (Go / Menu / Park)
       var goTip = stop.address;
       var menuTip = '', parkTip = '';
       if(stop.foodRecs){
@@ -758,33 +745,54 @@
       h += '<div class="stop-act stop-act-park" onclick="openParkSheet(' + stop.order + ')"><span class="stop-act-icon">\uD83C\uDD7F\uFE0F</span>' + (parkTip ? '<span class="stop-act-tip">' + parkTip + '</span>' : '') + '</div>';
       h += '</div>';
 
-      // Expanded (description, reviews, reservation, dress code, gallery, swap, feedback)
+      // Expanded section
       h += '<div class="stop-expanded"><div class="exp-inner">';
       h += '<div class="exp-desc">' + stop.description + '</div>';
-
-      // Reservation
       if(stop.reservation){
         h += '<div class="exp-label">Reservation <span class="exp-divider"></span></div>';
         h += '<div class="res-box"><div class="res-dot"></div><span>Reservation suggested · ' + stop.reservation.time + ', party of ' + stop.reservation.partySize;
         if(stop.reservation.notes) h += ' · ' + stop.reservation.notes;
         h += '</span></div>';
       }
-
-      // Dress code
       if(stop.dressCode){
         h += '<div class="exp-label">Dress Code <span class="exp-divider"></span></div>';
         h += '<div class="dress-box">' + stop.dressCode + '</div>';
       }
-
-      // Gallery removed (already shown in card carousel above)
-
-      // Swap confirmation (rendered by plan-features.js if already swapped)
       h += '<div id="swap-' + stop.order + '"></div>';
-
-      // Feedback
       h += '<div id="feedback-' + stop.order + '"></div>';
-
       h += '</div></div>';
+      return h;
+    };
+
+    // ── Re-render a single stop card (used by swap) ──
+    window.rerenderStop = function(order){
+      var P = window.PLAN, store = getStore();
+      var stop = P.stops.find(function(s){ return s.order === order; });
+      if(!stop) return;
+      var card = document.getElementById('stop' + order);
+      if(!card) return;
+      card.innerHTML = window.buildStopCardInner(stop, P, store);
+      // Re-inject plan-features for this stop
+      if(window.__pf){
+        var el = document.getElementById('swap-' + order);
+        if(el) el.innerHTML = window.__pf.getSwapHtml(stop);
+        el = document.getElementById('feedback-' + order);
+        if(el) el.innerHTML = window.__pf.getStopFeedbackHtml(order);
+      }
+    };
+
+    // Stops
+    P.stops.forEach(function(stop, idx){
+      if(idx > 0){
+        var tt = P.travelTimes.find(function(t){ return t.from === P.stops[idx-1].order && t.to === stop.order; });
+        if(tt){
+          var icon = tt.mode === 'car' ? 'Drive' : 'Walk';
+          h += '<div class="travel-label"><span class="travel-dash"></span>' + icon + ' ' + tt.duration + '<span class="travel-dash"></span></div>';
+        }
+      }
+
+      h += '<div class="stop-card' + (store['stop-' + stop.order] ? ' is-checked' : '') + '" data-order="' + stop.order + '" id="stop' + stop.order + '">';
+      h += window.buildStopCardInner(stop, P, store);
       h += '</div>';
     });
 
@@ -1063,6 +1071,6 @@
 })();
 </script>
 
-<script src="js/plan-features.js?v=6"></script>
+<script src="js/plan-features.js?v=7"></script>
 </body>
 </html>
