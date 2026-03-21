@@ -899,6 +899,24 @@
         </div>
 
       </div>
+
+      <!-- SDSU Students Section -->
+      <div class="reveal" style="max-width:480px;margin:48px auto 0">
+        <div class="price-card" style="border-style:dashed;text-align:center">
+          <div class="price-name">SDSU Students</div>
+          <div class="price-desc">Got a code from our event? Unlock your free date plan.</div>
+          <div style="display:flex;gap:8px;margin:20px 0 8px">
+            <input type="text" id="sdsuCodeInput" placeholder="Enter your code" style="flex:1;padding:14px 16px;border-radius:12px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text-primary);font-size:.92rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--rose)'" onblur="this.style.borderColor='var(--glass-border)'">
+            <button onclick="unlockSDSU()" class="price-cta price-cta-primary" style="padding:14px 24px;white-space:nowrap;border:none;cursor:pointer;border-radius:12px">Unlock</button>
+          </div>
+          <div id="sdsuCodeMsg" style="font-size:.78rem;min-height:20px;margin-top:4px"></div>
+          <ul class="price-features" style="margin-top:16px">
+            <li>1 personalized date plan with 2 variations</li>
+            <li>All core features included</li>
+            <li>No payment required</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1409,6 +1427,27 @@
     var currentPage=1;
     var totalPages=7;
 
+    function unlockSDSU(){
+      var code = document.getElementById('sdsuCodeInput').value.trim().toUpperCase();
+      var msg = document.getElementById('sdsuCodeMsg');
+      if(code === 'SDSU2026NEW'){
+        localStorage.setItem('dateflo_sdsu_unlocked', 'true');
+        localStorage.setItem('dateflo_sdsu_type', 'new_couple');
+        msg.style.color = '#00b894';
+        msg.textContent = 'Welcome! Redirecting to plan your first date...';
+        setTimeout(function(){ openForm(); }, 800);
+      } else if(code === 'SDSU2026COUPLE'){
+        localStorage.setItem('dateflo_sdsu_unlocked', 'true');
+        localStorage.setItem('dateflo_sdsu_type', 'existing_couple');
+        msg.style.color = '#00b894';
+        msg.textContent = 'Code accepted! Redirecting to plan your date...';
+        setTimeout(function(){ openForm(); }, 800);
+      } else {
+        msg.style.color = '#ff6b6b';
+        msg.textContent = 'Invalid code. Check the code from the event and try again.';
+      }
+    }
+
     function startCheckout(plan){
       // Get user info from localStorage if logged in
       var userId = null, email = null;
@@ -1555,6 +1594,20 @@
         extraNotes: getVal('extraNotes')
       };
 
+      // Check if SDSU student flow
+      var isSDSU = localStorage.getItem('dateflo_sdsu_unlocked') === 'true';
+      var sdsuType = localStorage.getItem('dateflo_sdsu_type') || '';
+      if(isSDSU) formData.sdsu_type = sdsuType;
+      var requestBody = {
+        form_data: formData,
+        source: isSDSU ? 'sdsu_event_' + sdsuType : 'landing_page',
+        requires_approval: isSDSU ? true : false
+      };
+      if(isSDSU){
+        localStorage.removeItem('dateflo_sdsu_unlocked');
+        localStorage.removeItem('dateflo_sdsu_type');
+      }
+
       // Send to Supabase plan_requests table
       fetch(SUPA_URL+'/rest/v1/plan_requests',{
         method:'POST',
@@ -1564,10 +1617,7 @@
           'Authorization':'Bearer '+SUPA_KEY,
           'Prefer':'return=minimal'
         },
-        body:JSON.stringify({
-          form_data: formData,
-          source: 'landing_page'
-        })
+        body:JSON.stringify(requestBody)
       }).catch(function(e){ console.error('Supabase submit error:', e); });
 
       goToPage(8);
