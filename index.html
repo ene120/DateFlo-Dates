@@ -852,7 +852,7 @@
             <li>Budget breakdown</li>
             <li>No venue swap button</li>
           </ul>
-          <a class="price-cta price-cta-outline" onclick="openForm()">Plan My Date &rarr;</a>
+          <a class="price-cta price-cta-outline" onclick="startCheckout('single')">Plan My Date &rarr;</a>
         </div>
 
         <!-- 3-Day -->
@@ -873,7 +873,7 @@
             <li class="pending">Post-date feedback to improve future plans</li>
             <li class="pending">Seasonal and event-aware planning</li>
           </ul>
-          <a class="price-cta price-cta-primary" onclick="openForm()">Get 3 Dates &rarr;</a>
+          <a class="price-cta price-cta-primary" onclick="startCheckout('3day')">Get 3 Dates &rarr;</a>
           <div class="price-save">Save $5 per date</div>
         </div>
 
@@ -894,7 +894,7 @@
             <li class="pending">Event and conflict alerts</li>
             <li class="pending">Early access to DateFlo events</li>
           </ul>
-          <a class="price-cta price-cta-outline" onclick="openForm()">Get 6 Dates &rarr;</a>
+          <a class="price-cta price-cta-outline" onclick="startCheckout('6date')">Get 6 Dates &rarr;</a>
           <div class="price-save">Save $3.67 per date</div>
         </div>
 
@@ -1408,6 +1408,45 @@
     // ── Form Logic ──
     var currentPage=1;
     var totalPages=7;
+
+    function startCheckout(plan){
+      // Get user info from localStorage if logged in
+      var userId = null, email = null;
+      try {
+        var token = localStorage.getItem('sb-xttidhabldfsxwreyths-auth-token');
+        if(token){
+          var parsed = JSON.parse(token);
+          userId = parsed.user ? parsed.user.id : null;
+          email = parsed.user ? parsed.user.email : null;
+        }
+      } catch(e){}
+
+      var btn = event.target;
+      var origText = btn.textContent;
+      btn.textContent = 'Loading...';
+      btn.style.pointerEvents = 'none';
+
+      fetch('https://xttidhabldfsxwreyths.supabase.co/functions/v1/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: plan, userId: userId, email: email })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(data.url){
+          window.location.href = data.url;
+        } else {
+          alert('Something went wrong. Please try again.');
+          btn.textContent = origText;
+          btn.style.pointerEvents = '';
+        }
+      })
+      .catch(function(){
+        alert('Could not connect to checkout. Please try again.');
+        btn.textContent = origText;
+        btn.style.pointerEvents = '';
+      });
+    }
 
     function openForm(){
       document.getElementById('formOverlay').classList.add('open');
